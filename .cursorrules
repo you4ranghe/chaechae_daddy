@@ -1,0 +1,43 @@
+# chaechae_daddy - 협찬 콘텐츠 올인원 에이전트
+
+## 프로젝트 개요
+인스타그램 인플루언서의 협찬 관리를 AI로 자동화하는 SaaS 서비스.
+협찬 DM 분석 → 요구사항 정리 → 광고 콘텐츠 생성 → 포스팅까지 한 번에.
+
+## 기술 스택
+- Next.js 15 (App Router) + TypeScript
+- Tailwind CSS
+- Supabase (Auth, DB, Storage)
+- Anthropic Claude API (@anthropic-ai/sdk)
+- 토스페이먼츠 (결제, 추후)
+- Vercel (배포)
+
+## 아키텍처
+- 오케스트레이터(Opus 4.6)가 판단, 서브에이전트(Sonnet 4.6)가 실행
+- API Routes: /src/app/api/ 하위
+- 에이전트 로직: /src/lib/agents/ 모듈화
+- DB 관련: /src/lib/db/ (Supabase 클라이언트, 쿼리)
+- 컴포넌트: /src/components/ 하위 카테고리별
+
+## 코드 스타일
+- async/await 패턴 (Promise chain 지양)
+- 에러 핸들링은 try-catch로 명시적
+- 한국어 주석 권장
+- 람다식보다 명시적 function 선언 선호
+- React Server Components 기본, 'use client'는 필요한 곳에만
+
+## 개발자 정보
+- Java 백엔드 5년차 (Spring 비유로 설명하면 이해 빠름)
+- TypeScript/React는 바이브 코딩으로 학습 중
+- Claude CLI (Opus 4.6) + Cursor Pro 환경
+
+## DB 규칙
+- Supabase RLS 정책은 user_id 기반 접근 제어
+- 금액: 원 단위 정수, 화면 표시는 ₩0,000 형식
+- 날짜: ISO 8601, 화면 표시는 YYYY.MM.DD
+
+## 디자인
+- 모바일 퍼스트 (반응형, max-width: 768px에서 최적화)
+- 깔끔하고 전문적인 SaaS 느낌
+- 주요 색상: 인디고/퍼플 계열 (신뢰감)
+- 카드형 UI, 적절한 여백, 부드러운 애니메이션
