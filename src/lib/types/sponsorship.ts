@@ -36,6 +36,9 @@ export interface ChecklistItem {
 export interface GeneratedContent {
   caption: string;
   hashtags: string[];
+  contentType?: "product_review" | "unboxing" | "lifestyle" | "recommendation" | "event";
+  checklist?: string[];
+  adDisclosure?: string;
 }
 
 // DB 저장용 협찬 레코드
@@ -74,15 +77,6 @@ export interface AgentUsage {
   tokens_used: number;
   model: string;
   created_at: string;
-}
-
-// 오케스트레이터 판단 결과
-export interface OrchestratorDecision {
-  taskType: "simple_analysis" | "complex_analysis" | "content_generation";
-  model: "claude-sonnet-4-6";
-  reasoning: string;
-  systemPrompt: string;
-  userPrompt: string;
 }
 
 // 사용량 체크 결과

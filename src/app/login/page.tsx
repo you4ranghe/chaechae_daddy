@@ -37,8 +37,9 @@ export default function LoginPage() {
 
       // redirect 파라미터가 있으면 해당 경로로, 없으면 대시보드로
       const params = new URLSearchParams(window.location.search);
-      const redirect = params.get("redirect") || "/dashboard";
-      router.push(redirect);
+      const redirectTo = params.get("redirect");
+      const destination = !redirectTo || redirectTo === "/" ? "/dashboard" : redirectTo;
+      router.push(destination);
       router.refresh();
     } catch {
       setError("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");

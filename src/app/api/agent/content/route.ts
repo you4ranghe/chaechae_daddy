@@ -3,7 +3,7 @@ import { createClient } from "@/lib/db/supabase-server";
 import {
   generateContent,
   generateContentStream,
-} from "@/lib/agents/content-generator";
+} from "@/lib/agents/content-planner";
 import { checkUsageLimit, recordUsage } from "@/lib/db/usage";
 import type {
   SponsorshipAnalysis,

@@ -57,7 +57,7 @@ export default async function DashboardPage() {
 
       {/* 빠른 시작 */}
       <Link
-        href="/dashboard/content"
+        href="/dashboard/sponsorships"
         className="mt-6 flex items-center justify-center gap-3 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-5 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30 transition-all group"
       >
         <svg

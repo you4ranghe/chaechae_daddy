@@ -6,7 +6,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-full bg-gray-50">
+    <div className="min-h-screen bg-gray-50">
       <Sidebar />
 
       {/* 메인 콘텐츠 영역 — 데스크톱에서는 사이드바 너비만큼 오프셋 */}

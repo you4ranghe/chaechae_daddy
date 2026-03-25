@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
-import { analyzeSponsorshipDM } from "@/lib/agents/sponsorship-analyzer";
-import { generateChecklist } from "@/lib/agents/content-generator";
+import { analyzeSponsorshipDM } from "@/lib/agents/sponsorship-agent";
+import { generateChecklist } from "@/lib/agents/content-planner";
 import { checkUsageLimit, recordUsage } from "@/lib/db/usage";
 
 export async function POST(request: NextRequest) {
