@@ -75,8 +75,8 @@ export default function SignupPage() {
         return;
       }
 
-      // 가입 완료 → 대시보드로 이동
-      router.push("/dashboard");
+      // 가입 완료 → 온보딩으로 이동
+      router.push("/onboarding");
       router.refresh();
     } catch {
       setError("네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.");

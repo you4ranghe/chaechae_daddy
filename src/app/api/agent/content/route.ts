@@ -5,6 +5,7 @@ import {
   generateContentStream,
 } from "@/lib/agents/content-planner";
 import { checkUsageLimit, recordUsage } from "@/lib/db/usage";
+import { fetchPerformanceContext, performanceContextToPrompt } from "@/lib/db/feedback";
 import type {
   SponsorshipAnalysis,
   ChecklistItem,
@@ -60,9 +61,21 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // profiles 테이블에서 컨텍스트 조회
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("instagram_handle, categories")
+      .eq("id", user.id)
+      .single();
+
+    // 과거 포스팅 성과 피드백 컨텍스트 (3건 이상 있을 때만)
+    const perfCtx = await fetchPerformanceContext(supabase, user.id);
+    const performanceContext = perfCtx ? performanceContextToPrompt(perfCtx) : undefined;
+
     const userContext = {
-      instagramHandle: user.user_metadata?.instagram_handle || "",
-      categories: user.user_metadata?.categories || [],
+      instagramHandle: profile?.instagram_handle || user.user_metadata?.instagram_handle || "",
+      categories: profile?.categories || user.user_metadata?.categories || [],
+      performanceContext,
     };
 
     // 4. 스트리밍 모드

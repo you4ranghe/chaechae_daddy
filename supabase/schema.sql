@@ -1,8 +1,16 @@
 -- 유저 프로필 (Supabase Auth의 users 테이블 확장)
 create table if not exists profiles (
   id uuid references auth.users on delete cascade primary key,
+  instagram_handle text not null default '',
+  follower_count integer not null default 0,
+  categories text[] not null default '{}',
   plan text not null default 'free_trial',
+  stripe_customer_id text,
+  stripe_subscription_id text,
   trial_ends_at timestamptz default (now() + interval '7 days'),
+  email_notifications jsonb not null default '{"trial_reminder": true, "analysis_complete": true}'::jsonb,
+  trial_reminder_3day_sent_at timestamptz,
+  trial_reminder_1day_sent_at timestamptz,
   created_at timestamptz default now(),
   updated_at timestamptz default now()
 );

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/db/supabase-server";
+import { CheckoutButton } from "@/components/pricing/checkout-button";
 
 const PLANS = [
   {
@@ -174,31 +175,25 @@ export default async function PricingPage() {
                       사용 중
                     </div>
                   ) : (
-                    <button
-                      type="button"
-                      disabled
-                      className={`mt-8 block w-full rounded-lg py-2.5 text-center text-sm font-semibold transition-colors ${
-                        plan.highlighted
-                          ? "bg-indigo-600 text-white opacity-70 cursor-not-allowed"
-                          : "bg-gray-100 text-gray-700 opacity-70 cursor-not-allowed"
-                      }`}
-                    >
-                      곧 오픈 예정
-                    </button>
+                    <CheckoutButton
+                      plan={plan.id}
+                      highlighted={plan.highlighted}
+                      isLoggedIn={!!currentPlan}
+                    />
                   )}
                 </div>
               );
             })}
           </div>
 
-          {/* MVP 안내 */}
+          {/* 안내 */}
           <div className="mt-10 rounded-xl border border-gray-200 bg-gray-50 p-6 text-center">
             <p className="text-sm font-medium text-gray-700">
-              결제 기능은 곧 추가될 예정입니다
+              구독은 언제든 취소할 수 있어요
             </p>
             <p className="mt-1 text-xs text-gray-500">
-              현재는 무료 체험으로 모든 기능을 사용해보실 수 있어요.
-              출시 알림을 받으시려면{" "}
+              결제 후 설정 페이지에서 구독 관리 및 플랜 변경이 가능합니다.
+              문의사항은{" "}
               <span className="text-indigo-600 font-medium">contact@chaechaedaddy.com</span>으로
               메일을 보내주세요.
             </p>

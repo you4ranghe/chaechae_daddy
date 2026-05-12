@@ -131,7 +131,7 @@ interface ContentResult {
 export async function generateContent(
   analysis: SponsorshipAnalysis,
   checklist: ChecklistItem[],
-  userContext: { instagramHandle: string; categories: string[] }
+  userContext: { instagramHandle: string; categories: string[]; performanceContext?: string }
 ): Promise<ContentResult> {
   const anthropic = new Anthropic();
   const input = buildContentInput(analysis, checklist);
@@ -140,7 +140,7 @@ export async function generateContent(
 카테고리: ${userContext.categories.join(", ")}
 
 ${input}
-
+${userContext.performanceContext ? `\n${userContext.performanceContext}\n` : ""}
 위 정보를 기반으로 채원이 엄마 페르소나로 인스타그램 캡션과 해시태그 30개를 생성해주세요.
 콘텐츠 타입도 판단하고, 광고 표시 문구도 포함해주세요.`;
 
@@ -171,7 +171,7 @@ ${input}
 export function generateContentStream(
   analysis: SponsorshipAnalysis,
   checklist: ChecklistItem[],
-  userContext: { instagramHandle: string; categories: string[] }
+  userContext: { instagramHandle: string; categories: string[]; performanceContext?: string }
 ): { stream: ReadableStream<Uint8Array>; model: string } {
   const input = buildContentInput(analysis, checklist);
 
@@ -179,7 +179,7 @@ export function generateContentStream(
 카테고리: ${userContext.categories.join(", ")}
 
 ${input}
-
+${userContext.performanceContext ? `\n${userContext.performanceContext}\n` : ""}
 위 정보를 기반으로 채원이 엄마 페르소나로 인스타그램 캡션과 해시태그 30개를 생성해주세요.
 콘텐츠 타입도 판단하고, 광고 표시 문구도 포함해주세요.`;
 

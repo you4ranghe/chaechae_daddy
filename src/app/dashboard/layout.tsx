@@ -1,10 +1,32 @@
+import { redirect } from "next/navigation";
+import { createClient } from "@/lib/db/supabase-server";
 import { Sidebar } from "@/components/dashboard/sidebar";
 
-export default function DashboardLayout({
+export default async function DashboardLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  // 프로필 완성 여부 확인 — 인스타 핸들이 없으면 온보딩으로
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("instagram_handle")
+    .eq("id", user.id)
+    .single();
+
+  if (!profile?.instagram_handle) {
+    redirect("/onboarding");
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       <Sidebar />

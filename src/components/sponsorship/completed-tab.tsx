@@ -1,6 +1,8 @@
 "use client";
 
 import type { Sponsorship } from "@/lib/types/sponsorship";
+import { StatusActions } from "./status-actions";
+import { PerformanceForm } from "./performance-form";
 
 interface CompletedTabProps {
   sponsorships: Sponsorship[];
@@ -87,6 +89,10 @@ export function CompletedTab({ sponsorships }: CompletedTabProps) {
                   ₩{sp.payment_amount.toLocaleString()}
                 </p>
               )}
+              <div className="mt-3 pt-3 border-t border-gray-100 space-y-3">
+                <PerformanceForm sponsorshipId={sp.id} />
+                <StatusActions sponsorshipId={sp.id} currentStatus={sp.status} />
+              </div>
             </div>
           );
         })}

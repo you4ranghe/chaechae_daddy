@@ -1,6 +1,7 @@
 "use client";
 
 import type { Sponsorship } from "@/lib/types/sponsorship";
+import { StatusActions } from "./status-actions";
 
 interface InProgressTabProps {
   sponsorships: Sponsorship[];
@@ -51,17 +52,27 @@ export function InProgressTab({ sponsorships }: InProgressTabProps) {
           }
         }
 
+        const statusLabel = sp.status === "pending" ? "대기" : sp.status === "accepted" ? "진행 중" : sp.status;
+        const statusColor = sp.status === "pending"
+          ? "bg-amber-100 text-amber-700"
+          : "bg-indigo-100 text-indigo-700";
+
         return (
           <div
             key={sp.id}
-            className="rounded-xl border border-gray-200 bg-white p-5 hover:border-indigo-200 hover:shadow-sm transition-all cursor-pointer"
+            className="rounded-xl border border-gray-200 bg-white p-5 hover:border-indigo-200 hover:shadow-sm transition-all"
           >
-            <div className="flex items-start justify-between">
-              <div>
-                <h3 className="font-semibold text-gray-900">{sp.brand_name}</h3>
-                <p className="mt-0.5 text-sm text-gray-500">{sp.product}</p>
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <h3 className="font-semibold text-gray-900 truncate">{sp.brand_name}</h3>
+                  <span className={`flex-shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${statusColor}`}>
+                    {statusLabel}
+                  </span>
+                </div>
+                <p className="mt-0.5 text-sm text-gray-500 truncate">{sp.product}</p>
               </div>
-              <div className="text-right">
+              <div className="text-right flex-shrink-0">
                 {deadlineText && (
                   <span className={`text-sm font-medium ${deadlineColor}`}>
                     {deadlineText}
@@ -81,6 +92,10 @@ export function InProgressTab({ sponsorships }: InProgressTabProps) {
                   style={{ width: `${progress}%` }}
                 />
               </div>
+            </div>
+            {/* 상태 전환 버튼 */}
+            <div className="mt-4 pt-4 border-t border-gray-100">
+              <StatusActions sponsorshipId={sp.id} currentStatus={sp.status} />
             </div>
           </div>
         );

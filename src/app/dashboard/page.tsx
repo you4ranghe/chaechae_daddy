@@ -12,27 +12,93 @@ export default async function DashboardPage() {
     redirect("/login");
   }
 
-  // 유저 메타데이터에서 정보 추출
+  // 프로필에서 정보 조회
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("instagram_handle, plan, trial_ends_at")
+    .eq("id", user.id)
+    .single();
+
   const instagramHandle =
-    user.user_metadata?.instagram_handle || "사용자";
-  const createdAt = new Date(user.created_at);
-  const trialEndDate = new Date(createdAt);
-  trialEndDate.setDate(trialEndDate.getDate() + 7);
+    profile?.instagram_handle || user.user_metadata?.instagram_handle || "사용자";
 
+  // 트라이얼 남은 일수
+  let trialDaysLeft = 0;
+  if ((profile?.plan || "free_trial") === "free_trial" && profile?.trial_ends_at) {
+    const diff = new Date(profile.trial_ends_at).getTime() - Date.now();
+    trialDaysLeft = Math.max(0, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+  }
+
+  // 실제 데이터 조회 — 이번 달 기준
   const now = new Date();
-  const diffTime = trialEndDate.getTime() - now.getTime();
-  const trialDaysLeft = Math.max(0, Math.ceil(diffTime / (1000 * 60 * 60 * 24)));
+  const monthStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
 
-  // TODO: 실제 데이터는 Supabase DB에서 조회 — 지금은 목업
+  const [
+    { count: totalSponsorships },
+    { count: accepted },
+    { count: rejected },
+    { count: pending },
+    { count: contentsCreated },
+    { count: postsCompleted },
+  ] = await Promise.all([
+    supabase
+      .from("sponsorships")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .gte("created_at", monthStart),
+    supabase
+      .from("sponsorships")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .eq("status", "accepted")
+      .gte("created_at", monthStart),
+    supabase
+      .from("sponsorships")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .eq("status", "rejected")
+      .gte("created_at", monthStart),
+    supabase
+      .from("sponsorships")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .eq("status", "pending")
+      .gte("created_at", monthStart),
+    supabase
+      .from("generated_contents")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .gte("created_at", monthStart),
+    supabase
+      .from("sponsorships")
+      .select("*", { count: "exact", head: true })
+      .eq("user_id", user.id)
+      .eq("status", "completed")
+      .gte("created_at", monthStart),
+  ]);
+
+  // 사용량 계산
+  const plan = profile?.plan || "free_trial";
+  const planLimits: Record<string, number> = {
+    free_trial: 10, starter: 100, growth: 500, business: 2000,
+  };
+  const agentRunsTotal = planLimits[plan] || 10;
+
+  const { count: agentUsed } = await supabase
+    .from("agent_usage")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", user.id)
+    .gte("created_at", monthStart);
+
   const stats = {
-    totalSponsorships: 0,
-    accepted: 0,
-    rejected: 0,
-    pending: 0,
-    contentsCreated: 0,
-    postsCompleted: 0,
-    agentRunsLeft: 100,
-    agentRunsTotal: 100,
+    totalSponsorships: totalSponsorships || 0,
+    accepted: accepted || 0,
+    rejected: rejected || 0,
+    pending: pending || 0,
+    contentsCreated: contentsCreated || 0,
+    postsCompleted: postsCompleted || 0,
+    agentRunsLeft: Math.max(0, agentRunsTotal - (agentUsed || 0)),
+    agentRunsTotal,
   };
 
   return (

@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 // 인증이 필요 없는 공개 경로
-const PUBLIC_PATHS = ["/login", "/signup", "/landing", "/pricing", "/api"];
+const PUBLIC_PATHS = ["/login", "/signup", "/landing", "/pricing", "/api", "/onboarding"];
 
 function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some(
@@ -58,6 +58,19 @@ export async function proxy(request: NextRequest) {
   const {
     data: { user },
   } = await supabase.auth.getUser();
+
+  // 이미 로그인된 상태에서 로그인/회원가입 페이지 → 대시보드로
+  if ((pathname === "/login" || pathname === "/signup") && user) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
+  }
+
+  // 온보딩 페이지는 인증 필요
+  if (pathname.startsWith("/onboarding")) {
+    if (!user) {
+      return NextResponse.redirect(new URL("/login", request.url));
+    }
+    return response;
+  }
 
   // 공개 경로는 인증 불필요
   if (isPublicPath(pathname)) {

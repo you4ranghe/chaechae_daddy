@@ -17,6 +17,13 @@ interface LimitInfo {
   plan: string;
 }
 
+interface DuplicateBrand {
+  count: number;
+  lastStatus: string;
+  lastAmount: number;
+  lastDate: string;
+}
+
 export function NewAnalysisTab() {
   const [dmContent, setDmContent] = useState("");
   const [phase, setPhase] = useState<Phase>("input");
@@ -29,6 +36,7 @@ export function NewAnalysisTab() {
   const [sponsorshipId, setSponsorshipId] = useState<string | null>(null);
   const [streamingText, setStreamingText] = useState("");
   const [limitInfo, setLimitInfo] = useState<LimitInfo | null>(null);
+  const [duplicateBrand, setDuplicateBrand] = useState<DuplicateBrand | null>(null);
 
   async function handleAnalyze() {
     if (dmContent.trim().length < 10) {
@@ -62,6 +70,7 @@ export function NewAnalysisTab() {
       setAnalysis(data.analysis);
       setChecklist(data.checklist);
       setSponsorshipId(data.sponsorshipId);
+      setDuplicateBrand(data.duplicateBrand || null);
       setPhase("analyzed");
     } catch {
       setError("네트워크 오류가 발생했습니다. 다시 시도해주세요.");
@@ -151,6 +160,14 @@ export function NewAnalysisTab() {
     }
   }
 
+  function translateStatus(status: string): string {
+    if (status === "pending") return "대기";
+    if (status === "accepted") return "진행 중";
+    if (status === "rejected") return "거절";
+    if (status === "completed") return "완료";
+    return status;
+  }
+
   function handleReset() {
     setDmContent("");
     setPhase("input");
@@ -161,6 +178,7 @@ export function NewAnalysisTab() {
     setStreamingText("");
     setLimitInfo(null);
     setError("");
+    setDuplicateBrand(null);
   }
 
   return (
@@ -262,6 +280,31 @@ export function NewAnalysisTab() {
               새로 분석하기
             </button>
           </div>
+          {duplicateBrand && (
+            <div className="mt-3 rounded-xl border border-amber-200 bg-amber-50 p-4">
+              <div className="flex items-start gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 shrink-0 text-amber-500 mt-0.5">
+                  <path fillRule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clipRule="evenodd" />
+                </svg>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-amber-800">
+                    이미 협찬했던 브랜드예요 ({duplicateBrand.count}회)
+                  </p>
+                  <p className="mt-1 text-xs text-amber-700">
+                    가장 최근 협찬:{" "}
+                    {new Date(duplicateBrand.lastDate).toLocaleDateString("ko-KR")}
+                    {duplicateBrand.lastAmount > 0 && (
+                      <> · ₩{duplicateBrand.lastAmount.toLocaleString()}</>
+                    )}
+                    {" "}({translateStatus(duplicateBrand.lastStatus)})
+                  </p>
+                  <p className="mt-1 text-[11px] text-amber-700">
+                    이전 협상 조건과 비교해 가격·요구사항이 합리적인지 확인해 보세요.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
           <AnalysisResult
             analysis={analysis}
             checklist={checklist}
