@@ -4,6 +4,7 @@ import type {
   GeneratedContent,
   SponsorshipAnalysis,
 } from "@/lib/types/sponsorship";
+import { safeJsonParse } from "@/lib/json-safe";
 
 // 협찬 콘텐츠 생성 에이전트
 // model: claude-sonnet-4-6 (비용 최적화)
@@ -162,7 +163,7 @@ ${userContext.performanceContext ? `\n${userContext.performanceContext}\n` : ""}
     throw new Error("AI 응답에서 콘텐츠를 파싱할 수 없습니다.");
   }
 
-  const content: GeneratedContent = JSON.parse(jsonMatch[0]);
+  const content = safeJsonParse<GeneratedContent>(jsonMatch[0]);
 
   return { content, tokensUsed, model: MODEL };
 }
@@ -214,17 +215,27 @@ ${userContext.performanceContext ? `\n${userContext.performanceContext}\n` : ""}
             ? finalMessage.content[0].text
             : "";
 
-        // JSON 파싱 시도
+        // JSON 파싱 시도 (caption 내 raw newline 등은 safeJsonParse가 흡수)
         const jsonMatch = fullText.match(/\{[\s\S]*\}/);
         if (jsonMatch) {
-          const content: GeneratedContent = JSON.parse(jsonMatch[0]);
-          const doneData = JSON.stringify({
-            type: "done",
-            content,
-            tokensUsed,
-            model: MODEL,
-          });
-          controller.enqueue(encoder.encode(`data: ${doneData}\n\n`));
+          try {
+            const content = safeJsonParse<GeneratedContent>(jsonMatch[0]);
+            const doneData = JSON.stringify({
+              type: "done",
+              content,
+              tokensUsed,
+              model: MODEL,
+            });
+            controller.enqueue(encoder.encode(`data: ${doneData}\n\n`));
+          } catch (parseError) {
+            const msg =
+              parseError instanceof Error ? parseError.message : "파싱 실패";
+            const errorData = JSON.stringify({
+              type: "error",
+              error: `콘텐츠 파싱 실패: ${msg}`,
+            });
+            controller.enqueue(encoder.encode(`data: ${errorData}\n\n`));
+          }
         } else {
           const errorData = JSON.stringify({
             type: "error",

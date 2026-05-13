@@ -1,6 +1,10 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-server";
+import { getPlanLimit, getUsagePeriodStart } from "@/lib/db/usage";
+
+// 분석/콘텐츠 실행 직후에도 카운트가 즉시 반영되도록 데이터 캐시 비활성화
+export const dynamic = "force-dynamic";
 
 export default async function DashboardPage() {
   const supabase = await createClient();
@@ -77,18 +81,17 @@ export default async function DashboardPage() {
       .gte("created_at", monthStart),
   ]);
 
-  // 사용량 계산
+  // 에이전트 사용량 — free_trial은 트라이얼 기간 기준, 유료는 이번 달 기준
+  // (checkUsageLimit과 동일 기간이라 폼 차감 결과가 즉시 반영됨)
   const plan = profile?.plan || "free_trial";
-  const planLimits: Record<string, number> = {
-    free_trial: 10, starter: 100, growth: 500, business: 2000,
-  };
-  const agentRunsTotal = planLimits[plan] || 10;
+  const agentRunsTotal = getPlanLimit(plan);
+  const agentPeriodStart = getUsagePeriodStart(plan, profile?.trial_ends_at);
 
   const { count: agentUsed } = await supabase
     .from("agent_usage")
     .select("*", { count: "exact", head: true })
     .eq("user_id", user.id)
-    .gte("created_at", monthStart);
+    .gte("created_at", agentPeriodStart);
 
   const stats = {
     totalSponsorships: totalSponsorships || 0,

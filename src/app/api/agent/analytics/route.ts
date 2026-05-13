@@ -5,6 +5,40 @@ import type { WeeklyInsightInput } from "@/lib/agents/analytics-agent";
 import { checkUsageLimit, recordUsage } from "@/lib/db/usage";
 import { notifyAnalysisComplete } from "@/lib/email/notify";
 
+const PAGE_SIZE = 5;
+
+export async function GET(request: NextRequest) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  if (!user) {
+    return NextResponse.json({ error: "로그인이 필요합니다." }, { status: 401 });
+  }
+
+  const { searchParams } = new URL(request.url);
+  const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10) || 1);
+  const from = (page - 1) * PAGE_SIZE;
+  const to = from + PAGE_SIZE - 1;
+
+  const { data, count, error } = await supabase
+    .from("analytics_reports")
+    .select("id, report, created_at", { count: "exact" })
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false })
+    .range(from, to);
+
+  if (error) {
+    return NextResponse.json({ error: error.message }, { status: 500 });
+  }
+
+  return NextResponse.json({
+    items: data ?? [],
+    page,
+    pageSize: PAGE_SIZE,
+    total: count ?? 0,
+    hasMore: (count ?? 0) > page * PAGE_SIZE,
+  });
+}
+
 export async function POST(request: NextRequest) {
   try {
     // 1. 인증 체크
@@ -38,10 +72,23 @@ export async function POST(request: NextRequest) {
     // 4. 분석 실행
     const { report, tokensUsed, model } = await analyzeWeeklyPerformance(input);
 
-    // 5. 사용량 기록
+    // 5. 결과를 analytics_reports 히스토리에 저장
+    const { data: saved } = await supabase
+      .from("analytics_reports")
+      .insert({
+        user_id: user.id,
+        input,
+        report,
+        tokens_used: tokensUsed,
+        model,
+      })
+      .select("id, created_at")
+      .single();
+
+    // 6. 사용량 기록
     await recordUsage(supabase, user.id, "sponsorship_analysis", null, tokensUsed, model);
 
-    // 6. 이메일 알림 (fire-and-forget)
+    // 7. 이메일 알림 (fire-and-forget)
     void notifyAnalysisComplete(
       supabase,
       user.id,
@@ -49,7 +96,12 @@ export async function POST(request: NextRequest) {
       "지난 주 성과 분석 리포트가 준비됐어요."
     );
 
-    return NextResponse.json({ report, remaining: usage.remaining - 1 });
+    return NextResponse.json({
+      report,
+      id: saved?.id ?? null,
+      createdAt: saved?.created_at ?? null,
+      remaining: usage.remaining - 1,
+    });
   } catch (error) {
     console.error("성과 분석 에러:", error);
     const message = error instanceof Error && error.message.includes("rate_limit")

@@ -74,7 +74,7 @@ export default function LandingPage() {
       <nav className="fixed top-0 z-50 w-full border-b border-gray-100 bg-white/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <span className="text-lg font-bold text-gray-900">
-            chaechae_daddy
+            CW Agent
           </span>
           <div className="flex items-center gap-3">
             <Link
@@ -280,13 +280,13 @@ export default function LandingPage() {
       <footer className="border-t border-gray-200 py-10">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <p className="text-sm font-semibold text-gray-900">
-            chaechae_daddy
+            CW Agent
           </p>
           <p className="mt-2 text-sm text-gray-400">
-            문의: contact@chaechaedaddy.com
+            문의: contact@example.com
           </p>
           <p className="mt-4 text-xs text-gray-300">
-            © 2025 chaechae_daddy. All rights reserved.
+            © 2025 CW Agent. All rights reserved.
           </p>
         </div>
       </footer>

@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-server";
 import { PlannerForm } from "@/components/content-plan/planner-form";
+import { PlannerHistory } from "@/components/content-plan/planner-history";
 
 export default async function ContentPlanPage() {
   const supabase = await createClient();
@@ -20,6 +21,7 @@ export default async function ContentPlanPage() {
       </div>
 
       <PlannerForm />
+      <PlannerHistory />
     </>
   );
 }

@@ -74,7 +74,7 @@ export default async function PricingPage() {
       <nav className="border-b border-gray-100 bg-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href={currentPlan ? "/dashboard" : "/landing"} className="text-lg font-bold text-gray-900">
-            chaechae_daddy
+            CW Agent
           </Link>
           <div className="flex items-center gap-3">
             {currentPlan ? (
@@ -194,7 +194,7 @@ export default async function PricingPage() {
             <p className="mt-1 text-xs text-gray-500">
               결제 후 설정 페이지에서 구독 관리 및 플랜 변경이 가능합니다.
               문의사항은{" "}
-              <span className="text-indigo-600 font-medium">contact@chaechaedaddy.com</span>으로
+              <span className="text-indigo-600 font-medium">contact@example.com</span>으로
               메일을 보내주세요.
             </p>
           </div>

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import type {
   SponsorshipAnalysis,
   ChecklistItem,
@@ -25,6 +26,7 @@ interface DuplicateBrand {
 }
 
 export function NewAnalysisTab() {
+  const router = useRouter();
   const [dmContent, setDmContent] = useState("");
   const [phase, setPhase] = useState<Phase>("input");
   const [analyzing, setAnalyzing] = useState(false);
@@ -67,6 +69,14 @@ export function NewAnalysisTab() {
         return;
       }
 
+      // DB에 저장된 sponsorship ID가 있으면 상세 페이지로 이동
+      // → 새로고침해도 결과가 보존되고, 콘텐츠 생성도 거기서 이어서 진행
+      if (data.sponsorshipId) {
+        router.push(`/dashboard/sponsorships/${data.sponsorshipId}`);
+        return;
+      }
+
+      // ID 저장 실패 등 fallback: 기존 인라인 흐름 유지
       setAnalysis(data.analysis);
       setChecklist(data.checklist);
       setSponsorshipId(data.sponsorshipId);

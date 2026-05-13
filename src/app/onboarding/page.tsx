@@ -34,7 +34,7 @@ export default async function OnboardingPage() {
             프로필 설정
           </h1>
           <p className="mt-2 text-sm text-gray-500">
-            채채대디를 시작하기 위해 기본 정보를 입력해주세요
+            CW Agent를 시작하기 위해 기본 정보를 입력해주세요
           </p>
         </div>
 

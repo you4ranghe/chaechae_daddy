@@ -94,7 +94,7 @@ export default function SignupPage() {
             회원가입
           </h1>
           <p className="mt-2 text-sm text-gray-500">
-            채채대디와 함께 협찬 관리를 시작하세요
+            CW Agent와 함께 협찬 관리를 시작하세요
           </p>
         </div>
 

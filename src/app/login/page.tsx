@@ -54,7 +54,7 @@ export default function LoginPage() {
         {/* 헤더 */}
         <div className="text-center">
           <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-            채채대디
+            CW Agent
           </h1>
           <p className="mt-2 text-sm text-gray-500">
             협찬 콘텐츠 올인원 에이전트

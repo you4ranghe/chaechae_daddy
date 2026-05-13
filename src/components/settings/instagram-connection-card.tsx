@@ -11,9 +11,10 @@ interface InstagramConnectionCardProps {
   } | null;
   errorParam: string | null;
   connectedParam: boolean;
+  integrationReady: boolean;
 }
 
-export function InstagramConnectionCard({ connection, errorParam, connectedParam }: InstagramConnectionCardProps) {
+export function InstagramConnectionCard({ connection, errorParam, connectedParam, integrationReady }: InstagramConnectionCardProps) {
   const router = useRouter();
   const [syncing, setSyncing] = useState(false);
   const [disconnecting, setDisconnecting] = useState(false);
@@ -63,9 +64,11 @@ export function InstagramConnectionCard({ connection, errorParam, connectedParam
           </p>
         </div>
         <span className={`rounded-full px-2.5 py-0.5 text-xs font-medium ${
-          connection ? "bg-emerald-100 text-emerald-700" : "bg-gray-100 text-gray-500"
+          connection ? "bg-emerald-100 text-emerald-700"
+          : !integrationReady ? "bg-amber-100 text-amber-700"
+          : "bg-gray-100 text-gray-500"
         }`}>
-          {connection ? "연결됨" : "미연결"}
+          {connection ? "연결됨" : !integrationReady ? "준비 중" : "미연결"}
         </span>
       </div>
 
@@ -119,6 +122,10 @@ export function InstagramConnectionCard({ connection, errorParam, connectedParam
               연결 해제
             </button>
           </div>
+        </div>
+      ) : !integrationReady ? (
+        <div className="mt-4 rounded-lg bg-amber-50 border border-amber-200 px-4 py-3 text-xs text-amber-800">
+          Instagram 연동은 Meta Developer App 승인이 필요해 준비 중이에요. 승인이 완료되면 여기서 바로 연결할 수 있어요.
         </div>
       ) : (
         <a

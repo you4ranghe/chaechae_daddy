@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "채채대디 — 협찬 콘텐츠 올인원 에이전트",
+  title: "CW Agent — 협찬 콘텐츠 올인원 에이전트",
   description: "인스타그램 협찬 DM 분석부터 콘텐츠 생성까지",
 };
 

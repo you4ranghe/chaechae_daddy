@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { Sponsorship } from "@/lib/types/sponsorship";
 import { StatusActions } from "./status-actions";
 import { PerformanceForm } from "./performance-form";
@@ -72,7 +73,10 @@ export function CompletedTab({ sponsorships }: CompletedTabProps) {
               key={sp.id}
               className="rounded-xl border border-gray-200 bg-white p-5"
             >
-              <div className="flex items-start justify-between">
+              <Link
+                href={`/dashboard/sponsorships/${sp.id}`}
+                className="flex items-start justify-between -m-1 p-1 rounded-lg hover:bg-gray-50 transition-colors"
+              >
                 <div>
                   <h3 className="font-semibold text-gray-900">{sp.brand_name}</h3>
                   <p className="mt-0.5 text-sm text-gray-500">{sp.product}</p>
@@ -82,8 +86,9 @@ export function CompletedTab({ sponsorships }: CompletedTabProps) {
                     완료
                   </span>
                   <p className="mt-1 text-xs text-gray-400">{dateStr}</p>
+                  <p className="mt-0.5 text-xs text-indigo-500">상세 →</p>
                 </div>
-              </div>
+              </Link>
               {sp.payment_amount > 0 && (
                 <p className="mt-2 text-sm font-medium text-indigo-600">
                   ₩{sp.payment_amount.toLocaleString()}

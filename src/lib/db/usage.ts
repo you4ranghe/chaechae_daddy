@@ -60,6 +60,26 @@ function buildLimitMessage(plan: string, isTrialExpired: boolean): string {
   ].join("\n");
 }
 
+// 현재 사용량 기간의 시작 시점
+// free_trial: 트라이얼 시작일 / 유료 플랜: 이번 달 1일
+export function getUsagePeriodStart(
+  plan: string,
+  trialEndsAt: string | null | undefined
+): string {
+  if (plan === "free_trial") {
+    const trialEnd = trialEndsAt ? new Date(trialEndsAt) : new Date();
+    const trialStart = new Date(trialEnd);
+    trialStart.setDate(trialStart.getDate() - 7);
+    return trialStart.toISOString();
+  }
+  const now = new Date();
+  return new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
+}
+
+export function getPlanLimit(plan: string): number {
+  return PLAN_LIMITS[plan] || PLAN_LIMITS.free_trial;
+}
+
 // 에이전트 사용량 체크
 export async function checkUsageLimit(
   supabase: SupabaseClient,
@@ -73,7 +93,7 @@ export async function checkUsageLimit(
     .single();
 
   const plan = profile?.plan || "free_trial";
-  const limit = PLAN_LIMITS[plan] || PLAN_LIMITS.free_trial;
+  const limit = getPlanLimit(plan);
 
   // 트라이얼 만료 체크
   if (plan === "free_trial" && profile?.trial_ends_at) {
@@ -90,21 +110,7 @@ export async function checkUsageLimit(
     }
   }
 
-  // 현재 기간의 사용량 조회
-  // free_trial: 가입일부터 7일간 / 유료 플랜: 월 단위
-  let periodStart: string;
-  if (plan === "free_trial") {
-    // 트라이얼은 가입 시점부터 계산 (trial_ends_at - 7일)
-    const trialEnd = profile?.trial_ends_at
-      ? new Date(profile.trial_ends_at)
-      : new Date();
-    const trialStart = new Date(trialEnd);
-    trialStart.setDate(trialStart.getDate() - 7);
-    periodStart = trialStart.toISOString();
-  } else {
-    const now = new Date();
-    periodStart = new Date(now.getFullYear(), now.getMonth(), 1).toISOString();
-  }
+  const periodStart = getUsagePeriodStart(plan, profile?.trial_ends_at);
 
   const { count } = await supabase
     .from("agent_usage")

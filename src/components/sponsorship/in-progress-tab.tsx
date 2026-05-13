@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import type { Sponsorship } from "@/lib/types/sponsorship";
 import { StatusActions } from "./status-actions";
 
@@ -62,7 +63,10 @@ export function InProgressTab({ sponsorships }: InProgressTabProps) {
             key={sp.id}
             className="rounded-xl border border-gray-200 bg-white p-5 hover:border-indigo-200 hover:shadow-sm transition-all"
           >
-            <div className="flex items-start justify-between gap-3">
+            <Link
+              href={`/dashboard/sponsorships/${sp.id}`}
+              className="flex items-start justify-between gap-3 -m-1 p-1 rounded-lg hover:bg-gray-50 transition-colors"
+            >
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <h3 className="font-semibold text-gray-900 truncate">{sp.brand_name}</h3>
@@ -78,8 +82,9 @@ export function InProgressTab({ sponsorships }: InProgressTabProps) {
                     {deadlineText}
                   </span>
                 )}
+                <p className="mt-0.5 text-xs text-indigo-500">상세 →</p>
               </div>
-            </div>
+            </Link>
             {/* 체크리스트 진행률 */}
             <div className="mt-4">
               <div className="flex items-center justify-between text-xs text-gray-400">

@@ -6,8 +6,9 @@ import { CopyButton } from "./copy-button";
 interface AnalysisResultProps {
   analysis: SponsorshipAnalysis;
   checklist: ChecklistItem[];
-  onAccept: () => void;
-  accepting: boolean;
+  // 수락 CTA를 숨기려면 onAccept를 생략
+  onAccept?: () => void;
+  accepting?: boolean;
 }
 
 function ScoreBadge({ score }: { score: number }) {
@@ -157,33 +158,35 @@ export function AnalysisResult({ analysis, checklist, onAccept, accepting }: Ana
       </div>
 
       {/* 수락 → 콘텐츠 만들기 */}
-      <div className="rounded-xl border-2 border-indigo-200 bg-indigo-50/50 p-5">
-        <h3 className="font-semibold text-indigo-900">이 협찬을 수락하시겠어요?</h3>
-        <p className="mt-1 text-sm text-indigo-600">
-          수락하면 체크리스트와 콘텐츠를 자동으로 생성합니다.
-        </p>
-        <div className="mt-3 flex items-center gap-2 text-sm text-gray-500">
-          <span className="font-medium">체크리스트 미리보기:</span>
-          {checklist.slice(0, 3).map(function (item) {
-            return (
-              <span key={item.id} className="rounded bg-white px-2 py-0.5 text-xs border border-gray-200">
-                {item.text}
-              </span>
-            );
-          })}
-          {checklist.length > 3 && (
-            <span className="text-xs text-gray-400">+{checklist.length - 3}개</span>
-          )}
+      {onAccept && (
+        <div className="rounded-xl border-2 border-indigo-200 bg-indigo-50/50 p-5">
+          <h3 className="font-semibold text-indigo-900">이 협찬을 수락하시겠어요?</h3>
+          <p className="mt-1 text-sm text-indigo-600">
+            수락하면 체크리스트와 콘텐츠를 자동으로 생성합니다.
+          </p>
+          <div className="mt-3 flex items-center gap-2 text-sm text-gray-500">
+            <span className="font-medium">체크리스트 미리보기:</span>
+            {checklist.slice(0, 3).map(function (item) {
+              return (
+                <span key={item.id} className="rounded bg-white px-2 py-0.5 text-xs border border-gray-200">
+                  {item.text}
+                </span>
+              );
+            })}
+            {checklist.length > 3 && (
+              <span className="text-xs text-gray-400">+{checklist.length - 3}개</span>
+            )}
+          </div>
+          <button
+            type="button"
+            onClick={onAccept}
+            disabled={accepting}
+            className="mt-4 rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          >
+            {accepting ? "콘텐츠 생성 중..." : "수락하고 콘텐츠 만들기"}
+          </button>
         </div>
-        <button
-          type="button"
-          onClick={onAccept}
-          disabled={accepting}
-          className="mt-4 rounded-lg bg-indigo-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-        >
-          {accepting ? "콘텐츠 생성 중..." : "수락하고 콘텐츠 만들기"}
-        </button>
-      </div>
+      )}
     </div>
   );
 }

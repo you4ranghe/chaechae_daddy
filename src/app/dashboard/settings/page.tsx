@@ -64,6 +64,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
           connection={igConnection}
           errorParam={params.ig_error || null}
           connectedParam={params.ig_connected === "1"}
+          integrationReady={Boolean(process.env.META_APP_ID && process.env.META_APP_SECRET && process.env.META_REDIRECT_URI)}
         />
       </div>
 

@@ -159,7 +159,7 @@ export function Sidebar() {
         {/* 로고 */}
         <div className="flex h-16 items-center px-6 border-b border-gray-100">
           <Link href="/dashboard" className="text-lg font-bold text-gray-900">
-            chaechae_daddy
+            CW Agent
           </Link>
         </div>
 

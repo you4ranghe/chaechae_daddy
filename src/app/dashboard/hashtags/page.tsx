@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-server";
 import { HashtagForm } from "@/components/hashtags/hashtag-form";
+import { HashtagHistory } from "@/components/hashtags/hashtag-history";
 
 export default async function HashtagsPage() {
   const supabase = await createClient();
@@ -20,6 +21,7 @@ export default async function HashtagsPage() {
       </div>
 
       <HashtagForm />
+      <HashtagHistory />
     </>
   );
 }
