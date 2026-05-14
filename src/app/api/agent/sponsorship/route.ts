@@ -132,6 +132,11 @@ export async function POST(request: NextRequest) {
       console.error("sponsorships 저장 실패:", dbError);
     }
 
+    // 저장 실패시 사용자에게 노출할 메시지 (분석 결과 자체는 살려서 응답)
+    const saveError = dbError
+      ? `분석 결과 저장에 실패했어요. (${dbError.code || "DB"}: ${dbError.message || "알 수 없는 오류"})`
+      : null;
+
     // 9. agent_usage에 사용량 기록
     await recordUsage(
       supabase,
@@ -157,6 +162,7 @@ export async function POST(request: NextRequest) {
       sponsorshipId: sponsorship?.id || null,
       remaining: usage.remaining - 1,
       duplicateBrand,
+      saveError,
     });
   } catch (error) {
     console.error("협찬 분석 에러:", error);

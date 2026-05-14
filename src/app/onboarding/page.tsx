@@ -1,4 +1,5 @@
 import { redirect } from "next/navigation";
+import Link from "next/link";
 import { createClient } from "@/lib/db/supabase-server";
 import { OnboardingForm } from "@/components/onboarding/onboarding-form";
 
@@ -8,42 +9,102 @@ export default async function OnboardingPage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user) {
-    redirect("/login");
-  }
+  if (!user) redirect("/login");
 
-  // 이미 프로필이 완성된 유저는 대시보드로
   const { data: profile } = await supabase
     .from("profiles")
     .select("instagram_handle")
     .eq("id", user.id)
     .single();
 
-  if (profile?.instagram_handle) {
-    redirect("/dashboard");
-  }
+  if (profile?.instagram_handle) redirect("/dashboard");
 
-  // 회원가입 시 입력한 메타데이터 가져오기 (프리필용)
   const metadata = user.user_metadata ?? {};
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50 px-4 py-12">
-      <div className="w-full max-w-md space-y-8">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-            프로필 설정
-          </h1>
-          <p className="mt-2 text-sm text-gray-500">
-            CW Agent를 시작하기 위해 기본 정보를 입력해주세요
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-pink-50">
+      <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-indigo-200/40 blur-3xl" />
+      <span aria-hidden className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
+      <span aria-hidden className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-amber-200/40 blur-3xl" />
+
+      <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md">
+          {/* 로고 */}
+          <div className="text-center">
+            <Link href="/" className="inline-flex items-center gap-2">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30">
+                <SparkleIcon className="h-4 w-4 text-white" />
+              </span>
+              <span className="text-lg font-bold tracking-tight text-gray-900">
+                CW Agent
+              </span>
+            </Link>
+          </div>
+
+          {/* 환영 메시지 */}
+          <div className="mt-6 text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-700 shadow-sm backdrop-blur">
+              <CheckIcon className="h-3 w-3" />
+              가입 완료
+            </span>
+            <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-gray-900">
+              환영해요! <span aria-hidden>👋</span>
+            </h1>
+            <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+              마지막 한 가지만 알려주시면 바로 시작할 수 있어요
+            </p>
+          </div>
+
+          {/* 진행 단계 */}
+          <div className="mt-6 flex items-center justify-center gap-1.5">
+            <span className="h-1.5 w-8 rounded-full bg-emerald-500" />
+            <span className="h-1.5 w-8 rounded-full bg-emerald-500" />
+            <span className="h-1.5 w-8 rounded-full bg-indigo-500 animate-pulse" />
+            <span className="h-1.5 w-8 rounded-full bg-gray-200" />
+          </div>
+          <p className="mt-2 text-center text-[11px] font-medium text-gray-500">
+            3 / 4 단계 · 프로필 설정
+          </p>
+
+          {/* 카드 */}
+          <div className="mt-6 rounded-3xl border border-gray-100 bg-white/85 p-6 shadow-xl shadow-indigo-500/5 backdrop-blur-xl sm:p-7">
+            <OnboardingForm
+              defaultHandle={metadata.instagram_handle ?? ""}
+              defaultFollowers={metadata.follower_count ?? 0}
+              defaultCategories={metadata.categories ?? []}
+            />
+          </div>
+
+          {/* 트러스트 시그널 */}
+          <p className="mt-5 flex items-center justify-center gap-1.5 text-center text-[11px] text-gray-500">
+            <LockIcon className="h-3 w-3" />
+            정보는 안전하게 암호화되어 저장돼요
           </p>
         </div>
-
-        <OnboardingForm
-          defaultHandle={metadata.instagram_handle ?? ""}
-          defaultFollowers={metadata.follower_count ?? 0}
-          defaultCategories={metadata.categories ?? []}
-        />
       </div>
     </div>
+  );
+}
+
+// ─── 아이콘 ────────────────────────────────
+function SparkleIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5Z" clipRule="evenodd" />
+    </svg>
+  );
+}
+function CheckIcon({ className = "h-3 w-3" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path fillRule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12Zm13.36-1.814a.75.75 0 1 0-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 0 0-1.06 1.06l2.25 2.25a.75.75 0 0 0 1.14-.094l3.75-5.25Z" clipRule="evenodd" />
+    </svg>
+  );
+}
+function LockIcon({ className = "h-3 w-3" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path fillRule="evenodd" d="M12 1.5a5.25 5.25 0 0 0-5.25 5.25v3a3 3 0 0 0-3 3v6.75a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3v-6.75a3 3 0 0 0-3-3v-3c0-2.9-2.35-5.25-5.25-5.25Zm3.75 8.25v-3a3.75 3.75 0 1 0-7.5 0v3h7.5Z" clipRule="evenodd" />
+    </svg>
   );
 }

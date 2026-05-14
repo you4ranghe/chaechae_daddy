@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import type { Sponsorship } from "@/lib/types/sponsorship";
-import { StatusActions } from "./status-actions";
 
 interface InProgressTabProps {
   sponsorships: Sponsorship[];
@@ -10,101 +9,228 @@ interface InProgressTabProps {
 
 export function InProgressTab({ sponsorships }: InProgressTabProps) {
   if (sponsorships.length === 0) {
-    return (
-      <div className="rounded-xl border border-dashed border-gray-300 bg-white p-12 text-center">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="mx-auto h-10 w-10 text-gray-300">
-          <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0" />
-        </svg>
-        <p className="mt-3 text-sm text-gray-500">
-          진행 중인 협찬이 없습니다
-        </p>
-        <p className="mt-1 text-xs text-gray-400">
-          새 협찬을 분석하고 수락하면 여기에 표시됩니다
-        </p>
-      </div>
-    );
+    return <EmptyState />;
   }
 
   return (
-    <div className="space-y-3">
-      {sponsorships.map(function (sp) {
-        const checklistItems = sp.checklist || [];
-        const completedCount = checklistItems.filter(function (item) {
-          return item.checked;
-        }).length;
-        const totalCount = checklistItems.length;
-        const progress = totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
+    <ul className="space-y-3">
+      {sponsorships.map((sp) => (
+        <li key={sp.id}>
+          <ProgressCard sponsorship={sp} />
+        </li>
+      ))}
+    </ul>
+  );
+}
 
-        // 마감일 계산
-        let deadlineText = "";
-        let deadlineColor = "text-gray-400";
-        if (sp.deadline) {
-          const deadline = new Date(sp.deadline);
-          const now = new Date();
-          const diff = Math.ceil((deadline.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-          if (diff < 0) {
-            deadlineText = "마감 지남";
-            deadlineColor = "text-red-500";
-          } else if (diff <= 3) {
-            deadlineText = `D-${diff}`;
-            deadlineColor = "text-red-500";
-          } else {
-            deadlineText = `D-${diff}`;
-          }
-        }
+// ──────────────────────────────────────────────
+// 카드
+// ──────────────────────────────────────────────
 
-        const statusLabel = sp.status === "pending" ? "대기" : sp.status === "accepted" ? "진행 중" : sp.status;
-        const statusColor = sp.status === "pending"
-          ? "bg-amber-100 text-amber-700"
-          : "bg-indigo-100 text-indigo-700";
+function ProgressCard({ sponsorship: sp }: { sponsorship: Sponsorship }) {
+  const checklistItems = sp.checklist || [];
+  const completedCount = checklistItems.filter((item) => item.checked).length;
+  const totalCount = checklistItems.length;
+  const progress =
+    totalCount > 0 ? Math.round((completedCount / totalCount) * 100) : 0;
 
-        return (
-          <div
-            key={sp.id}
-            className="rounded-xl border border-gray-200 bg-white p-5 hover:border-indigo-200 hover:shadow-sm transition-all"
-          >
-            <Link
-              href={`/dashboard/sponsorships/${sp.id}`}
-              className="flex items-start justify-between gap-3 -m-1 p-1 rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              <div className="min-w-0">
-                <div className="flex items-center gap-2">
-                  <h3 className="font-semibold text-gray-900 truncate">{sp.brand_name}</h3>
-                  <span className={`flex-shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${statusColor}`}>
-                    {statusLabel}
-                  </span>
-                </div>
-                <p className="mt-0.5 text-sm text-gray-500 truncate">{sp.product}</p>
-              </div>
-              <div className="text-right flex-shrink-0">
-                {deadlineText && (
-                  <span className={`text-sm font-medium ${deadlineColor}`}>
-                    {deadlineText}
-                  </span>
-                )}
-                <p className="mt-0.5 text-xs text-indigo-500">상세 →</p>
-              </div>
-            </Link>
-            {/* 체크리스트 진행률 */}
-            <div className="mt-4">
-              <div className="flex items-center justify-between text-xs text-gray-400">
-                <span>체크리스트 진행률</span>
-                <span>{completedCount}/{totalCount}</span>
-              </div>
-              <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-                <div
-                  className="h-full rounded-full bg-indigo-500 transition-all"
-                  style={{ width: `${progress}%` }}
-                />
-              </div>
+  // 마감일 계산 (deadline은 text 컬럼)
+  let deadlineBadge: { label: string; tone: "rose" | "amber" | "gray" } | null = null;
+  if (sp.deadline && sp.deadline !== "미정") {
+    const deadline = new Date(sp.deadline);
+    if (!isNaN(deadline.getTime())) {
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const diff = Math.ceil(
+        (deadline.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+      );
+      if (diff < 0) {
+        deadlineBadge = { label: "마감 지남", tone: "rose" };
+      } else if (diff === 0) {
+        deadlineBadge = { label: "오늘 마감", tone: "rose" };
+      } else if (diff <= 3) {
+        deadlineBadge = { label: `D-${diff}`, tone: "rose" };
+      } else if (diff <= 7) {
+        deadlineBadge = { label: `D-${diff}`, tone: "amber" };
+      } else {
+        deadlineBadge = { label: `D-${diff}`, tone: "gray" };
+      }
+    }
+  }
+
+  const isPending = sp.status === "pending";
+
+  return (
+    <Link
+      href={`/dashboard/sponsorships/${sp.id}`}
+      className="group block overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md"
+    >
+      {/* 상단 컬러 인디케이터 */}
+      <div
+        className={`h-1 w-full ${
+          isPending
+            ? "bg-gradient-to-r from-amber-300 to-orange-300"
+            : "bg-gradient-to-r from-indigo-400 to-purple-400"
+        }`}
+      />
+
+      <div className="p-5">
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <div className="flex flex-wrap items-center gap-2">
+              <h3 className="truncate text-base font-bold text-gray-900">
+                {sp.brand_name}
+              </h3>
+              <StatusBadge status={sp.status} />
+              {deadlineBadge && (
+                <DeadlinePill label={deadlineBadge.label} tone={deadlineBadge.tone} />
+              )}
             </div>
-            {/* 상태 전환 버튼 */}
-            <div className="mt-4 pt-4 border-t border-gray-100">
-              <StatusActions sponsorshipId={sp.id} currentStatus={sp.status} />
-            </div>
+            <p className="mt-1 truncate text-sm text-gray-500">
+              {sp.product?.trim() || "제품 정보 없음"}
+            </p>
           </div>
-        );
-      })}
+          <span className="flex-shrink-0 rounded-full bg-gray-50 p-2 text-gray-400 transition-colors group-hover:bg-indigo-50 group-hover:text-indigo-600">
+            <ArrowRightIcon />
+          </span>
+        </div>
+
+        {/* 체크리스트 진행률 */}
+        <div className="mt-4">
+          <div className="flex items-center justify-between text-[11px]">
+            <span className="font-medium text-gray-500">
+              <ChecklistIcon className="mr-1 inline h-3 w-3 align-text-bottom text-gray-400" />
+              체크리스트
+            </span>
+            <span className="font-semibold tabular-nums text-gray-700">
+              {completedCount}/{totalCount}
+              {totalCount > 0 && (
+                <span className="ml-1 text-gray-400">· {progress}%</span>
+              )}
+            </span>
+          </div>
+          <div className="mt-1.5 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
+            <div
+              className={`h-full rounded-full transition-all duration-500 ${
+                progress === 100
+                  ? "bg-gradient-to-r from-emerald-400 to-teal-400"
+                  : "bg-gradient-to-r from-indigo-400 to-purple-400"
+              }`}
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+        </div>
+
+        {/* 금액 */}
+        {sp.payment_amount > 0 && (
+          <div className="mt-3 flex items-center gap-1.5 text-sm">
+            <WonIcon className="h-3.5 w-3.5 text-indigo-500" />
+            <span className="font-semibold text-indigo-700 tabular-nums">
+              ₩{sp.payment_amount.toLocaleString()}
+            </span>
+          </div>
+        )}
+      </div>
+    </Link>
+  );
+}
+
+// ──────────────────────────────────────────────
+// 빈 상태
+// ──────────────────────────────────────────────
+
+function EmptyState() {
+  return (
+    <div className="rounded-3xl border border-dashed border-gray-300 bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 p-10 text-center">
+      <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
+        <BriefcaseIcon className="h-6 w-6 text-gray-300" />
+      </div>
+      <p className="mt-4 text-sm font-semibold text-gray-700">
+        진행 중인 협찬이 없어요
+      </p>
+      <p className="mt-1 text-xs text-gray-400">
+        새 협찬을 분석하고 수락하면 여기에 표시돼요
+      </p>
     </div>
+  );
+}
+
+// ──────────────────────────────────────────────
+// 작은 컴포넌트
+// ──────────────────────────────────────────────
+
+function StatusBadge({ status }: { status: Sponsorship["status"] }) {
+  if (status === "pending") {
+    return (
+      <span className="inline-flex items-center gap-1 rounded-full bg-amber-100 px-2 py-0.5 text-[10px] font-bold text-amber-700 ring-1 ring-inset ring-amber-200">
+        <span className="h-1 w-1 rounded-full bg-amber-500" />
+        대기
+      </span>
+    );
+  }
+  if (status === "accepted") {
+    return (
+      <span className="inline-flex items-center gap-1 rounded-full bg-indigo-100 px-2 py-0.5 text-[10px] font-bold text-indigo-700 ring-1 ring-inset ring-indigo-200">
+        <span className="h-1 w-1 rounded-full bg-indigo-500" />
+        진행 중
+      </span>
+    );
+  }
+  return null;
+}
+
+const DEADLINE_TONES: Record<"rose" | "amber" | "gray", string> = {
+  rose: "bg-rose-100 text-rose-700 ring-rose-200",
+  amber: "bg-amber-100 text-amber-700 ring-amber-200",
+  gray: "bg-gray-100 text-gray-600 ring-gray-200",
+};
+
+function DeadlinePill({ label, tone }: { label: string; tone: "rose" | "amber" | "gray" }) {
+  return (
+    <span
+      className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-bold ring-1 ring-inset ${DEADLINE_TONES[tone]}`}
+    >
+      <FlagIcon className="h-2.5 w-2.5" />
+      {label}
+    </span>
+  );
+}
+
+// ─── 아이콘 ─────────────────────────────────
+function ArrowRightIcon() {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="h-4 w-4">
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+    </svg>
+  );
+}
+function ChecklistIcon({ className = "h-3 w-3" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path fillRule="evenodd" d="M2.625 6.75a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0A.75.75 0 0 1 8.25 6h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75ZM2.625 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 12a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12A.75.75 0 0 1 7.5 12Zm-4.875 5.25a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Zm4.875 0a.75.75 0 0 1 .75-.75h12a.75.75 0 0 1 0 1.5h-12a.75.75 0 0 1-.75-.75Z" clipRule="evenodd" />
+    </svg>
+  );
+}
+function WonIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path fillRule="evenodd" d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h13.5a3 3 0 0 0 3-3V13.5a3 3 0 0 0-3-3H8.25a.75.75 0 0 1-.75-.75V5.25a.75.75 0 0 0-.75-.75H5.25Z" clipRule="evenodd" />
+      <path d="M8.25 5.25v3a2.25 2.25 0 0 1-2.25 2.25H2.625a3.74 3.74 0 0 0 .375.586L8.25 5.25Z" />
+    </svg>
+  );
+}
+function FlagIcon({ className = "h-3 w-3" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path fillRule="evenodd" d="M3 2.25a.75.75 0 0 1 .75.75v.54l1.838-.46a9.75 9.75 0 0 1 6.725.738l.108.054A8.25 8.25 0 0 0 18 4.524l3.11-.732a.75.75 0 0 1 .917.81 47.784 47.784 0 0 0 .005 10.337.75.75 0 0 1-.574.812l-3.114.733a9.75 9.75 0 0 1-6.594-.77l-.108-.054a8.25 8.25 0 0 0-5.69-.625l-2.202.55V21a.75.75 0 0 1-1.5 0V3A.75.75 0 0 1 3 2.25Z" clipRule="evenodd" />
+    </svg>
+  );
+}
+function BriefcaseIcon({ className = "h-6 w-6" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <path fillRule="evenodd" d="M7.5 5.25a3 3 0 0 1 3-3h3a3 3 0 0 1 3 3v.205c.933.085 1.857.197 2.774.334 1.454.218 2.476 1.483 2.476 2.917v3.033c0 1.211-.734 2.352-1.936 2.752A24.726 24.726 0 0 1 12 15.75a24.726 24.726 0 0 1-7.814-1.259c-1.202-.4-1.936-1.541-1.936-2.752V8.706c0-1.434 1.022-2.7 2.476-2.917A48.814 48.814 0 0 1 7.5 5.455V5.25Zm7.5 0v.09a49.488 49.488 0 0 0-6 0v-.09a1.5 1.5 0 0 1 1.5-1.5h3a1.5 1.5 0 0 1 1.5 1.5Z" clipRule="evenodd" />
+      <path d="M3 18.4v-2.796a4.3 4.3 0 0 0 .713.31A26.226 26.226 0 0 0 12 17.25c2.892 0 5.68-.468 8.287-1.335.252-.084.49-.189.713-.311V18.4c0 1.452-1.047 2.728-2.523 2.923-2.12.282-4.282.427-6.477.427a49.19 49.19 0 0 1-6.477-.427C4.047 21.128 3 19.852 3 18.4Z" />
+    </svg>
   );
 }

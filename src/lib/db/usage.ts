@@ -136,6 +136,8 @@ export async function checkUsageLimit(
 }
 
 // 에이전트 사용량 기록
+// 실패해도 호출부 흐름을 막지는 않지만, 차감이 안 되는 원인을 파악할 수 있도록
+// 에러는 콘솔에 명시적으로 출력한다.
 export async function recordUsage(
   supabase: SupabaseClient,
   userId: string,
@@ -143,12 +145,27 @@ export async function recordUsage(
   sponsorshipId: string | null,
   tokensUsed: number,
   model: string
-): Promise<void> {
-  await supabase.from("agent_usage").insert({
+): Promise<{ ok: boolean; error?: string }> {
+  const { error } = await supabase.from("agent_usage").insert({
     user_id: userId,
     type,
     sponsorship_id: sponsorshipId,
     tokens_used: tokensUsed,
     model,
   });
+
+  if (error) {
+    console.error("[agent_usage] 사용량 기록 실패:", {
+      code: error.code,
+      message: error.message,
+      details: error.details,
+      hint: error.hint,
+      userId,
+      type,
+      sponsorshipId,
+    });
+    return { ok: false, error: `${error.code || "DB"}: ${error.message}` };
+  }
+
+  return { ok: true };
 }
