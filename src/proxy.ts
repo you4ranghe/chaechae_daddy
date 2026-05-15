@@ -3,7 +3,7 @@ import type { NextRequest } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
 // 인증이 필요 없는 공개 경로
-const PUBLIC_PATHS = ["/login", "/signup", "/landing", "/pricing", "/api", "/onboarding"];
+const PUBLIC_PATHS = ["/login", "/signup", "/forgot-password", "/landing", "/pricing", "/api", "/onboarding"];
 
 function isPublicPath(pathname: string): boolean {
   return PUBLIC_PATHS.some(
@@ -19,7 +19,8 @@ export async function proxy(request: NextRequest) {
   if (
     pathname.startsWith("/_next/") ||
     pathname.startsWith("/favicon.ico") ||
-    pathname.match(/\.(svg|png|jpg|jpeg|gif|webp|ico)$/)
+    pathname.startsWith("/fonts/") ||
+    pathname.match(/\.(svg|png|jpg|jpeg|gif|webp|ico|otf|ttf|woff|woff2)$/)
   ) {
     return NextResponse.next();
   }
@@ -88,5 +89,5 @@ export async function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)"],
+  matcher: ["/((?!_next/static|_next/image|favicon.ico|fonts/|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|otf|ttf|woff|woff2)$).*)"],
 };

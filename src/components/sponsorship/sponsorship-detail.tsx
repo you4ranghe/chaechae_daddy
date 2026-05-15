@@ -12,11 +12,13 @@ import { AnalysisResult } from "./analysis-result";
 import { ContentResult } from "./content-result";
 import { StatusActions } from "./status-actions";
 import { ContentGeneratingLoader } from "./content-generating-loader";
+import { DownloadSponsorshipPdfButton } from "./download-sponsorship-pdf-button";
 import { handleAgentLimitReached } from "@/lib/agent-limit";
 
 interface SponsorshipDetailProps {
   sponsorship: Sponsorship;
   latestContent: GeneratedContent | null;
+  handle: string;
 }
 
 const STATUS_META: Record<
@@ -58,6 +60,7 @@ const STATUS_META: Record<
 export function SponsorshipDetail({
   sponsorship,
   latestContent,
+  handle,
 }: SponsorshipDetailProps) {
   const router = useRouter();
 
@@ -192,6 +195,13 @@ export function SponsorshipDetail({
                   <span className={`h-1.5 w-1.5 rounded-full ${meta.dot}`} />
                   {meta.label}
                 </span>
+                <div className="ml-auto">
+                  <DownloadSponsorshipPdfButton
+                    sponsorship={sponsorship}
+                    content={content}
+                    handle={handle}
+                  />
+                </div>
               </div>
               {sponsorship.product && (
                 <p className="mt-1 truncate text-sm text-gray-600">
@@ -259,7 +269,13 @@ export function SponsorshipDetail({
               <p className="text-[11px] text-gray-500">캡션·해시태그·체크리스트를 한 번에</p>
             </div>
           </div>
-          <ContentResult checklist={checklist} content={content} />
+          <ContentResult
+            checklist={checklist}
+            content={content}
+            brandName={sponsorship.brand_name}
+            sponsorshipId={sponsorship.id}
+            analysis={analysis}
+          />
         </section>
       )}
 

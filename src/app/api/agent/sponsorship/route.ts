@@ -4,6 +4,7 @@ import { analyzeSponsorshipDM } from "@/lib/agents/sponsorship-agent";
 import { generateChecklist } from "@/lib/agents/content-planner";
 import { checkUsageLimit, recordUsage } from "@/lib/db/usage";
 import { notifyAnalysisComplete } from "@/lib/email/notify";
+import { buildPersonaContext, type ChildInfo } from "@/lib/persona/child-context";
 
 export async function POST(request: NextRequest) {
   try {
@@ -63,14 +64,20 @@ export async function POST(request: NextRequest) {
     // 4. 유저 컨텍스트 구성 (profiles 테이블 우선, 없으면 user_metadata 폴백)
     const { data: profile } = await supabase
       .from("profiles")
-      .select("instagram_handle, follower_count, categories")
+      .select("instagram_handle, follower_count, categories, child_info, persona_bio")
       .eq("id", user.id)
       .single();
+
+    const personaContext = buildPersonaContext({
+      child: (profile?.child_info as ChildInfo | null) || null,
+      personaBio: (profile?.persona_bio as string | null) || null,
+    });
 
     const userContext = {
       instagramHandle: profile?.instagram_handle || user.user_metadata?.instagram_handle || "",
       followerCount: profile?.follower_count || user.user_metadata?.follower_count || 0,
       categories: profile?.categories || user.user_metadata?.categories || [],
+      personaContext,
     };
 
     // 5. 오케스트레이터 → Sonnet 분석 실행

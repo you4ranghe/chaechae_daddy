@@ -1,6 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@/lib/db/supabase-server";
 
+export async function GET() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    return NextResponse.json({ error: "로그인이 필요합니다." }, { status: 401 });
+  }
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("instagram_handle")
+    .eq("id", user.id)
+    .single();
+
+  const handle =
+    profile?.instagram_handle || user.user_metadata?.instagram_handle || "사용자";
+
+  return NextResponse.json({ handle });
+}
+
 export async function PATCH(request: NextRequest) {
   try {
     const supabase = await createClient();
@@ -16,11 +38,27 @@ export async function PATCH(request: NextRequest) {
     }
 
     const body = await request.json();
-    const { instagramHandle, followerCount, categories, emailNotifications } = body as {
+    const {
+      instagramHandle,
+      followerCount,
+      categories,
+      emailNotifications,
+      childInfo,
+      personaBio,
+    } = body as {
       instagramHandle?: string;
       followerCount?: number;
       categories?: string[];
       emailNotifications?: { trial_reminder?: boolean; analysis_complete?: boolean };
+      childInfo?: {
+        name?: string | null;
+        birth_date?: string | null;
+        gender?: "female" | "male" | "other" | null;
+        height_cm?: number | null;
+        weight_kg?: number | null;
+        notes?: string | null;
+      } | null;
+      personaBio?: string | null;
     };
 
     // 유효성 검사
@@ -72,6 +110,56 @@ export async function PATCH(request: NextRequest) {
         trial_reminder: emailNotifications.trial_reminder !== false,
         analysis_complete: emailNotifications.analysis_complete !== false,
       };
+    }
+    if (childInfo !== undefined) {
+      // null/빈 객체면 컬럼을 비움
+      const hasAny =
+        childInfo &&
+        (childInfo.name ||
+          childInfo.birth_date ||
+          childInfo.gender ||
+          childInfo.height_cm ||
+          childInfo.weight_kg ||
+          childInfo.notes);
+      if (!hasAny) {
+        updateData.child_info = null;
+      } else {
+        // 기존 child_info와 머지해서 measurements_updated_at을 정확히 관리
+        const { data: existing } = await supabase
+          .from("profiles")
+          .select("child_info")
+          .eq("id", user.id)
+          .single();
+
+        const prev =
+          (existing?.child_info as Record<string, unknown> | null) || {};
+
+        const heightChanged =
+          childInfo.height_cm !== undefined &&
+          childInfo.height_cm !== (prev as { height_cm?: number | null }).height_cm;
+        const weightChanged =
+          childInfo.weight_kg !== undefined &&
+          childInfo.weight_kg !== (prev as { weight_kg?: number | null }).weight_kg;
+
+        const measurementsUpdatedAt =
+          heightChanged || weightChanged
+            ? new Date().toISOString()
+            : ((prev as { measurements_updated_at?: string }).measurements_updated_at ?? null);
+
+        updateData.child_info = {
+          name: childInfo.name ?? null,
+          birth_date: childInfo.birth_date ?? null,
+          gender: childInfo.gender ?? null,
+          height_cm: childInfo.height_cm ?? null,
+          weight_kg: childInfo.weight_kg ?? null,
+          notes: childInfo.notes ?? null,
+          measurements_updated_at: measurementsUpdatedAt,
+        };
+      }
+    }
+    if (personaBio !== undefined) {
+      const trimmed = (personaBio || "").trim();
+      updateData.persona_bio = trimmed.length > 0 ? trimmed.slice(0, 2000) : null;
     }
 
     const { error: dbError } = await supabase

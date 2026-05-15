@@ -1,8 +1,18 @@
 import type { AnalyticsReport } from "@/lib/agents/analytics-agent";
+import { DownloadAnalyticsPdfButton } from "./download-analytics-pdf-button";
 
-export function AnalyticsReportView({ report }: { report: AnalyticsReport }) {
+export function AnalyticsReportView({
+  report,
+  reportDate,
+}: {
+  report: AnalyticsReport;
+  reportDate?: Date;
+}) {
   return (
     <div className="space-y-4">
+      <div className="flex justify-end">
+        <DownloadAnalyticsPdfButton report={report} reportDate={reportDate} size="sm" />
+      </div>
       <div className="rounded-xl border border-gray-200 bg-white p-6 text-center">
         <p className="text-sm text-gray-500">경쟁력 점수</p>
         <p className="mt-2 text-5xl font-bold text-indigo-600">{report.competitiveness.overallScore}</p>

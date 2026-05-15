@@ -15,6 +15,36 @@ export async function GET(request: NextRequest) {
   }
 
   const { searchParams } = new URL(request.url);
+  const mode = searchParams.get("mode");
+
+  if (mode === "trend") {
+    const { data, error } = await supabase
+      .from("analytics_reports")
+      .select("id, report, created_at")
+      .eq("user_id", user.id)
+      .order("created_at", { ascending: true })
+      .limit(500);
+
+    if (error) {
+      return NextResponse.json({ error: error.message }, { status: 500 });
+    }
+
+    type TrendRow = { id: string; report: { competitiveness?: { overallScore?: number; engagementRate?: string } } | null; created_at: string };
+    const items = ((data ?? []) as TrendRow[]).map((r) => {
+      const score = r.report?.competitiveness?.overallScore;
+      const engRaw = r.report?.competitiveness?.engagementRate;
+      const eng = typeof engRaw === "string" ? parseFloat(engRaw.replace(/[^0-9.\-]/g, "")) : 0;
+      return {
+        id: r.id,
+        createdAt: r.created_at,
+        overallScore: typeof score === "number" ? score : 0,
+        engagementRate: Number.isFinite(eng) ? eng : 0,
+      };
+    });
+
+    return NextResponse.json({ items });
+  }
+
   const page = Math.max(1, parseInt(searchParams.get("page") || "1", 10) || 1);
   const from = (page - 1) * PAGE_SIZE;
   const to = from + PAGE_SIZE - 1;

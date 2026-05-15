@@ -94,7 +94,10 @@ export function AnalyticsHistory() {
                 </button>
                 {expanded && (
                   <div className="border-t border-gray-100 px-4 py-4">
-                    <AnalyticsReportView report={item.report} />
+                    <AnalyticsReportView
+                      report={item.report}
+                      reportDate={new Date(item.created_at)}
+                    />
                   </div>
                 )}
               </div>

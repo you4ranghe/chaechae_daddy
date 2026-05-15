@@ -6,6 +6,7 @@ import {
 } from "@/lib/agents/content-planner";
 import { checkUsageLimit, recordUsage } from "@/lib/db/usage";
 import { fetchPerformanceContext, performanceContextToPrompt } from "@/lib/db/feedback";
+import { buildPersonaContext, type ChildInfo } from "@/lib/persona/child-context";
 import type {
   SponsorshipAnalysis,
   ChecklistItem,
@@ -64,7 +65,7 @@ export async function POST(request: NextRequest) {
     // profiles 테이블에서 컨텍스트 조회
     const { data: profile } = await supabase
       .from("profiles")
-      .select("instagram_handle, categories")
+      .select("instagram_handle, categories, child_info, persona_bio")
       .eq("id", user.id)
       .single();
 
@@ -72,10 +73,16 @@ export async function POST(request: NextRequest) {
     const perfCtx = await fetchPerformanceContext(supabase, user.id);
     const performanceContext = perfCtx ? performanceContextToPrompt(perfCtx) : undefined;
 
+    const personaContext = buildPersonaContext({
+      child: (profile?.child_info as ChildInfo | null) || null,
+      personaBio: (profile?.persona_bio as string | null) || null,
+    });
+
     const userContext = {
       instagramHandle: profile?.instagram_handle || user.user_metadata?.instagram_handle || "",
       categories: profile?.categories || user.user_metadata?.categories || [],
       performanceContext,
+      personaContext,
     };
 
     // 4. 스트리밍 모드

@@ -4,6 +4,8 @@ import { ProfileForm } from "@/components/settings/profile-form";
 import { SubscriptionCard } from "@/components/settings/subscription-card";
 import { EmailNotificationsCard } from "@/components/settings/email-notifications-card";
 import { InstagramConnectionCard } from "@/components/settings/instagram-connection-card";
+import { LogoutButton } from "@/components/settings/logout-button";
+import { ChildInfoCard } from "@/components/settings/child-info-card";
 
 interface SettingsPageProps {
   searchParams: Promise<{ ig_connected?: string; ig_error?: string }>;
@@ -22,7 +24,7 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
     supabase
       .from("profiles")
       .select(
-        "instagram_handle, follower_count, categories, plan, stripe_customer_id, trial_ends_at, email_notifications",
+        "instagram_handle, follower_count, categories, plan, stripe_customer_id, trial_ends_at, email_notifications, child_info, persona_bio",
       )
       .eq("id", user.id)
       .single(),
@@ -78,6 +80,13 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
 
       <ProfileForm initialData={initialData} />
 
+      <ChildInfoCard
+        initialChildInfo={
+          (profile?.child_info as React.ComponentProps<typeof ChildInfoCard>["initialChildInfo"]) || null
+        }
+        initialPersonaBio={(profile?.persona_bio as string | null) || ""}
+      />
+
       <InstagramConnectionCard
         connection={igConnection}
         errorParam={params.ig_error || null}
@@ -102,6 +111,8 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
         hasStripeCustomer={!!profile?.stripe_customer_id}
         trialEndsAt={profile?.trial_ends_at || null}
       />
+
+      <LogoutButton />
     </div>
   );
 }

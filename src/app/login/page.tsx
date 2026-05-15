@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/db/supabase-client";
+import ForgotPasswordModal from "./forgot-password-modal";
 
 export default function LoginPage() {
   const router = useRouter();
@@ -11,6 +12,7 @@ export default function LoginPage() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [forgotOpen, setForgotOpen] = useState(false);
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -107,6 +109,16 @@ export default function LoginPage() {
                 icon={<LockIcon />}
               />
 
+              <div className="flex justify-end">
+                <button
+                  type="button"
+                  onClick={() => setForgotOpen(true)}
+                  className="text-xs font-semibold text-indigo-600 transition-colors hover:text-indigo-500"
+                >
+                  비밀번호를 잊으셨나요?
+                </button>
+              </div>
+
               <button
                 type="submit"
                 disabled={loading}
@@ -144,6 +156,12 @@ export default function LoginPage() {
           </p>
         </div>
       </div>
+
+      <ForgotPasswordModal
+        open={forgotOpen}
+        onClose={() => setForgotOpen(false)}
+        initialEmail={email}
+      />
     </div>
   );
 }

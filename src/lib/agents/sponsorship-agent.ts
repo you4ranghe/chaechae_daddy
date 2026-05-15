@@ -87,6 +87,7 @@ export async function analyzeSponsorshipDM(
     instagramHandle: string;
     followerCount: number;
     categories: string[];
+    personaContext?: string;
   }
 ): Promise<AnalysisResult> {
   const anthropic = new Anthropic();
@@ -107,7 +108,7 @@ export async function analyzeSponsorshipDM(
 - 인스타그램: @${userContext.instagramHandle}
 - 팔로워: ${userContext.followerCount.toLocaleString()}명
 - 카테고리: ${userContext.categories.join(", ")}
-
+${userContext.personaContext || ""}
 협찬 DM 내용:
 ${dmContent}`;
 

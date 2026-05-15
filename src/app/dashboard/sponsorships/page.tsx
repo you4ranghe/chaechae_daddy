@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-server";
 import { SponsorshipTabs } from "@/components/sponsorship/sponsorship-tabs";
+import { DownloadSponsorshipsExcelButton } from "@/components/sponsorship/download-excel-button";
 import type { Sponsorship } from "@/lib/types/sponsorship";
 
 export const dynamic = "force-dynamic";
@@ -31,8 +32,24 @@ export default async function SponsorshipsPage() {
     .eq("status", "completed")
     .order("created_at", { ascending: false });
 
+  // Excel 다운로드용 전체 협찬 (거절 포함)
+  const { data: allData } = await supabase
+    .from("sponsorships")
+    .select("*")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+
   const inProgress = (inProgressData || []) as Sponsorship[];
   const completed = (completedData || []) as Sponsorship[];
+  const allRows = (allData || []) as Sponsorship[];
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("instagram_handle")
+    .eq("id", user.id)
+    .single();
+  const handle =
+    profile?.instagram_handle || user.user_metadata?.instagram_handle || "사용자";
 
   // 이번 달 분석 총 건수
   const now = new Date();
@@ -74,16 +91,21 @@ export default async function SponsorshipsPage() {
           className="pointer-events-none absolute -bottom-10 right-24 h-20 w-20 rounded-full bg-pink-200/40 blur-2xl"
         />
         <div className="relative">
-          <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30">
-              <BriefcaseIcon className="h-5 w-5 text-white" />
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+            <div className="flex items-start gap-3">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30">
+                <BriefcaseIcon className="h-5 w-5 text-white" />
+              </div>
+              <div className="min-w-0">
+                <h1 className="text-xl font-bold text-gray-900">협찬 관리</h1>
+                <p className="mt-0.5 text-sm leading-relaxed text-gray-600">
+                  협찬 DM을 분석하고, 콘텐츠 초안을 만들어드려요
+                </p>
+              </div>
             </div>
-            <div className="min-w-0">
-              <h1 className="text-xl font-bold text-gray-900">협찬 관리</h1>
-              <p className="mt-0.5 text-sm leading-relaxed text-gray-600">
-                협찬 DM을 분석하고, 콘텐츠 초안을 만들어드려요
-              </p>
-            </div>
+            {allRows.length > 0 && (
+              <DownloadSponsorshipsExcelButton rows={allRows} handle={handle} />
+            )}
           </div>
 
           {/* 미니 통계 */}

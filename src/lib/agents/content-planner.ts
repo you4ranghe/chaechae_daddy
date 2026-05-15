@@ -12,6 +12,17 @@ import { safeJsonParse } from "@/lib/json-safe";
 
 const MODEL = "claude-sonnet-4-6";
 
+export type ContentTone = "friendly" | "professional" | "emotional";
+
+const TONE_INSTRUCTIONS: Record<ContentTone, string> = {
+  friendly:
+    "톤: 친근하고 솔직한 선배맘 느낌. 반말은 안 쓰지만 '~했어요', '~더라고요' 같은 편안한 존댓말. 일상 디테일 1-2개 슬쩍 끼워 넣어 친밀감을 살리세요.",
+  professional:
+    "톤: 차분하고 전문적이면서도 따뜻한 리뷰어 느낌. 구체적 스펙·사용 환경·비교 포인트를 명확히 짚고, 결론은 객관적이면서도 추천 사유가 분명해야 합니다.",
+  emotional:
+    "톤: 감성적이고 잔잔한 에세이 느낌. 한 가지 작은 순간을 클로즈업해 마음을 건드리는 디테일과 짧은 비유를 사용하세요. 광고 표시는 그대로 유지하되 마지막에 따뜻한 한 줄 마무리.",
+};
+
 const CONTENT_SYSTEM = `당신은 인스타그램 육아 인플루언서의 협찬 콘텐츠를 만드는 전문 카피라이터입니다.
 
 [인플루언서 페르소나]
@@ -132,17 +143,21 @@ interface ContentResult {
 export async function generateContent(
   analysis: SponsorshipAnalysis,
   checklist: ChecklistItem[],
-  userContext: { instagramHandle: string; categories: string[]; performanceContext?: string }
+  userContext: { instagramHandle: string; categories: string[]; performanceContext?: string; personaContext?: string; tone?: ContentTone }
 ): Promise<ContentResult> {
   const anthropic = new Anthropic();
   const input = buildContentInput(analysis, checklist);
 
+  const toneInstruction = userContext.tone
+    ? `\n[이번 생성 톤]\n${TONE_INSTRUCTIONS[userContext.tone]}\n`
+    : "";
+
   const userPrompt = `인플루언서: @${userContext.instagramHandle}
 카테고리: ${userContext.categories.join(", ")}
-
+${userContext.personaContext || ""}
 ${input}
-${userContext.performanceContext ? `\n${userContext.performanceContext}\n` : ""}
-위 정보를 기반으로 채원이 엄마 페르소나로 인스타그램 캡션과 해시태그 30개를 생성해주세요.
+${userContext.performanceContext ? `\n${userContext.performanceContext}\n` : ""}${toneInstruction}
+위 정보를 기반으로 인플루언서 페르소나로 인스타그램 캡션과 해시태그 30개를 생성해주세요.
 콘텐츠 타입도 판단하고, 광고 표시 문구도 포함해주세요.`;
 
   const message = await anthropic.messages.create({
@@ -172,16 +187,20 @@ ${userContext.performanceContext ? `\n${userContext.performanceContext}\n` : ""}
 export function generateContentStream(
   analysis: SponsorshipAnalysis,
   checklist: ChecklistItem[],
-  userContext: { instagramHandle: string; categories: string[]; performanceContext?: string }
+  userContext: { instagramHandle: string; categories: string[]; performanceContext?: string; personaContext?: string; tone?: ContentTone }
 ): { stream: ReadableStream<Uint8Array>; model: string } {
   const input = buildContentInput(analysis, checklist);
 
+  const toneInstruction = userContext.tone
+    ? `\n[이번 생성 톤]\n${TONE_INSTRUCTIONS[userContext.tone]}\n`
+    : "";
+
   const userPrompt = `인플루언서: @${userContext.instagramHandle}
 카테고리: ${userContext.categories.join(", ")}
-
+${userContext.personaContext || ""}
 ${input}
-${userContext.performanceContext ? `\n${userContext.performanceContext}\n` : ""}
-위 정보를 기반으로 채원이 엄마 페르소나로 인스타그램 캡션과 해시태그 30개를 생성해주세요.
+${userContext.performanceContext ? `\n${userContext.performanceContext}\n` : ""}${toneInstruction}
+위 정보를 기반으로 인플루언서 페르소나로 인스타그램 캡션과 해시태그 30개를 생성해주세요.
 콘텐츠 타입도 판단하고, 광고 표시 문구도 포함해주세요.`;
 
   const encoder = new TextEncoder();

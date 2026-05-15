@@ -47,10 +47,19 @@ export default async function SponsorshipDetailPage({ params }: PageProps) {
       }
     : null;
 
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("instagram_handle")
+    .eq("id", user.id)
+    .single();
+  const handle =
+    profile?.instagram_handle || user.user_metadata?.instagram_handle || "사용자";
+
   return (
     <SponsorshipDetail
       sponsorship={sponsorship as Sponsorship}
       latestContent={latestContent}
+      handle={handle}
     />
   );
 }

@@ -2,6 +2,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-server";
 import { AnalyticsForm } from "@/components/analytics/analytics-form";
 import { AnalyticsHistory } from "@/components/analytics/analytics-history";
+import { AnalyticsTrend } from "@/components/analytics/analytics-trend";
 
 export default async function AnalyticsPage() {
   const supabase = await createClient();
@@ -38,6 +39,7 @@ export default async function AnalyticsPage() {
       </section>
 
       <AnalyticsForm />
+      <AnalyticsTrend />
       <AnalyticsHistory />
     </div>
   );

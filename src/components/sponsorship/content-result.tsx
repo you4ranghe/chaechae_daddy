@@ -1,15 +1,26 @@
 "use client";
 
 import { useState } from "react";
-import type { ChecklistItem, GeneratedContent } from "@/lib/types/sponsorship";
+import type { ChecklistItem, GeneratedContent, SponsorshipAnalysis } from "@/lib/types/sponsorship";
 import { CopyButton } from "./copy-button";
+import { PlatformLauncher } from "./platform-launcher";
+import { CaptionVariants } from "./caption-variants";
 
 interface ContentResultProps {
   checklist: ChecklistItem[];
   content: GeneratedContent;
+  brandName?: string;
+  sponsorshipId?: string;
+  analysis?: SponsorshipAnalysis | null;
 }
 
-export function ContentResult({ checklist, content }: ContentResultProps) {
+export function ContentResult({
+  checklist,
+  content,
+  brandName,
+  sponsorshipId,
+  analysis,
+}: ContentResultProps) {
   const [items, setItems] = useState(checklist);
 
   function toggleItem(id: string) {
@@ -118,7 +129,16 @@ export function ContentResult({ checklist, content }: ContentResultProps) {
               </p>
             </div>
           </div>
-          <CopyButton text={content.caption} label="복사" />
+          <div className="flex items-center gap-2">
+            {sponsorshipId && analysis && (
+              <CaptionVariants
+                sponsorshipId={sponsorshipId}
+                analysis={analysis}
+                checklist={checklist}
+              />
+            )}
+            <CopyButton text={content.caption} label="복사" />
+          </div>
         </div>
         <div className="p-5">
           <div className="rounded-xl bg-gray-50 p-4 ring-1 ring-inset ring-gray-100">
@@ -161,6 +181,13 @@ export function ContentResult({ checklist, content }: ContentResultProps) {
           </div>
         </div>
       </section>
+
+      {/* 플랫폼 런처 — 포스팅하러 가기 */}
+      <PlatformLauncher
+        caption={content.caption}
+        hashtags={content.hashtags}
+        brandName={brandName}
+      />
 
       {/* 완료 안내 */}
       <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-50 via-teal-50 to-cyan-50 p-5 ring-1 ring-inset ring-emerald-100">

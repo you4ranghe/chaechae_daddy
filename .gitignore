@@ -41,3 +41,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# internal docs (보안상 깃에 올리지 않음 — 출시계획·내부 메모 등)
+/docs
