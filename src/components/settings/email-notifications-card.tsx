@@ -112,7 +112,7 @@ function ToggleRow({
         disabled={disabled}
         onClick={() => onChange(!checked)}
         className={`relative inline-flex h-6 w-11 flex-shrink-0 items-center rounded-full transition-colors ${
-          checked ? "bg-indigo-600" : "bg-gray-200"
+          checked ? "bg-pink-600" : "bg-gray-200"
         } ${disabled ? "opacity-60 cursor-not-allowed" : ""}`}
       >
         <span

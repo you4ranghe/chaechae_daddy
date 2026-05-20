@@ -95,7 +95,7 @@ export function OnboardingForm({
               key={s}
               className={`flex h-8 w-8 items-center justify-center rounded-full text-sm font-semibold ${
                 s <= step
-                  ? "bg-indigo-600 text-white"
+                  ? "bg-pink-600 text-white"
                   : "bg-gray-100 text-gray-400"
               }`}
             >
@@ -105,7 +105,7 @@ export function OnboardingForm({
         </div>
         <div className="relative h-1 bg-gray-100 rounded-full">
           <div
-            className="absolute h-1 bg-indigo-600 rounded-full transition-all duration-300"
+            className="absolute h-1 bg-pink-600 rounded-full transition-all duration-300"
             style={{ width: `${((step - 1) / 2) * 100}%` }}
           />
         </div>
@@ -136,7 +136,7 @@ export function OnboardingForm({
             >
               인스타그램 핸들
             </label>
-            <div className="mt-1.5 flex rounded-lg border border-gray-300 shadow-sm focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20">
+            <div className="mt-1.5 flex rounded-lg border border-gray-300 shadow-sm focus-within:border-pink-500 focus-within:ring-2 focus-within:ring-pink-500/20">
               <span className="flex items-center pl-3.5 text-gray-400 text-sm">
                 @
               </span>
@@ -165,7 +165,7 @@ export function OnboardingForm({
               value={followerCount}
               onChange={(e) => setFollowerCount(e.target.value)}
               placeholder="예: 15000"
-              className="mt-1.5 block w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+              className="mt-1.5 block w-full rounded-lg border border-gray-300 px-3.5 py-2.5 text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none"
             />
           </div>
         </div>
@@ -191,7 +191,7 @@ export function OnboardingForm({
                 onClick={() => toggleCategory(category)}
                 className={`rounded-full px-5 py-2 text-sm font-medium transition-colors ${
                   selectedCategories.includes(category)
-                    ? "bg-indigo-600 text-white"
+                    ? "bg-pink-600 text-white"
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >
@@ -241,8 +241,8 @@ export function OnboardingForm({
             </div>
           </div>
 
-          <div className="rounded-lg bg-indigo-50 p-4">
-            <p className="text-sm text-indigo-700">
+          <div className="rounded-lg bg-pink-50 p-4">
+            <p className="text-sm text-pink-700">
               7일 무료 체험이 시작됩니다. 체험 기간 동안 모든 기능을 이용할 수
               있어요.
             </p>
@@ -266,7 +266,7 @@ export function OnboardingForm({
           <button
             type="button"
             onClick={handleNext}
-            className="flex-1 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 transition-colors"
+            className="flex-1 rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 transition-colors"
           >
             다음
           </button>
@@ -275,7 +275,7 @@ export function OnboardingForm({
             type="button"
             onClick={handleSubmit}
             disabled={loading}
-            className="flex-1 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
+            className="flex-1 rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-pink-500 disabled:cursor-not-allowed disabled:opacity-50 transition-colors"
           >
             {loading ? "저장 중..." : "시작하기"}
           </button>

@@ -126,7 +126,7 @@ export function ChildInfoCard({
               value={name}
               onChange={(e) => setName(e.target.value.slice(0, 30))}
               placeholder="예: 채채"
-              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none transition-colors focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none transition-colors focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
             />
           </Field>
           <Field
@@ -138,7 +138,7 @@ export function ChildInfoCard({
               value={birthDate}
               max={todayISO()}
               onChange={(e) => setBirthDate(e.target.value)}
-              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none transition-colors focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100"
+              className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none transition-colors focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
             />
           </Field>
         </div>
@@ -213,7 +213,7 @@ export function ChildInfoCard({
             value={notes}
             onChange={(e) => setNotes(e.target.value.slice(0, 200))}
             placeholder="예: 우유 알레르기, 이유식 시작"
-            className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none transition-colors focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100"
+            className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm text-gray-900 outline-none transition-colors focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
           />
         </Field>
 
@@ -227,7 +227,7 @@ export function ChildInfoCard({
             onChange={(e) => setBio(e.target.value.slice(0, 2000))}
             rows={4}
             placeholder="예: 친근한 반말 톤을 좋아하고 짧은 문장을 선호해요. 협업 카테고리는 유아용품·이유식 중심이에요."
-            className="w-full resize-y rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm leading-relaxed text-gray-900 outline-none transition-colors focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100"
+            className="w-full resize-y rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm leading-relaxed text-gray-900 outline-none transition-colors focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
           />
           <p className="mt-1 text-right text-[11px] text-gray-400">{bio.length}/2000</p>
         </Field>
@@ -247,7 +247,7 @@ export function ChildInfoCard({
             type="button"
             onClick={handleSave}
             disabled={saving}
-            className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 px-4 py-2 text-sm font-bold text-white shadow-md shadow-indigo-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+            className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-br from-pink-600 to-rose-600 px-4 py-2 text-sm font-bold text-white shadow-md shadow-pink-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-pink-500/30 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
           >
             {saving ? "저장 중…" : "저장"}
           </button>
@@ -299,7 +299,7 @@ function NumberField({
         placeholder={placeholder}
         step={step}
         min={0}
-        className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 pr-10 text-sm tabular-nums text-gray-900 outline-none transition-colors focus:border-indigo-300 focus:ring-2 focus:ring-indigo-100"
+        className="w-full rounded-lg border border-gray-200 bg-white px-3 py-2 pr-10 text-sm tabular-nums text-gray-900 outline-none transition-colors focus:border-pink-300 focus:ring-2 focus:ring-pink-100"
       />
       <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs font-medium text-gray-400">
         {suffix}
@@ -323,7 +323,7 @@ function GenderPill({
     color === "rose"
       ? "border-rose-300 bg-rose-50 text-rose-700"
       : color === "indigo"
-        ? "border-indigo-300 bg-indigo-50 text-indigo-700"
+        ? "border-pink-300 bg-pink-50 text-pink-700"
         : "border-gray-300 bg-gray-50 text-gray-700";
   return (
     <button

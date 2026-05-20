@@ -18,9 +18,9 @@ const TONE_META: Record<ToneKey, { label: string; emoji: string; color: string; 
   professional: {
     label: "전문",
     emoji: "📋",
-    color: "text-indigo-700",
-    bg: "bg-gradient-to-br from-indigo-50 to-blue-50",
-    ring: "ring-indigo-200",
+    color: "text-pink-700",
+    bg: "bg-gradient-to-br from-pink-50 to-blue-50",
+    ring: "ring-pink-200",
     desc: "차분한 리뷰어 톤",
   },
   emotional: {
@@ -87,7 +87,7 @@ export function CaptionVariants({ sponsorshipId, analysis, checklist }: CaptionV
           setOpen(true);
           if (!variants) handleGenerate();
         }}
-        className="group inline-flex items-center gap-1.5 rounded-lg border border-indigo-200 bg-white px-3 py-1.5 text-xs font-bold text-indigo-700 transition-all hover:-translate-y-0.5 hover:border-indigo-300 hover:bg-indigo-50 hover:shadow-sm"
+        className="group inline-flex items-center gap-1.5 rounded-lg border border-pink-200 bg-white px-3 py-1.5 text-xs font-bold text-pink-700 transition-all hover:-translate-y-0.5 hover:border-pink-300 hover:bg-pink-50 hover:shadow-sm"
       >
         <SparkleIcon className="h-3.5 w-3.5" />
         다른 톤도 비교

@@ -26,7 +26,7 @@ export function BrandList({ brands }: BrandListProps) {
             <div className="flex items-center gap-2 min-w-0">
               <p className="truncate text-sm font-medium text-gray-900">{b.brand}</p>
               {isRepeat && (
-                <span className="flex-shrink-0 rounded-full bg-indigo-100 px-2 py-0.5 text-[10px] font-medium text-indigo-700">
+                <span className="flex-shrink-0 rounded-full bg-pink-100 px-2 py-0.5 text-[10px] font-medium text-pink-700">
                   {b.count}회 협찬
                 </span>
               )}

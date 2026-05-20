@@ -25,7 +25,7 @@ const NEXT_ACTIONS: Record<Status, { status: Status; label: string; tone: "prima
 };
 
 const TONE_CLASSES: Record<string, string> = {
-  primary: "bg-indigo-600 text-white hover:bg-indigo-500",
+  primary: "bg-pink-600 text-white hover:bg-pink-500",
   success: "bg-emerald-600 text-white hover:bg-emerald-500",
   danger: "border border-red-200 text-red-600 hover:bg-red-50",
   neutral: "border border-gray-200 text-gray-600 hover:bg-gray-50",
@@ -148,7 +148,7 @@ function CompleteModal({
             value={paymentAmount}
             onChange={(e) => setPaymentAmount(e.target.value)}
             placeholder="100000"
-            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+            className="mt-1 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none"
             autoFocus
           />
           <p className="mt-1 text-[10px] text-gray-400">무상 협찬이면 0으로 두세요.</p>

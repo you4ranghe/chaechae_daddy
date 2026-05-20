@@ -63,14 +63,14 @@ function ProgressCard({ sponsorship: sp }: { sponsorship: Sponsorship }) {
   return (
     <Link
       href={`/dashboard/sponsorships/${sp.id}`}
-      className="group block overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md"
+      className="group block overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-md"
     >
       {/* 상단 컬러 인디케이터 */}
       <div
         className={`h-1 w-full ${
           isPending
             ? "bg-gradient-to-r from-amber-300 to-orange-300"
-            : "bg-gradient-to-r from-indigo-400 to-purple-400"
+            : "bg-gradient-to-r from-pink-400 to-rose-400"
         }`}
       />
 
@@ -90,7 +90,7 @@ function ProgressCard({ sponsorship: sp }: { sponsorship: Sponsorship }) {
               {sp.product?.trim() || "제품 정보 없음"}
             </p>
           </div>
-          <span className="flex-shrink-0 rounded-full bg-gray-50 p-2 text-gray-400 transition-colors group-hover:bg-indigo-50 group-hover:text-indigo-600">
+          <span className="flex-shrink-0 rounded-full bg-gray-50 p-2 text-gray-400 transition-colors group-hover:bg-pink-50 group-hover:text-pink-600">
             <ArrowRightIcon />
           </span>
         </div>
@@ -114,7 +114,7 @@ function ProgressCard({ sponsorship: sp }: { sponsorship: Sponsorship }) {
               className={`h-full rounded-full transition-all duration-500 ${
                 progress === 100
                   ? "bg-gradient-to-r from-emerald-400 to-teal-400"
-                  : "bg-gradient-to-r from-indigo-400 to-purple-400"
+                  : "bg-gradient-to-r from-pink-400 to-rose-400"
               }`}
               style={{ width: `${progress}%` }}
             />
@@ -124,8 +124,8 @@ function ProgressCard({ sponsorship: sp }: { sponsorship: Sponsorship }) {
         {/* 금액 */}
         {sp.payment_amount > 0 && (
           <div className="mt-3 flex items-center gap-1.5 text-sm">
-            <WonIcon className="h-3.5 w-3.5 text-indigo-500" />
-            <span className="font-semibold text-indigo-700 tabular-nums">
+            <WonIcon className="h-3.5 w-3.5 text-pink-500" />
+            <span className="font-semibold text-pink-700 tabular-nums">
               ₩{sp.payment_amount.toLocaleString()}
             </span>
           </div>
@@ -141,7 +141,7 @@ function ProgressCard({ sponsorship: sp }: { sponsorship: Sponsorship }) {
 
 function EmptyState() {
   return (
-    <div className="rounded-3xl border border-dashed border-gray-300 bg-gradient-to-br from-gray-50 via-white to-indigo-50/30 p-10 text-center">
+    <div className="rounded-3xl border border-dashed border-gray-300 bg-gradient-to-br from-gray-50 via-white to-pink-50/30 p-10 text-center">
       <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-white shadow-sm ring-1 ring-gray-100">
         <BriefcaseIcon className="h-6 w-6 text-gray-300" />
       </div>
@@ -170,8 +170,8 @@ function StatusBadge({ status }: { status: Sponsorship["status"] }) {
   }
   if (status === "accepted") {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-indigo-100 px-2 py-0.5 text-[10px] font-bold text-indigo-700 ring-1 ring-inset ring-indigo-200">
-        <span className="h-1 w-1 rounded-full bg-indigo-500" />
+      <span className="inline-flex items-center gap-1 rounded-full bg-pink-100 px-2 py-0.5 text-[10px] font-bold text-pink-700 ring-1 ring-inset ring-pink-200">
+        <span className="h-1 w-1 rounded-full bg-pink-500" />
         진행 중
       </span>
     );

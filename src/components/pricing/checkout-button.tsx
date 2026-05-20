@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useModal } from "@/components/ui/alert-modal";
 
 interface CheckoutButtonProps {
   plan: string;
@@ -14,6 +15,7 @@ export function CheckoutButton({
   isLoggedIn,
 }: CheckoutButtonProps) {
   const [loading, setLoading] = useState(false);
+  const { showAlert } = useModal();
 
   async function handleCheckout() {
     if (!isLoggedIn) {
@@ -34,10 +36,10 @@ export function CheckoutButton({
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert(data.error || "결제 페이지를 열 수 없습니다.");
+        showAlert({ emoji: "💳", title: "결제 오류", message: data.error || "결제 페이지를 열 수 없습니다.\n잠시 후 다시 시도해주세요.", variant: "error" });
       }
     } catch {
-      alert("네트워크 오류가 발생했습니다.");
+      showAlert({ emoji: "🌐", title: "네트워크 오류", message: "네트워크 연결을 확인하고\n다시 시도해주세요.", variant: "error" });
     } finally {
       setLoading(false);
     }
@@ -50,7 +52,7 @@ export function CheckoutButton({
       disabled={loading}
       className={`group mt-7 flex w-full items-center justify-center gap-1.5 rounded-xl py-3 text-sm font-bold transition-all disabled:cursor-not-allowed disabled:opacity-60 ${
         highlighted
-          ? "bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-lg shadow-indigo-500/25 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30 disabled:hover:translate-y-0"
+          ? "bg-gradient-to-r from-pink-600 to-rose-600 text-white shadow-lg shadow-pink-500/25 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30 disabled:hover:translate-y-0"
           : "bg-gray-900 text-white hover:-translate-y-0.5 hover:bg-gray-800 hover:shadow-md disabled:hover:translate-y-0"
       }`}
     >

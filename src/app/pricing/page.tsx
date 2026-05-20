@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { createClient } from "@/lib/db/supabase-server";
+import { MomsUpIcon } from "@/components/ui/momsup-icon";
 import { CheckoutButton } from "@/components/pricing/checkout-button";
 
 type PlanTone = "gray" | "indigo" | "dark";
@@ -123,10 +124,8 @@ export default async function PricingPage() {
             href={currentPlan ? "/dashboard" : "/landing"}
             className="flex items-center gap-2"
           >
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 shadow-sm shadow-indigo-500/30">
-              <SparkleIcon className="h-3.5 w-3.5 text-white" />
-            </span>
-            <span className="text-base font-bold tracking-tight text-gray-900">CW Agent</span>
+            <MomsUpIcon className="h-8 w-8" />
+            <span className="text-base font-bold tracking-tight text-gray-900">MomsUp</span>
           </Link>
           <div className="flex items-center gap-3">
             {currentPlan ? (
@@ -158,18 +157,18 @@ export default async function PricingPage() {
 
       {/* 히어로 */}
       <section className="relative overflow-hidden">
-        <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-indigo-200/30 blur-3xl" />
+        <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-pink-200/30 blur-3xl" />
         <span aria-hidden className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-pink-200/30 blur-3xl" />
         <div className="mx-auto max-w-5xl px-6 pt-14 pb-8 md:pt-20">
           <div className="text-center">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-indigo-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-indigo-700 shadow-sm backdrop-blur">
+            <div className="inline-flex items-center gap-1.5 rounded-full border border-pink-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-pink-700 shadow-sm backdrop-blur">
               <SparkleIcon className="h-3 w-3" />
               7일 무료 체험 · 카드 등록 불필요
             </div>
             <h1 className="mt-5 text-3xl font-extrabold tracking-tight text-gray-900 md:text-[40px] md:leading-tight">
               부담 없이 시작하고,
               <br className="hidden sm:block" />
-              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-pink-600 via-rose-600 to-pink-600 bg-clip-text text-transparent">
                 {" "}편하게 키워가세요
               </span>
             </h1>
@@ -217,7 +216,7 @@ export default async function PricingPage() {
       <section className="mt-14 pb-20">
         <div className="mx-auto max-w-3xl px-6">
           <div className="text-center">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-indigo-600">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-pink-600">
               자주 묻는 질문
             </p>
             <h2 className="mt-1 text-xl font-bold text-gray-900">
@@ -231,7 +230,7 @@ export default async function PricingPage() {
                 className="rounded-2xl border border-gray-200 bg-white p-5"
               >
                 <p className="flex items-start gap-2 text-sm font-bold text-gray-900">
-                  <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-indigo-100 text-[10px] font-bold text-indigo-700">
+                  <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-pink-100 text-[10px] font-bold text-pink-700">
                     Q
                   </span>
                   {faq.q}
@@ -243,7 +242,7 @@ export default async function PricingPage() {
             ))}
           </ul>
 
-          <div className="mt-8 rounded-2xl bg-gradient-to-br from-indigo-50 via-white to-pink-50 p-6 text-center ring-1 ring-inset ring-white/60">
+          <div className="mt-8 rounded-2xl bg-gradient-to-br from-pink-50 via-white to-pink-50 p-6 text-center ring-1 ring-inset ring-white/60">
             <p className="text-sm font-semibold text-gray-900">
               여전히 망설여진다면?
             </p>
@@ -251,7 +250,7 @@ export default async function PricingPage() {
               궁금한 점은{" "}
               <a
                 href="mailto:contact@example.com"
-                className="font-semibold text-indigo-600 hover:underline"
+                className="font-semibold text-pink-600 hover:underline"
               >
                 contact@example.com
               </a>
@@ -278,7 +277,7 @@ function PlanCard({
   const isCurrent = currentPlan === plan.id;
 
   const containerClass = plan.highlighted
-    ? "relative md:-mt-3 overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-purple-700 p-7 text-white shadow-2xl shadow-indigo-500/30 md:p-8"
+    ? "relative md:-mt-3 overflow-hidden rounded-3xl bg-gradient-to-br from-pink-600 via-pink-600 to-rose-700 p-7 text-white shadow-2xl shadow-pink-500/30 md:p-8"
     : plan.tone === "dark"
       ? "relative overflow-hidden rounded-3xl bg-gray-900 p-7 text-white shadow-md"
       : "relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-7";
@@ -295,7 +294,7 @@ function PlanCard({
       {/* 뱃지 */}
       {plan.highlighted && plan.badge && !isCurrent && (
         <div className="absolute right-5 top-5">
-          <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-indigo-700 shadow-sm">
+          <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-pink-700 shadow-sm">
             <SparkleIcon className="h-2.5 w-2.5" />
             {plan.badge}
           </span>
@@ -323,7 +322,7 @@ function PlanCard({
         <p
           className={`mt-1 text-xs ${
             plan.highlighted
-              ? "text-indigo-100"
+              ? "text-pink-100"
               : plan.tone === "dark"
                 ? "text-gray-400"
                 : "text-gray-500"
@@ -345,7 +344,7 @@ function PlanCard({
           <span
             className={`text-sm font-medium ${
               plan.highlighted
-                ? "text-indigo-100"
+                ? "text-pink-100"
                 : plan.tone === "dark"
                   ? "text-gray-400"
                   : "text-gray-500"
@@ -361,7 +360,7 @@ function PlanCard({
               key={f}
               className={`flex items-start gap-2 text-[13px] ${
                 plan.highlighted
-                  ? "text-indigo-50"
+                  ? "text-pink-50"
                   : plan.tone === "dark"
                     ? "text-gray-300"
                     : "text-gray-600"
@@ -373,7 +372,7 @@ function PlanCard({
                     ? "bg-white/20"
                     : plan.tone === "dark"
                       ? "bg-white/10"
-                      : "bg-indigo-100"
+                      : "bg-pink-100"
                 }`}
               >
                 <CheckIcon
@@ -382,7 +381,7 @@ function PlanCard({
                       ? "text-white"
                       : plan.tone === "dark"
                         ? "text-white"
-                        : "text-indigo-600"
+                        : "text-pink-600"
                   }`}
                 />
               </span>

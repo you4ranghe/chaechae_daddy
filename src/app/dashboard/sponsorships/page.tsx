@@ -81,10 +81,10 @@ export default async function SponsorshipsPage() {
   return (
     <div className="space-y-6">
       {/* 헤더 카드 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-50 via-white to-pink-50 px-6 py-6 sm:px-7">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-50 via-white to-pink-50 px-6 py-6 sm:px-7">
         <span
           aria-hidden
-          className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-indigo-200/40 blur-2xl"
+          className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-pink-200/40 blur-2xl"
         />
         <span
           aria-hidden
@@ -93,7 +93,7 @@ export default async function SponsorshipsPage() {
         <div className="relative">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
             <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30">
+              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 shadow-md shadow-pink-500/30">
                 <BriefcaseIcon className="h-5 w-5 text-white" />
               </div>
               <div className="min-w-0">
@@ -145,7 +145,7 @@ const MINI_TONE: Record<
   "indigo" | "amber" | "rose",
   { icon: string; value: string }
 > = {
-  indigo: { icon: "bg-indigo-100 text-indigo-600", value: "text-indigo-700" },
+  indigo: { icon: "bg-pink-100 text-pink-600", value: "text-pink-700" },
   amber: { icon: "bg-amber-100 text-amber-600", value: "text-amber-700" },
   rose: { icon: "bg-rose-100 text-rose-600", value: "text-rose-700" },
 };

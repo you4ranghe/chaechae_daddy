@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useModal } from "@/components/ui/alert-modal";
 import type { InsightsData } from "@/lib/db/insights";
 
 interface DownloadPdfButtonProps {
@@ -10,6 +11,7 @@ interface DownloadPdfButtonProps {
 
 export function DownloadInsightsPdfButton({ data, handle }: DownloadPdfButtonProps) {
   const [loading, setLoading] = useState(false);
+  const { showAlert } = useModal();
 
   async function handleDownload() {
     if (loading) return;
@@ -29,14 +31,14 @@ export function DownloadInsightsPdfButton({ data, handle }: DownloadPdfButtonPro
       const a = document.createElement("a");
       const stamp = `${generatedAt.getFullYear()}${String(generatedAt.getMonth() + 1).padStart(2, "0")}${String(generatedAt.getDate()).padStart(2, "0")}`;
       a.href = url;
-      a.download = `CW-Agent_인사이트리포트_${handle}_${stamp}.pdf`;
+      a.download = `MomsUp_인사이트리포트_${handle}_${stamp}.pdf`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
     } catch (e) {
       console.error("PDF generation failed", e);
-      alert("PDF 생성에 실패했어요. 잠시 후 다시 시도해주세요.");
+      showAlert({ emoji: "📄", title: "PDF 생성 실패", message: "PDF 생성에 실패했어요.\n잠시 후 다시 시도해주세요.", variant: "error" });
     } finally {
       setLoading(false);
     }
@@ -47,7 +49,7 @@ export function DownloadInsightsPdfButton({ data, handle }: DownloadPdfButtonPro
       type="button"
       onClick={handleDownload}
       disabled={loading}
-      className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+      className="group inline-flex items-center gap-2 rounded-xl bg-gradient-to-br from-pink-600 to-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-pink-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-pink-500/30 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
     >
       {loading ? (
         <>

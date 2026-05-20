@@ -44,13 +44,13 @@ export function CreateTeamForm() {
         onChange={(e) => setName(e.target.value)}
         placeholder="팀 이름 (예: 채채 부띠끄)"
         maxLength={100}
-        className="mt-4 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+        className="mt-4 w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none"
       />
       {error && <p className="mt-2 text-xs text-red-500">{error}</p>}
       <button
         type="submit"
         disabled={loading || !name.trim()}
-        className="mt-4 w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50"
+        className="mt-4 w-full rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-pink-500 disabled:opacity-50"
       >
         {loading ? "생성 중…" : "팀 만들기"}
       </button>

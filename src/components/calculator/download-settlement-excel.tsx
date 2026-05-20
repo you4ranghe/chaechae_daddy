@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useModal } from "@/components/ui/alert-modal";
 import type { VatMode, SettlementBreakdown } from "@/lib/settlement/calc";
 import type { CompletedSponsorship } from "./calculator-client";
 
@@ -38,6 +39,7 @@ export function DownloadSettlementExcelButton({
   handle,
 }: DownloadSettlementExcelButtonProps) {
   const [loading, setLoading] = useState(false);
+  const { showAlert } = useModal();
 
   async function handleDownload() {
     if (loading) return;
@@ -45,7 +47,7 @@ export function DownloadSettlementExcelButton({
     try {
       const ExcelJS = (await import("exceljs")).default;
       const wb = new ExcelJS.Workbook();
-      wb.creator = "CW Agent";
+      wb.creator = "MomsUp";
       wb.created = new Date();
       const now = new Date();
       const stamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}`;
@@ -72,7 +74,7 @@ export function DownloadSettlementExcelButton({
       // 타이틀
       ws.mergeCells("A1:J1");
       const title = ws.getCell("A1");
-      title.value = `CW Agent 정산 리포트 — ${PERIOD_LABEL[period]}`;
+      title.value = `MomsUp 정산 리포트 — ${PERIOD_LABEL[period]}`;
       title.font = { name: "Pretendard", size: 18, bold: true, color: { argb: "FF0F172A" } };
       title.alignment = { vertical: "middle" };
       ws.getRow(1).height = 36;
@@ -265,14 +267,14 @@ export function DownloadSettlementExcelButton({
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `CW-Agent_정산_${PERIOD_LABEL[period]}_${handle}_${stamp}.xlsx`;
+      a.download = `MomsUp_정산_${PERIOD_LABEL[period]}_${handle}_${stamp}.xlsx`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
     } catch (e) {
       console.error(e);
-      alert("Excel 생성에 실패했어요.");
+      showAlert({ emoji: "📊", title: "Excel 생성 실패", message: "Excel 생성에 실패했어요.\n잠시 후 다시 시도해주세요.", variant: "error" });
     } finally {
       setLoading(false);
     }

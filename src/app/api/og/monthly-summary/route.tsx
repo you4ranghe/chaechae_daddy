@@ -126,7 +126,7 @@ export async function GET(request: NextRequest) {
                 display: "flex",
               }}
             >
-              CW AGENT
+              MOMSUP
             </div>
           </div>
           <div
@@ -253,7 +253,7 @@ export async function GET(request: NextRequest) {
             display: "flex",
           }}
         >
-          Made with CW Agent
+          Made with MomsUp
         </div>
       </div>
     ),

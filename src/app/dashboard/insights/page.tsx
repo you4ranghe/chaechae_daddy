@@ -35,18 +35,18 @@ export default async function InsightsPage() {
   return (
     <div className="space-y-5">
       {/* 헤더 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-50 via-white to-purple-50 px-6 py-6 sm:px-7">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-50 via-white to-rose-50 px-6 py-6 sm:px-7">
         <span
           aria-hidden
-          className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-indigo-200/40 blur-3xl"
+          className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-pink-200/40 blur-3xl"
         />
         <span
           aria-hidden
-          className="pointer-events-none absolute -bottom-10 right-20 h-20 w-20 rounded-full bg-purple-200/40 blur-2xl"
+          className="pointer-events-none absolute -bottom-10 right-20 h-20 w-20 rounded-full bg-rose-200/40 blur-2xl"
         />
         <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30">
+            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 shadow-md shadow-pink-500/30">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 text-white">
                 <path d="M12 .75a8.25 8.25 0 0 0-4.135 15.39c.686.398 1.115 1.008 1.134 1.623a.75.75 0 0 0 .577.706c.352.083.71.148 1.074.195.323.041.6-.218.6-.544v-4.661a6.714 6.714 0 0 1-.937-.171.75.75 0 1 1 .374-1.453 5.261 5.261 0 0 0 2.626 0 .75.75 0 1 1 .374 1.452 6.712 6.712 0 0 1-.937.172v4.66c0 .327.277.586.6.545.364-.047.722-.112 1.074-.195a.75.75 0 0 0 .577-.706c.02-.615.448-1.225 1.134-1.623A8.25 8.25 0 0 0 12 .75Z" />
                 <path fillRule="evenodd" d="M9.013 19.9a.75.75 0 0 1 .877-.597 11.319 11.319 0 0 0 4.22 0 .75.75 0 1 1 .28 1.473 12.819 12.819 0 0 1-4.78 0 .75.75 0 0 1-.597-.876Z" clipRule="evenodd" />
@@ -154,10 +154,10 @@ const SUMMARY_TONE: Record<
   { bg: string; iconBg: string; iconText: string; valueText: string }
 > = {
   indigo: {
-    bg: "from-indigo-50 to-purple-50",
-    iconBg: "bg-indigo-100",
-    iconText: "text-indigo-600",
-    valueText: "text-indigo-700",
+    bg: "from-pink-50 to-rose-50",
+    iconBg: "bg-pink-100",
+    iconText: "text-pink-600",
+    valueText: "text-pink-700",
   },
   emerald: {
     bg: "from-emerald-50 to-teal-50",
@@ -221,7 +221,7 @@ const SECTION_TONE: Record<
   "indigo" | "emerald" | "rose" | "amber",
   { iconBg: string; iconText: string }
 > = {
-  indigo: { iconBg: "bg-indigo-100", iconText: "text-indigo-600" },
+  indigo: { iconBg: "bg-pink-100", iconText: "text-pink-600" },
   emerald: { iconBg: "bg-emerald-100", iconText: "text-emerald-600" },
   rose: { iconBg: "bg-rose-100", iconText: "text-rose-600" },
   amber: { iconBg: "bg-amber-100", iconText: "text-amber-600" },

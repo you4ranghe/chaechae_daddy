@@ -15,7 +15,7 @@ export function AnalyticsReportView({
       </div>
       <div className="rounded-xl border border-gray-200 bg-white p-6 text-center">
         <p className="text-sm text-gray-500">경쟁력 점수</p>
-        <p className="mt-2 text-5xl font-bold text-indigo-600">{report.competitiveness.overallScore}</p>
+        <p className="mt-2 text-5xl font-bold text-pink-600">{report.competitiveness.overallScore}</p>
         <p className="mt-1 text-sm font-medium text-gray-700">{report.competitiveness.tier}</p>
         <div className="mt-4 grid grid-cols-2 gap-3 text-left">
           <div className="rounded-lg bg-gray-50 p-3"><p className="text-xs text-gray-400">참여율</p><p className="text-sm font-semibold">{report.competitiveness.engagementRate}</p><p className="text-xs text-gray-500">{report.competitiveness.engagementVerdict}</p></div>
@@ -40,14 +40,14 @@ export function AnalyticsReportView({
         <h4 className="text-sm font-medium text-gray-500">최고 성과 게시물 분석</h4>
         <p className="mt-2 font-semibold text-gray-900">{report.topPostAnalysis.postTitle}</p>
         <p className="mt-1 text-sm text-gray-600">{report.topPostAnalysis.whyItWorked}</p>
-        <p className="mt-2 text-sm text-indigo-600">{report.topPostAnalysis.replicateStrategy}</p>
+        <p className="mt-2 text-sm text-pink-600">{report.topPostAnalysis.replicateStrategy}</p>
       </div>
 
       <div className="rounded-xl border border-gray-200 bg-white p-5">
         <h4 className="text-sm font-medium text-gray-500">다음 주 추천 전략</h4>
         <p className="mt-2 text-sm font-semibold text-gray-900">{report.nextWeekStrategy.contentMix}</p>
         <div className="mt-3 flex flex-wrap gap-2">
-          {report.nextWeekStrategy.focusTopics.map((t, i) => <span key={i} className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600">{t}</span>)}
+          {report.nextWeekStrategy.focusTopics.map((t, i) => <span key={i} className="rounded-full bg-pink-50 px-3 py-1 text-xs font-medium text-pink-600">{t}</span>)}
         </div>
         <p className="mt-3 text-sm text-gray-600">{report.nextWeekStrategy.captionTips}</p>
         <p className="mt-1 text-sm text-gray-600">{report.nextWeekStrategy.hashtagAdvice}</p>

@@ -44,9 +44,9 @@ export function SponsorshipReport({
 
   return (
     <Document
-      title={`CW Agent — ${sp.brand_name} 협찬 리포트`}
-      author="CW Agent"
-      creator="CW Agent"
+      title={`MomsUp — ${sp.brand_name} 협찬 리포트`}
+      author="MomsUp"
+      creator="MomsUp"
     >
       {/* ─── 표지 ─────────────────────────────────── */}
       <Page size="A4" style={{ fontFamily: f.body, backgroundColor: c.ink[900] }}>

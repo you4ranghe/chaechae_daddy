@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { MomsUpIcon } from "@/components/ui/momsup-icon";
 
 const PAIN_POINTS = [
   {
@@ -88,8 +89,8 @@ const TONE_PAIN: Record<
 > = {
   amber: { iconBg: "bg-amber-100", iconText: "text-amber-600" },
   rose: { iconBg: "bg-rose-100", iconText: "text-rose-600" },
-  indigo: { iconBg: "bg-indigo-100", iconText: "text-indigo-600" },
-  purple: { iconBg: "bg-purple-100", iconText: "text-purple-600" },
+  indigo: { iconBg: "bg-pink-100", iconText: "text-pink-600" },
+  purple: { iconBg: "bg-rose-100", iconText: "text-rose-600" },
 };
 
 export default function LandingPage() {
@@ -99,11 +100,9 @@ export default function LandingPage() {
       <nav className="fixed top-0 z-50 w-full border-b border-gray-100 bg-white/85 backdrop-blur-md">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
           <Link href="/landing" className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 shadow-sm shadow-indigo-500/30">
-              <SparkleIcon className="h-3.5 w-3.5 text-white" />
-            </span>
+            <MomsUpIcon className="h-8 w-8" />
             <span className="text-base font-bold tracking-tight text-gray-900">
-              CW Agent
+              MomsUp
             </span>
           </Link>
           <div className="flex items-center gap-3">
@@ -125,20 +124,20 @@ export default function LandingPage() {
 
       {/* 히어로 */}
       <section className="relative overflow-hidden pt-32 pb-20 md:pt-44 md:pb-28">
-        <span aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-pink-50" />
-        <span aria-hidden className="pointer-events-none absolute -left-20 top-32 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl" />
+        <span aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-pink-50" />
+        <span aria-hidden className="pointer-events-none absolute -left-20 top-32 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
         <span aria-hidden className="pointer-events-none absolute right-0 top-44 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
         <span aria-hidden className="pointer-events-none absolute bottom-10 left-1/3 h-56 w-56 rounded-full bg-amber-200/40 blur-3xl" />
 
         <div className="relative mx-auto max-w-5xl px-6 text-center">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-indigo-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-indigo-700 shadow-sm backdrop-blur">
+          <div className="inline-flex items-center gap-1.5 rounded-full border border-pink-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-pink-700 shadow-sm backdrop-blur">
             <SparkleIcon className="h-3 w-3" />
             7일 무료 체험 · 카드 등록 불필요
           </div>
           <h1 className="mt-6 text-[34px] font-extrabold leading-tight tracking-tight text-gray-900 md:text-5xl lg:text-[58px]">
             협찬 받고,
             <br />
-            <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-pink-600 via-rose-600 to-pink-600 bg-clip-text text-transparent">
               AI가 콘텐츠까지
             </span>{" "}
             만들어드려요
@@ -151,7 +150,7 @@ export default function LandingPage() {
           <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link
               href="/signup"
-              className="group inline-flex items-center gap-1.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-indigo-500/30 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-indigo-500/40"
+              className="group inline-flex items-center gap-1.5 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-pink-500/30 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-pink-500/40"
             >
               <SparkleIcon className="h-4 w-4 transition-transform group-hover:rotate-12" />
               7일 무료로 시작
@@ -226,12 +225,12 @@ export default function LandingPage() {
       <section id="how" className="py-20 md:py-28">
         <div className="mx-auto max-w-5xl px-6">
           <div className="text-center">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-indigo-600">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-pink-600">
               How it works
             </p>
             <h2 className="mt-2 text-2xl font-extrabold text-gray-900 md:text-[32px]">
               AI가{" "}
-              <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
                 3분
               </span>
               만에 해결해요
@@ -244,10 +243,10 @@ export default function LandingPage() {
                 key={i}
                 className="group relative rounded-3xl border border-gray-200 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-lg"
               >
-                <span className="absolute -top-3 left-6 inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 text-[11px] font-bold text-white shadow-md shadow-indigo-500/30">
+                <span className="absolute -top-3 left-6 inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-[11px] font-bold text-white shadow-md shadow-pink-500/30">
                   {s.n}
                 </span>
-                <div className="mt-2 flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600 transition-transform group-hover:scale-110">
+                <div className="mt-2 flex h-10 w-10 items-center justify-center rounded-xl bg-pink-50 text-pink-600 transition-transform group-hover:scale-110">
                   {s.icon}
                 </div>
                 <h3 className="mt-3 text-sm font-bold text-gray-900">{s.title}</h3>
@@ -261,11 +260,11 @@ export default function LandingPage() {
       </section>
 
       {/* 사회적 증거 */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-indigo-600 via-indigo-600 to-purple-700 py-20 md:py-28">
+      <section className="relative overflow-hidden bg-gradient-to-br from-pink-600 via-pink-600 to-rose-700 py-20 md:py-28">
         <span aria-hidden className="pointer-events-none absolute -right-20 -top-10 h-72 w-72 rounded-full bg-pink-400/20 blur-3xl" />
         <span aria-hidden className="pointer-events-none absolute -left-10 bottom-0 h-64 w-64 rounded-full bg-amber-300/20 blur-3xl" />
         <div className="relative mx-auto max-w-5xl px-6 text-center">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-indigo-200">
+          <p className="text-[11px] font-bold uppercase tracking-wider text-pink-200">
             실제 사용 사례
           </p>
           <h2 className="mt-2 text-2xl font-extrabold text-white md:text-3xl">
@@ -286,7 +285,7 @@ export default function LandingPage() {
       <section className="py-20 md:py-28">
         <div className="mx-auto max-w-5xl px-6">
           <div className="text-center">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-indigo-600">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-pink-600">
               가격
             </p>
             <h2 className="mt-2 text-2xl font-extrabold text-gray-900 md:text-[32px]">
@@ -318,7 +317,7 @@ export default function LandingPage() {
           </p>
           <Link
             href="/signup"
-            className="group mt-8 inline-flex items-center gap-1.5 rounded-2xl bg-gradient-to-r from-indigo-600 to-purple-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-indigo-500/30 transition-all hover:-translate-y-0.5 hover:shadow-2xl"
+            className="group mt-8 inline-flex items-center gap-1.5 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-pink-500/30 transition-all hover:-translate-y-0.5 hover:shadow-2xl"
           >
             <SparkleIcon className="h-4 w-4 transition-transform group-hover:rotate-12" />
             지금 무료로 시작하기
@@ -333,19 +332,19 @@ export default function LandingPage() {
       <footer className="border-t border-gray-200 bg-white py-10">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <div className="inline-flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-indigo-500 to-purple-500 shadow-sm">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-rose-500 shadow-sm">
               <SparkleIcon className="h-3 w-3 text-white" />
             </span>
-            <span className="text-sm font-bold text-gray-900">CW Agent</span>
+            <span className="text-sm font-bold text-gray-900">MomsUp</span>
           </div>
           <p className="mt-3 text-xs text-gray-500">
             문의:{" "}
-            <a href="mailto:contact@example.com" className="font-medium text-indigo-600 hover:underline">
+            <a href="mailto:contact@example.com" className="font-medium text-pink-600 hover:underline">
               contact@example.com
             </a>
           </p>
           <p className="mt-4 text-[10.5px] text-gray-400">
-            © 2026 CW Agent. All rights reserved.
+            © 2026 MomsUp. All rights reserved.
           </p>
         </div>
       </footer>
@@ -383,14 +382,14 @@ function BeforeAfter({
       className={`rounded-2xl p-5 backdrop-blur ring-1 ring-inset ${ring}`}
     >
       {suffix && (
-        <p className="text-[10.5px] font-bold uppercase tracking-wider text-indigo-200">
+        <p className="text-[10.5px] font-bold uppercase tracking-wider text-pink-200">
           {suffix}
         </p>
       )}
       <p className={`mt-1 text-4xl font-extrabold tabular-nums ${valueClass}`}>
         {value}
       </p>
-      <p className="mt-1 text-xs text-indigo-200">{label}</p>
+      <p className="mt-1 text-xs text-pink-200">{label}</p>
     </div>
   );
 }
@@ -413,7 +412,7 @@ function PlanCard({
   };
 }) {
   const containerClass = plan.highlighted
-    ? "relative md:-mt-3 overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-purple-700 p-7 text-white shadow-2xl shadow-indigo-500/30"
+    ? "relative md:-mt-3 overflow-hidden rounded-3xl bg-gradient-to-br from-pink-600 via-pink-600 to-rose-700 p-7 text-white shadow-2xl shadow-pink-500/30"
     : plan.tone === "dark"
       ? "relative overflow-hidden rounded-3xl bg-gray-900 p-7 text-white shadow-md"
       : "relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-7";
@@ -428,7 +427,7 @@ function PlanCard({
       )}
       {plan.badge && (
         <div className="absolute right-5 top-5">
-          <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-indigo-700 shadow-sm">
+          <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-pink-700 shadow-sm">
             <SparkleIcon className="h-2.5 w-2.5" />
             {plan.badge}
           </span>
@@ -446,7 +445,7 @@ function PlanCard({
         <p
           className={`mt-1 text-xs ${
             plan.highlighted
-              ? "text-indigo-100"
+              ? "text-pink-100"
               : plan.tone === "dark"
                 ? "text-gray-400"
                 : "text-gray-500"
@@ -466,7 +465,7 @@ function PlanCard({
           <span
             className={`text-sm font-medium ${
               plan.highlighted
-                ? "text-indigo-100"
+                ? "text-pink-100"
                 : plan.tone === "dark"
                   ? "text-gray-400"
                   : "text-gray-500"
@@ -480,7 +479,7 @@ function PlanCard({
           href="/signup"
           className={`group mt-7 flex w-full items-center justify-center gap-1.5 rounded-xl py-3 text-sm font-bold transition-all ${
             plan.highlighted
-              ? "bg-white text-indigo-700 shadow-md hover:-translate-y-0.5 hover:shadow-lg"
+              ? "bg-white text-pink-700 shadow-md hover:-translate-y-0.5 hover:shadow-lg"
               : plan.tone === "dark"
                 ? "bg-white text-gray-900 hover:-translate-y-0.5 hover:shadow-md"
                 : "bg-gray-900 text-white hover:-translate-y-0.5 hover:bg-gray-800 hover:shadow-md"

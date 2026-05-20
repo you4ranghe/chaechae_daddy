@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useModal } from "@/components/ui/alert-modal";
 import type { GeneratedContent, Sponsorship } from "@/lib/types/sponsorship";
 
 interface DownloadSponsorshipPdfButtonProps {
@@ -15,6 +16,7 @@ export function DownloadSponsorshipPdfButton({
   handle,
 }: DownloadSponsorshipPdfButtonProps) {
   const [loading, setLoading] = useState(false);
+  const { showAlert } = useModal();
 
   async function handleDownload() {
     if (loading) return;
@@ -39,14 +41,14 @@ export function DownloadSponsorshipPdfButton({
       const a = document.createElement("a");
       const stamp = `${generatedAt.getFullYear()}${String(generatedAt.getMonth() + 1).padStart(2, "0")}${String(generatedAt.getDate()).padStart(2, "0")}`;
       a.href = url;
-      a.download = `CW-Agent_협찬_${sponsorship.brand_name}_${stamp}.pdf`;
+      a.download = `MomsUp_협찬_${sponsorship.brand_name}_${stamp}.pdf`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
     } catch (e) {
       console.error(e);
-      alert("PDF 생성에 실패했어요.");
+      showAlert({ emoji: "📄", title: "PDF 생성 실패", message: "PDF 생성에 실패했어요.\n잠시 후 다시 시도해주세요.", variant: "error" });
     } finally {
       setLoading(false);
     }
@@ -57,7 +59,7 @@ export function DownloadSponsorshipPdfButton({
       type="button"
       onClick={handleDownload}
       disabled={loading}
-      className="group inline-flex items-center gap-1.5 rounded-lg border border-indigo-200 bg-white px-3 py-1.5 text-xs font-bold text-indigo-700 transition-all hover:-translate-y-0.5 hover:border-indigo-300 hover:bg-indigo-50 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+      className="group inline-flex items-center gap-1.5 rounded-lg border border-pink-200 bg-white px-3 py-1.5 text-xs font-bold text-pink-700 transition-all hover:-translate-y-0.5 hover:border-pink-300 hover:bg-pink-50 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
     >
       {loading ? (
         <>

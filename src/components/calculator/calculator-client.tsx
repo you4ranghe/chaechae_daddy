@@ -340,7 +340,7 @@ function AutoModeInputs({
                   onClick={() => setAgencyFee(String(v))}
                   className={`flex-1 rounded-md px-2 py-1 text-[11px] font-bold transition-colors ${
                     Number(agencyFee) === v
-                      ? "bg-indigo-100 text-indigo-700"
+                      ? "bg-pink-100 text-pink-700"
                       : "bg-gray-50 text-gray-500 hover:bg-gray-100"
                   }`}
                 >
@@ -359,7 +359,7 @@ function AutoModeInputs({
       <div className="rounded-3xl border border-gray-100 bg-white shadow-sm">
         <div className="border-b border-gray-100 px-5 py-3">
           <div className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-indigo-100 text-indigo-600">
+            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-pink-100 text-pink-600">
               <ListIcon className="h-4 w-4" />
             </span>
             <h2 className="text-sm font-bold text-gray-900">
@@ -488,7 +488,7 @@ function ManualModeInputs({
                 onClick={() => setAgencyFee(String(v))}
                 className={`flex-1 rounded-md px-2 py-1 text-[11px] font-bold transition-colors ${
                   Number(agencyFee) === v
-                    ? "bg-indigo-100 text-indigo-700"
+                    ? "bg-pink-100 text-pink-700"
                     : "bg-gray-50 text-gray-500 hover:bg-gray-100"
                 }`}
               >
@@ -597,7 +597,7 @@ function AnnualTaxCard({ tax }: { tax: ReturnType<typeof calcAnnualTax> }) {
     <div className="rounded-2xl border border-gray-200 bg-white p-5">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-gray-900">연 종합소득세 추산</h3>
-        <span className="rounded-full bg-indigo-50 px-2 py-0.5 text-[10.5px] font-bold text-indigo-700 ring-1 ring-inset ring-indigo-100">
+        <span className="rounded-full bg-pink-50 px-2 py-0.5 text-[10.5px] font-bold text-pink-700 ring-1 ring-inset ring-pink-100">
           참고치
         </span>
       </div>
@@ -758,14 +758,14 @@ function StatBlock({ label, value, tone }: { label: string; value: string; tone?
     <div
       className={`rounded-xl p-3 ${
         tone === "brand"
-          ? "bg-indigo-50 ring-1 ring-inset ring-indigo-100"
+          ? "bg-pink-50 ring-1 ring-inset ring-pink-100"
           : "bg-gray-50"
       }`}
     >
       <p className="text-[10.5px] font-medium text-gray-500">{label}</p>
       <p
         className={`mt-0.5 text-sm font-bold tabular-nums ${
-          tone === "brand" ? "text-indigo-700" : "text-gray-900"
+          tone === "brand" ? "text-pink-700" : "text-gray-900"
         }`}
       >
         {value}

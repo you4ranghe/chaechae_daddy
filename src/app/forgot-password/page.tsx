@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/db/supabase-client";
+import { MomsUpIcon } from "@/components/ui/momsup-icon";
 
 type Step = "email" | "code" | "password" | "done";
 
@@ -151,8 +152,8 @@ export default function ForgotPasswordPage() {
           : "새 비밀번호로 다시 로그인해 주세요";
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-pink-50">
-      <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-indigo-200/40 blur-3xl" />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-pink-50 via-white to-pink-50">
+      <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-pink-200/40 blur-3xl" />
       <span aria-hidden className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
       <span aria-hidden className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-amber-200/40 blur-3xl" />
 
@@ -160,11 +161,9 @@ export default function ForgotPasswordPage() {
         <div className="w-full max-w-sm">
           <div className="text-center">
             <Link href="/" className="inline-flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30">
-                <SparkleIcon className="h-4 w-4 text-white" />
-              </span>
+              <MomsUpIcon className="h-10 w-10" />
               <span className="text-lg font-bold tracking-tight text-gray-900">
-                CW Agent
+                MomsUp
               </span>
             </Link>
             <p className="mt-3 text-sm text-gray-500">
@@ -172,7 +171,7 @@ export default function ForgotPasswordPage() {
             </p>
           </div>
 
-          <div className="mt-6 rounded-3xl border border-gray-100 bg-white/80 p-6 shadow-xl shadow-indigo-500/5 backdrop-blur-xl sm:p-7">
+          <div className="mt-6 rounded-3xl border border-gray-100 bg-white/80 p-6 shadow-xl shadow-pink-500/5 backdrop-blur-xl sm:p-7">
             <h1 className="text-xl font-bold text-gray-900">{heading}</h1>
             <p className="mt-1 text-xs text-gray-500">{subheading}</p>
 
@@ -183,7 +182,7 @@ export default function ForgotPasswordPage() {
               </div>
             )}
             {info && !error && (
-              <div className="mt-4 flex items-start gap-2 rounded-xl bg-indigo-50 px-3 py-2.5 text-[12.5px] text-indigo-700 ring-1 ring-inset ring-indigo-100">
+              <div className="mt-4 flex items-start gap-2 rounded-xl bg-pink-50 px-3 py-2.5 text-[12.5px] text-pink-700 ring-1 ring-inset ring-pink-100">
                 <InfoIcon className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
                 <span>{info}</span>
               </div>
@@ -234,7 +233,7 @@ export default function ForgotPasswordPage() {
                     type="button"
                     onClick={handleResend}
                     disabled={loading}
-                    className="font-semibold text-indigo-600 hover:text-indigo-500 disabled:opacity-50"
+                    className="font-semibold text-pink-600 hover:text-pink-500 disabled:opacity-50"
                   >
                     인증번호 재발송
                   </button>
@@ -280,7 +279,7 @@ export default function ForgotPasswordPage() {
                     router.push("/login");
                     router.refresh();
                   }}
-                  className="group flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30"
+                  className="group flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30"
                 >
                   로그인하러 가기
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="h-4 w-4 transition-transform group-hover:translate-x-0.5">
@@ -295,7 +294,7 @@ export default function ForgotPasswordPage() {
             비밀번호가 기억나셨나요?{" "}
             <Link
               href="/login"
-              className="font-bold text-indigo-600 transition-colors hover:text-indigo-500"
+              className="font-bold text-pink-600 transition-colors hover:text-pink-500"
             >
               로그인 →
             </Link>
@@ -321,7 +320,7 @@ function PrimaryButton({
     <button
       type="submit"
       disabled={loading || disabled}
-      className="group flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+      className="group flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
     >
       {loading ? (
         <>
@@ -367,7 +366,7 @@ function Field({
       <label htmlFor={id} className="block text-xs font-semibold text-gray-700">
         {label}
       </label>
-      <div className="mt-1.5 flex items-center rounded-xl border border-gray-200 bg-gray-50/40 shadow-sm transition-all focus-within:border-indigo-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-500/20">
+      <div className="mt-1.5 flex items-center rounded-xl border border-gray-200 bg-gray-50/40 shadow-sm transition-all focus-within:border-pink-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-pink-500/20">
         <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-400">
           {icon}
         </span>
@@ -407,7 +406,7 @@ function CodeField({
         </label>
         <span
           className={`text-[11px] font-bold tabular-nums ${
-            expired ? "text-rose-600" : secondsLeft <= 30 ? "text-amber-600" : "text-indigo-600"
+            expired ? "text-rose-600" : secondsLeft <= 30 ? "text-amber-600" : "text-pink-600"
           }`}
           aria-live="polite"
         >
@@ -418,7 +417,7 @@ function CodeField({
         className={`mt-1.5 flex items-center rounded-xl border bg-gray-50/40 shadow-sm transition-all focus-within:ring-2 ${
           expired
             ? "border-rose-200 focus-within:border-rose-400 focus-within:ring-rose-500/20"
-            : "border-gray-200 focus-within:border-indigo-400 focus-within:bg-white focus-within:ring-indigo-500/20"
+            : "border-gray-200 focus-within:border-pink-400 focus-within:bg-white focus-within:ring-pink-500/20"
         }`}
       >
         <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-400">
@@ -445,13 +444,6 @@ function CodeField({
   );
 }
 
-function SparkleIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5Z" clipRule="evenodd" />
-    </svg>
-  );
-}
 function MailIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">

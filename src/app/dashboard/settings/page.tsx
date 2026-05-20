@@ -54,14 +54,14 @@ export default async function SettingsPage({ searchParams }: SettingsPageProps) 
   return (
     <div className="space-y-5">
       {/* 헤더 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-50 via-white to-indigo-50 px-6 py-6 sm:px-7">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-gray-50 via-white to-pink-50 px-6 py-6 sm:px-7">
         <span
           aria-hidden
           className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-gray-200/40 blur-3xl"
         />
         <span
           aria-hidden
-          className="pointer-events-none absolute -bottom-10 right-20 h-20 w-20 rounded-full bg-indigo-200/40 blur-2xl"
+          className="pointer-events-none absolute -bottom-10 right-20 h-20 w-20 rounded-full bg-pink-200/40 blur-2xl"
         />
         <div className="relative flex items-start gap-3">
           <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-gray-700 to-gray-900 shadow-md shadow-gray-900/20">

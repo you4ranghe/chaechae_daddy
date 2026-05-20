@@ -56,14 +56,14 @@ export function SponsorshipTabs({
               onClick={() => setActiveTab(tab.id)}
               className={`group relative flex flex-1 items-center justify-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200 ${
                 isActive
-                  ? "bg-gradient-to-br from-indigo-50 to-purple-50 text-indigo-700 shadow-sm ring-1 ring-indigo-100"
+                  ? "bg-gradient-to-br from-pink-50 to-rose-50 text-pink-700 shadow-sm ring-1 ring-pink-100"
                   : "text-gray-500 hover:bg-gray-50 hover:text-gray-800"
               }`}
             >
               <span
                 className={`flex h-4 w-4 items-center justify-center transition-transform ${
                   isActive
-                    ? "text-indigo-600 scale-110"
+                    ? "text-pink-600 scale-110"
                     : "text-gray-400 group-hover:text-gray-600"
                 }`}
               >
@@ -74,7 +74,7 @@ export function SponsorshipTabs({
                 <span
                   className={`ml-0.5 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-1.5 text-[10.5px] font-bold tabular-nums transition-colors ${
                     isActive
-                      ? "bg-indigo-600 text-white shadow-sm"
+                      ? "bg-pink-600 text-white shadow-sm"
                       : "bg-gray-200 text-gray-600 group-hover:bg-gray-300"
                   }`}
                 >

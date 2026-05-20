@@ -93,10 +93,10 @@ const STAT_TONE: Record<
     valueText: "text-emerald-700",
   },
   indigo: {
-    bg: "from-indigo-50 to-purple-50",
-    iconBg: "bg-indigo-100",
-    iconText: "text-indigo-600",
-    valueText: "text-indigo-700",
+    bg: "from-pink-50 to-rose-50",
+    iconBg: "bg-pink-100",
+    iconText: "text-pink-600",
+    valueText: "text-pink-700",
   },
   rose: {
     bg: "from-rose-50 to-pink-50",
@@ -181,7 +181,7 @@ function CompletedCard({ sponsorship: sp }: { sponsorship: Sponsorship }) {
                 {dateStr}
               </span>
               {sp.payment_amount > 0 && (
-                <span className="inline-flex items-center gap-1 font-semibold text-indigo-600">
+                <span className="inline-flex items-center gap-1 font-semibold text-pink-600">
                   <WonIcon className="h-3 w-3" />
                   ₩{sp.payment_amount.toLocaleString()}
                 </span>

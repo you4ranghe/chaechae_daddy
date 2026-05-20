@@ -28,17 +28,17 @@ const PLAN_INFO: Record<
     name: "스타터",
     limit: 100,
     price: "₩39,000/월",
-    gradient: "from-indigo-500 to-purple-500",
+    gradient: "from-pink-500 to-rose-500",
     badge: "STARTER",
-    accent: "text-indigo-700",
+    accent: "text-pink-700",
   },
   growth: {
     name: "그로스",
     limit: 500,
     price: "₩99,000/월",
-    gradient: "from-purple-500 to-pink-500",
+    gradient: "from-rose-500 to-pink-500",
     badge: "GROWTH",
-    accent: "text-purple-700",
+    accent: "text-rose-700",
   },
   business: {
     name: "비즈니스",
@@ -166,10 +166,10 @@ export default async function UsagePage() {
   return (
     <div className="space-y-5">
       {/* 헤더 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-50 via-white to-amber-50 px-6 py-6 sm:px-7">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-50 via-white to-amber-50 px-6 py-6 sm:px-7">
         <span
           aria-hidden
-          className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-indigo-200/40 blur-3xl"
+          className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-pink-200/40 blur-3xl"
         />
         <span
           aria-hidden
@@ -229,7 +229,7 @@ export default async function UsagePage() {
                   className={`rounded-full px-2.5 py-0.5 text-[10.5px] font-bold ring-1 ring-inset ${
                     trialDaysLeft <= 2
                       ? "bg-rose-100 text-rose-700 ring-rose-200"
-                      : "bg-indigo-100 text-indigo-700 ring-indigo-200"
+                      : "bg-pink-100 text-pink-700 ring-pink-200"
                   }`}
                 >
                   체험 D-{trialDaysLeft}
@@ -248,7 +248,7 @@ export default async function UsagePage() {
             {plan !== "business" && (
               <Link
                 href="/pricing"
-                className="group mt-5 inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-500/25 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-500/30"
+                className="group mt-5 inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-pink-500/30"
               >
                 <CrownIcon className="h-3.5 w-3.5 transition-transform group-hover:-rotate-12" />
                 플랜 업그레이드
@@ -327,7 +327,7 @@ export default async function UsagePage() {
       {/* 일별 사용량 차트 */}
       <section className="rounded-2xl border border-gray-200 bg-white p-5">
         <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 shadow-sm">
+          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 shadow-sm">
             <ChartBarIcon className="h-3.5 w-3.5 text-white" />
           </span>
           <div className="flex-1">
@@ -409,10 +409,10 @@ const TYPE_TONE: Record<
   { iconBg: string; iconText: string; bar: string; valueText: string }
 > = {
   indigo: {
-    iconBg: "bg-indigo-100",
-    iconText: "text-indigo-600",
-    bar: "from-indigo-500 to-purple-500",
-    valueText: "text-indigo-700",
+    iconBg: "bg-pink-100",
+    iconText: "text-pink-600",
+    bar: "from-pink-500 to-rose-500",
+    valueText: "text-pink-700",
   },
   pink: {
     iconBg: "bg-pink-100",

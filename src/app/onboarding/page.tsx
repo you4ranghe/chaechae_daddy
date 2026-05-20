@@ -1,6 +1,7 @@
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/db/supabase-server";
+import { MomsUpIcon } from "@/components/ui/momsup-icon";
 import { OnboardingForm } from "@/components/onboarding/onboarding-form";
 
 export default async function OnboardingPage() {
@@ -22,8 +23,8 @@ export default async function OnboardingPage() {
   const metadata = user.user_metadata ?? {};
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-indigo-50 via-white to-pink-50">
-      <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-indigo-200/40 blur-3xl" />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-pink-50 via-white to-pink-50">
+      <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-pink-200/40 blur-3xl" />
       <span aria-hidden className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
       <span aria-hidden className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-amber-200/40 blur-3xl" />
 
@@ -32,11 +33,9 @@ export default async function OnboardingPage() {
           {/* 로고 */}
           <div className="text-center">
             <Link href="/" className="inline-flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30">
-                <SparkleIcon className="h-4 w-4 text-white" />
-              </span>
+              <MomsUpIcon className="h-10 w-10" />
               <span className="text-lg font-bold tracking-tight text-gray-900">
-                CW Agent
+                MomsUp
               </span>
             </Link>
           </div>
@@ -59,7 +58,7 @@ export default async function OnboardingPage() {
           <div className="mt-6 flex items-center justify-center gap-1.5">
             <span className="h-1.5 w-8 rounded-full bg-emerald-500" />
             <span className="h-1.5 w-8 rounded-full bg-emerald-500" />
-            <span className="h-1.5 w-8 rounded-full bg-indigo-500 animate-pulse" />
+            <span className="h-1.5 w-8 rounded-full bg-pink-500 animate-pulse" />
             <span className="h-1.5 w-8 rounded-full bg-gray-200" />
           </div>
           <p className="mt-2 text-center text-[11px] font-medium text-gray-500">
@@ -67,7 +66,7 @@ export default async function OnboardingPage() {
           </p>
 
           {/* 카드 */}
-          <div className="mt-6 rounded-3xl border border-gray-100 bg-white/85 p-6 shadow-xl shadow-indigo-500/5 backdrop-blur-xl sm:p-7">
+          <div className="mt-6 rounded-3xl border border-gray-100 bg-white/85 p-6 shadow-xl shadow-pink-500/5 backdrop-blur-xl sm:p-7">
             <OnboardingForm
               defaultHandle={metadata.instagram_handle ?? ""}
               defaultFollowers={metadata.follower_count ?? 0}
@@ -87,13 +86,6 @@ export default async function OnboardingPage() {
 }
 
 // ─── 아이콘 ────────────────────────────────
-function SparkleIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5Z" clipRule="evenodd" />
-    </svg>
-  );
-}
 function CheckIcon({ className = "h-3 w-3" }: { className?: string }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>

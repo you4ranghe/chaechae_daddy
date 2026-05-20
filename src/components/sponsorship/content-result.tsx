@@ -44,9 +44,9 @@ export function ContentResult({
     <div className="space-y-4">
       {/* 체크리스트 */}
       <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
-        <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-indigo-50/40 to-purple-50/40 px-5 py-3">
+        <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-pink-50/40 to-rose-50/40 px-5 py-3">
           <div className="flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-indigo-100 text-indigo-600">
+            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-pink-100 text-pink-600">
               <ChecklistIcon className="h-3.5 w-3.5" />
             </span>
             <div>
@@ -71,7 +71,7 @@ export function ContentResult({
             className={`h-full transition-[width] duration-500 ${
               allDone
                 ? "bg-gradient-to-r from-emerald-400 to-teal-400"
-                : "bg-gradient-to-r from-indigo-400 to-purple-400"
+                : "bg-gradient-to-r from-pink-400 to-rose-400"
             }`}
             style={{ width: `${progress}%` }}
           />
@@ -85,7 +85,7 @@ export function ContentResult({
                   className={`mt-0.5 flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-md border-2 transition-all ${
                     item.checked
                       ? "border-emerald-500 bg-emerald-500"
-                      : "border-gray-300 bg-white group-hover:border-indigo-400"
+                      : "border-gray-300 bg-white group-hover:border-pink-400"
                   }`}
                 >
                   {item.checked && (
@@ -172,7 +172,7 @@ export function ContentResult({
               return (
                 <span
                   key={i}
-                  className="inline-flex items-center rounded-full bg-gradient-to-br from-indigo-50 to-purple-50 px-2.5 py-1 text-[12px] font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-100 transition-colors hover:from-indigo-100 hover:to-purple-100"
+                  className="inline-flex items-center rounded-full bg-gradient-to-br from-pink-50 to-rose-50 px-2.5 py-1 text-[12px] font-semibold text-pink-700 ring-1 ring-inset ring-pink-100 transition-colors hover:from-pink-100 hover:to-rose-100"
                 >
                   {display}
                 </span>

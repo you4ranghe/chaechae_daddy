@@ -82,7 +82,7 @@ export function AnalyticsHistory() {
                   className="flex w-full items-center justify-between gap-3 px-4 py-3 text-left"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 text-sm font-bold text-indigo-600">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-pink-50 text-sm font-bold text-pink-600">
                       {item.report.competitiveness.overallScore}
                     </span>
                     <div>

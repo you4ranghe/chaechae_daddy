@@ -67,8 +67,8 @@ export function DailyChart({ data }: DailyChartProps) {
                     <div
                       className={`w-full max-w-[26px] rounded-md bg-gradient-to-t transition-all duration-300 ${
                         isHovered
-                          ? "from-indigo-600 to-purple-500 shadow-md shadow-indigo-500/30"
-                          : "from-indigo-500 to-purple-400"
+                          ? "from-pink-600 to-rose-500 shadow-md shadow-pink-500/30"
+                          : "from-pink-500 to-rose-400"
                       }`}
                       style={{ height: `${Math.max(8, heightPercent)}%` }}
                     />
@@ -84,7 +84,7 @@ export function DailyChart({ data }: DailyChartProps) {
                 <span
                   className={`whitespace-nowrap text-[9.5px] font-medium tabular-nums ${
                     isToday
-                      ? "text-indigo-600"
+                      ? "text-pink-600"
                       : isHovered
                         ? "text-gray-700"
                         : "text-gray-400"

@@ -71,11 +71,11 @@ function Inner() {
   const stepIndex = useStepRotation();
 
   return (
-    <div className="mt-4 overflow-hidden rounded-2xl border border-indigo-100 bg-gradient-to-br from-indigo-50 via-white to-purple-50 p-6">
+    <div className="mt-4 overflow-hidden rounded-2xl border border-pink-100 bg-gradient-to-br from-pink-50 via-white to-rose-50 p-6">
       <div className="flex items-center gap-3">
         <div className="relative h-10 w-10 flex-shrink-0">
-          <div className="absolute inset-0 rounded-full bg-indigo-500/20 animate-ping" />
-          <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30">
+          <div className="absolute inset-0 rounded-full bg-pink-500/20 animate-ping" />
+          <div className="relative flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-rose-500 shadow-md shadow-pink-500/30">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -103,12 +103,12 @@ function Inner() {
       <div className="mt-5">
         <div className="h-1.5 w-full overflow-hidden rounded-full bg-white/70">
           <div
-            className="h-full rounded-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-[width] duration-300 ease-out"
+            className="h-full rounded-full bg-gradient-to-r from-pink-500 to-rose-500 transition-[width] duration-300 ease-out"
             style={{ width: `${progress}%` }}
           />
         </div>
         <div className="mt-3 flex items-center gap-2 text-xs text-gray-600">
-          <span className="flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-indigo-500 animate-pulse" />
+          <span className="flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-pink-500 animate-pulse" />
           <span key={stepIndex} className="transition-opacity duration-500">
             {STEPS[stepIndex]}
           </span>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useModal } from "@/components/ui/alert-modal";
 import type { AnalyticsReport } from "@/lib/agents/analytics-agent";
 
 interface DownloadAnalyticsPdfButtonProps {
@@ -16,6 +17,7 @@ export function DownloadAnalyticsPdfButton({
 }: DownloadAnalyticsPdfButtonProps) {
   const [loading, setLoading] = useState(false);
   const [handle, setHandle] = useState<string>("사용자");
+  const { showAlert } = useModal();
 
   useEffect(() => {
     fetch("/api/profile")
@@ -49,14 +51,14 @@ export function DownloadAnalyticsPdfButton({
       const a = document.createElement("a");
       const stamp = `${generatedAt.getFullYear()}${String(generatedAt.getMonth() + 1).padStart(2, "0")}${String(generatedAt.getDate()).padStart(2, "0")}`;
       a.href = url;
-      a.download = `CW-Agent_주간성과_${handle}_${stamp}.pdf`;
+      a.download = `MomsUp_주간성과_${handle}_${stamp}.pdf`;
       document.body.appendChild(a);
       a.click();
       a.remove();
       URL.revokeObjectURL(url);
     } catch (e) {
       console.error(e);
-      alert("PDF 생성에 실패했어요.");
+      showAlert({ emoji: "📄", title: "PDF 생성 실패", message: "PDF 생성에 실패했어요.\n잠시 후 다시 시도해주세요.", variant: "error" });
     } finally {
       setLoading(false);
     }

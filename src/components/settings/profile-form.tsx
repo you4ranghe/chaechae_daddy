@@ -117,7 +117,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
             <label htmlFor="handle" className="block text-sm font-medium text-gray-700">
               인스타그램 핸들
             </label>
-            <div className="mt-1 flex rounded-lg border border-gray-300 shadow-sm focus-within:border-indigo-500 focus-within:ring-2 focus-within:ring-indigo-500/20">
+            <div className="mt-1 flex rounded-lg border border-gray-300 shadow-sm focus-within:border-pink-500 focus-within:ring-2 focus-within:ring-pink-500/20">
               <span className="inline-flex items-center px-3 text-sm text-gray-400">@</span>
               <input
                 id="handle"
@@ -142,7 +142,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
               onChange={(e) => setFollowerCount(e.target.value)}
               placeholder="2000"
               min="0"
-              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+              className="mt-1 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm text-gray-900 shadow-sm placeholder:text-gray-400 focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none"
             />
           </div>
 
@@ -161,7 +161,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
                     onClick={() => toggleCategory(cat)}
                     className={`rounded-full px-3 py-1.5 text-sm font-medium transition-colors ${
                       selected
-                        ? "bg-indigo-600 text-white"
+                        ? "bg-pink-600 text-white"
                         : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                     }`}
                   >
@@ -183,7 +183,7 @@ export function ProfileForm({ initialData }: ProfileFormProps) {
       <button
         type="submit"
         disabled={saving}
-        className="w-full rounded-xl bg-indigo-600 px-6 py-3 text-sm font-semibold text-white hover:bg-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        className="w-full rounded-xl bg-pink-600 px-6 py-3 text-sm font-semibold text-white hover:bg-pink-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         {saving ? "저장 중..." : "프로필 저장"}
       </button>

@@ -29,16 +29,16 @@ export function AnalyticsReportPdf({ report, handle, reportDate, generatedAt }: 
 
   return (
     <Document
-      title={`CW Agent — ${handle} 주간 성과 분석`}
-      author="CW Agent"
-      creator="CW Agent"
+      title={`MomsUp — ${handle} 주간 성과 분석`}
+      author="MomsUp"
+      creator="MomsUp"
     >
       {/* ─── 표지 ─── */}
       <Page size="A4" style={{ fontFamily: f.body, backgroundColor: c.ink[900] }}>
         <CoverHero
           eyebrow="WEEKLY PERFORMANCE REPORT"
           title={`${handle}님의\n주간 성과 분석`}
-          subtitle="CW Agent가 인스타그램 인사이트 데이터를 분석해 다음 주 전략까지 정리했어요."
+          subtitle="MomsUp가 인스타그램 인사이트 데이터를 분석해 다음 주 전략까지 정리했어요."
           meta={[
             { label: "리포트 일자", value: formatDateTime(reportDate) },
             { label: "경쟁력 점수", value: `${score} / 100` },
@@ -202,7 +202,7 @@ export function AnalyticsReportPdf({ report, handle, reportDate, generatedAt }: 
             </PanelCard>
           </View>
         </View>
-        <PageFooter note={`리포트 생성: ${formatDateTime(generatedAt)} · CW Agent`} />
+        <PageFooter note={`리포트 생성: ${formatDateTime(generatedAt)} · MomsUp`} />
       </Page>
     </Document>
   );

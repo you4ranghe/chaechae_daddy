@@ -30,7 +30,7 @@ export function ShareCard({
     month,
   });
   const ogUrl = `/api/og/monthly-summary?${params.toString()}`;
-  const fileName = `CW-Agent_${handle}_${month.replace(".", "")}.png`;
+  const fileName = `MomsUp_${handle}_${month.replace(".", "")}.png`;
 
   async function fetchBlob(): Promise<Blob> {
     const res = await fetch(ogUrl);
@@ -78,7 +78,7 @@ export function ShareCard({
         await navigator.share({
           files: [file],
           title: `${handle}님의 ${month} 협찬 성과`,
-          text: `이번 달 ${completed}건 완료 · CW Agent`,
+          text: `이번 달 ${completed}건 완료 · MomsUp`,
         });
       } else {
         // 폴백: 다운로드
@@ -117,28 +117,28 @@ export function ShareCard({
     <section className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
       <div className="grid gap-0 md:grid-cols-[1fr_1.1fr]">
         {/* 미리보기 */}
-        <div className="relative flex items-center justify-center bg-gradient-to-br from-indigo-900 via-purple-900 to-slate-900 p-6 md:p-8">
+        <div className="relative flex items-center justify-center bg-gradient-to-br from-pink-900 via-rose-900 to-slate-900 p-6 md:p-8">
           <span
             aria-hidden
             className="pointer-events-none absolute -left-10 -top-10 h-40 w-40 rounded-full bg-pink-500/30 blur-3xl"
           />
           <span
             aria-hidden
-            className="pointer-events-none absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-indigo-500/30 blur-3xl"
+            className="pointer-events-none absolute -right-10 -bottom-10 h-40 w-40 rounded-full bg-pink-500/30 blur-3xl"
           />
           {/* 이미지 자체 */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={ogUrl}
             alt={`${month} 공유 카드 미리보기`}
-            className="relative aspect-square w-full max-w-[360px] rounded-2xl shadow-2xl shadow-indigo-900/50 ring-1 ring-white/10"
+            className="relative aspect-square w-full max-w-[360px] rounded-2xl shadow-2xl shadow-pink-900/50 ring-1 ring-white/10"
           />
         </div>
 
         {/* 컨트롤 */}
         <div className="flex flex-col justify-between gap-5 p-6 md:p-8">
           <div>
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-indigo-50 to-purple-50 px-2.5 py-1 text-[10.5px] font-bold uppercase tracking-wider text-indigo-700 ring-1 ring-inset ring-indigo-100">
+            <div className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-r from-pink-50 to-rose-50 px-2.5 py-1 text-[10.5px] font-bold uppercase tracking-wider text-pink-700 ring-1 ring-inset ring-pink-100">
               <SparkleIcon className="h-3 w-3" />
               공유 카드
             </div>
@@ -175,7 +175,7 @@ export function ShareCard({
               type="button"
               onClick={handleShare}
               disabled={shareStatus !== "idle"}
-              className="group inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-indigo-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+              className="group inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-br from-pink-600 to-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-pink-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-pink-500/30 disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
             >
               {shareStatus === "loading" ? (
                 <Spinner />
@@ -189,7 +189,7 @@ export function ShareCard({
               type="button"
               onClick={handleDownload}
               disabled={downloadStatus === "loading"}
-              className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-bold text-gray-700 transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:bg-indigo-50 hover:text-indigo-700 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-gray-200 bg-white px-4 py-2.5 text-sm font-bold text-gray-700 transition-all hover:-translate-y-0.5 hover:border-pink-200 hover:bg-pink-50 hover:text-pink-700 hover:shadow-sm disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
             >
               {downloadStatus === "loading" ? (
                 <Spinner />
@@ -236,7 +236,7 @@ function formatWon(n: number): string {
 function Bullet({ children }: { children: React.ReactNode }) {
   return (
     <li className="flex items-start gap-2">
-      <span className="mt-1.5 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500" />
+      <span className="mt-1.5 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-br from-pink-500 to-rose-500" />
       <span>{children}</span>
     </li>
   );

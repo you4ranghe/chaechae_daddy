@@ -117,7 +117,7 @@ export function PageHeader({ title, metaRight }: { title?: string; metaRight?: s
     <View style={styles.pageHeaderRow} fixed>
       <View style={styles.pageBrand}>
         <View style={styles.pageBrandDot} />
-        <Text style={styles.pageBrandName}>CW Agent</Text>
+        <Text style={styles.pageBrandName}>MomsUp</Text>
         <Text style={styles.pageBrandTag}>· Creator Workspace</Text>
       </View>
       <Text style={styles.pageMeta}>{metaRight || title || ""}</Text>
@@ -129,7 +129,7 @@ export function PageHeader({ title, metaRight }: { title?: string; metaRight?: s
 export function PageFooter({ note }: { note?: string }) {
   return (
     <View style={styles.footer} fixed>
-      <Text style={styles.footerText}>{note || "이 리포트는 CW Agent에서 자동 생성되었습니다."}</Text>
+      <Text style={styles.footerText}>{note || "이 리포트는 MomsUp에서 자동 생성되었습니다."}</Text>
       <Text
         style={styles.footerText}
         render={({ pageNumber, totalPages }) => `${pageNumber} / ${totalPages}`}
@@ -230,7 +230,7 @@ export function CoverHero({
               letterSpacing: 1,
             }}
           >
-            CW AGENT
+            MOMSUP
           </Text>
         </View>
 

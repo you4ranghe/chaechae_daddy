@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useModal } from "@/components/ui/alert-modal";
 
 const PLAN_NAMES: Record<string, string> = {
   free_trial: "무료 체험",
@@ -22,6 +23,7 @@ export function SubscriptionCard({
   trialEndsAt,
 }: SubscriptionCardProps) {
   const [loading, setLoading] = useState(false);
+  const { showAlert } = useModal();
   const planName = PLAN_NAMES[plan] || plan;
   const isFreeTrial = plan === "free_trial";
 
@@ -42,10 +44,10 @@ export function SubscriptionCard({
       if (data.url) {
         window.location.href = data.url;
       } else {
-        alert(data.error || "포털을 열 수 없습니다.");
+        showAlert({ emoji: "⚙️", title: "구독 관리 오류", message: data.error || "포털을 열 수 없습니다.\n잠시 후 다시 시도해주세요.", variant: "error" });
       }
     } catch {
-      alert("네트워크 오류가 발생했습니다.");
+      showAlert({ emoji: "🌐", title: "네트워크 오류", message: "네트워크 연결을 확인하고\n다시 시도해주세요.", variant: "error" });
     } finally {
       setLoading(false);
     }
@@ -66,7 +68,7 @@ export function SubscriptionCard({
             className={`rounded-full px-3 py-1 text-xs font-medium ${
               trialDaysLeft <= 2
                 ? "bg-red-50 text-red-700"
-                : "bg-indigo-50 text-indigo-700"
+                : "bg-pink-50 text-pink-700"
             }`}
           >
             {trialDaysLeft > 0
@@ -80,7 +82,7 @@ export function SubscriptionCard({
         {isFreeTrial ? (
           <Link
             href="/pricing"
-            className="rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500 transition-colors"
+            className="rounded-lg bg-pink-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-pink-500 transition-colors"
           >
             플랜 업그레이드
           </Link>

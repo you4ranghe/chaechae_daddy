@@ -18,7 +18,7 @@ function DayCard({ plan }: { plan: DailyPlan }) {
     <div className="rounded-xl border border-gray-200 bg-white p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-indigo-100 text-sm font-bold text-indigo-600">{plan.day}</span>
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-pink-100 text-sm font-bold text-pink-600">{plan.day}</span>
           <div>
             <p className="text-sm font-semibold text-gray-900">{plan.topic}</p>
             <p className="text-xs text-gray-500">{plan.bestTime}</p>
@@ -29,7 +29,7 @@ function DayCard({ plan }: { plan: DailyPlan }) {
         </span>
       </div>
 
-      <p className="mt-2 text-xs text-indigo-600">{plan.angle}</p>
+      <p className="mt-2 text-xs text-pink-600">{plan.angle}</p>
 
       <button type="button" onClick={() => setExpanded(!expanded)} className="mt-3 text-sm text-gray-400 hover:text-gray-600">
         {expanded ? "접기" : "캡션 보기"}
@@ -54,7 +54,7 @@ function DayCard({ plan }: { plan: DailyPlan }) {
             </div>
             <div className="flex flex-wrap gap-1">
               {plan.hashtags.map((tag, i) => (
-                <span key={i} className="rounded-full bg-indigo-50 px-2 py-0.5 text-xs text-indigo-600">
+                <span key={i} className="rounded-full bg-pink-50 px-2 py-0.5 text-xs text-pink-600">
                   {tag.startsWith("#") ? tag : `#${tag}`}
                 </span>
               ))}
@@ -69,7 +69,7 @@ function DayCard({ plan }: { plan: DailyPlan }) {
 export function WeeklyPlanView({ result }: { result: WeeklyPlanResult }) {
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-4">
+      <div className="rounded-xl border border-pink-200 bg-pink-50/50 p-4">
         <div className="flex gap-4 text-sm">
           {Object.entries(
             result.weeklyPlan.reduce<Record<string, number>>((acc, p) => {

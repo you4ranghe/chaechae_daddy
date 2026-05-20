@@ -37,11 +37,11 @@ export function IndustryPrices({ prices }: IndustryPricesProps) {
             {/* min-max range bar */}
             <div className="mt-2 relative h-2 bg-gray-100 rounded-full">
               <div
-                className="absolute h-full rounded-full bg-indigo-200"
+                className="absolute h-full rounded-full bg-pink-200"
                 style={{ left: `${minLeft}%`, width: `${maxLeft - minLeft}%` }}
               />
               <div
-                className="absolute top-1/2 -translate-y-1/2 h-3 w-0.5 bg-indigo-600 rounded-full"
+                className="absolute top-1/2 -translate-y-1/2 h-3 w-0.5 bg-pink-600 rounded-full"
                 style={{ left: `${medianLeft}%` }}
               />
             </div>

@@ -136,12 +136,12 @@ export function TeamPanel({ teamId, teamName, myRole }: TeamPanelProps) {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="email@example.com"
-              className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+              className="flex-1 rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none"
             />
             <select
               value={role}
               onChange={(e) => setRole(e.target.value as "manager" | "influencer")}
-              className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 focus:outline-none"
+              className="rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 focus:outline-none"
             >
               <option value="influencer">인플루언서</option>
               <option value="manager">매니저</option>
@@ -149,7 +149,7 @@ export function TeamPanel({ teamId, teamName, myRole }: TeamPanelProps) {
             <button
               type="submit"
               disabled={inviting || !email.trim()}
-              className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-500 disabled:opacity-50"
+              className="rounded-lg bg-pink-600 px-4 py-2 text-sm font-medium text-white hover:bg-pink-500 disabled:opacity-50"
             >
               {inviting ? "초대 중…" : "초대"}
             </button>

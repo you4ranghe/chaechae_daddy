@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
+import { MomsUpIcon } from "@/components/ui/momsup-icon";
 
 // ──────────────────────────────────────────────
 // 메뉴 정의
@@ -68,14 +70,14 @@ const PLAN_INFO: Record<
   starter: {
     name: "스타터",
     badge: "STARTER",
-    gradient: "from-indigo-500 to-purple-500",
-    accent: "text-indigo-700",
+    gradient: "from-pink-400 to-rose-400",
+    accent: "text-pink-700",
   },
   growth: {
     name: "그로스",
     badge: "GROWTH",
-    gradient: "from-purple-500 to-pink-500",
-    accent: "text-purple-700",
+    gradient: "from-rose-400 to-pink-500",
+    accent: "text-rose-600",
   },
   business: {
     name: "비즈니스",
@@ -119,18 +121,19 @@ export function Sidebar({
         {/* 로고 영역 */}
         <div className="flex h-16 items-center justify-between border-b border-gray-100 px-5">
           <Link href="/dashboard" className="flex items-center gap-2">
-            <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 shadow-sm shadow-indigo-500/30">
-              <SparkleIcon className="h-3.5 w-3.5 text-white" />
-            </span>
+            <MomsUpIcon className="h-8 w-8" />
             <span className="text-[15px] font-bold tracking-tight text-gray-900">
-              CW Agent
+              MomsUp
             </span>
           </Link>
-          <span
-            className={`rounded-md bg-gradient-to-br ${planInfo.gradient} px-1.5 py-0.5 text-[9px] font-bold text-white shadow-sm`}
-          >
-            {planInfo.badge}
-          </span>
+          <div className="flex items-center gap-2">
+            <span
+              className={`rounded-md bg-gradient-to-br ${planInfo.gradient} px-1.5 py-0.5 text-[9px] font-bold text-white shadow-sm`}
+            >
+              {planInfo.badge}
+            </span>
+            <ThemeToggle />
+          </div>
         </div>
 
         {/* 네비게이션 */}
@@ -149,7 +152,7 @@ export function Sidebar({
                         href={item.href}
                         className={`group relative flex items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] font-medium transition-all duration-200 ${
                           active
-                            ? "bg-indigo-50 text-indigo-700"
+                            ? "bg-pink-50 text-pink-700"
                             : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:translate-x-0.5"
                         }`}
                       >
@@ -157,22 +160,22 @@ export function Sidebar({
                         <span
                           className={`absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-full transition-all duration-200 ${
                             active
-                              ? "bg-gradient-to-b from-indigo-500 to-purple-500"
+                              ? "bg-gradient-to-b from-pink-400 to-rose-400"
                               : "bg-transparent group-hover:bg-gray-300"
                           }`}
                         />
                         <span
                           className={`flex h-5 w-5 items-center justify-center transition-transform ${
                             active
-                              ? "text-indigo-600"
-                              : "text-gray-400 group-hover:text-indigo-500"
+                              ? "text-pink-600"
+                              : "text-gray-400 group-hover:text-pink-500"
                           }`}
                         >
                           {item.icon}
                         </span>
                         <span className="flex-1 truncate">{item.label}</span>
                         {active && (
-                          <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                          <span className="h-1.5 w-1.5 rounded-full bg-pink-500" />
                         )}
                       </Link>
                     </li>
@@ -188,7 +191,7 @@ export function Sidebar({
           {plan === "free_trial" && trialDaysLeft !== null && trialDaysLeft <= 7 && (
             <Link
               href="/pricing"
-              className="mb-2.5 block rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 p-3 text-white shadow-md shadow-indigo-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              className="mb-2.5 block rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 p-3 text-white shadow-md shadow-pink-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg"
             >
               <div className="flex items-center gap-2">
                 <CrownIcon className="h-4 w-4" />
@@ -198,7 +201,7 @@ export function Sidebar({
                     : `체험 D-${trialDaysLeft}`}
                 </span>
               </div>
-              <p className="mt-1 text-[11px] leading-snug text-indigo-100">
+              <p className="mt-1 text-[11px] leading-snug text-pink-100">
                 업그레이드하고 매달 100회 이상 사용하세요
               </p>
             </Link>
@@ -221,7 +224,7 @@ export function Sidebar({
             </div>
             <Link
               href="/dashboard/settings"
-              className="flex-shrink-0 rounded-lg p-1.5 text-gray-400 transition-all hover:bg-white hover:text-indigo-600 hover:shadow-sm"
+              className="flex-shrink-0 rounded-lg p-1.5 text-gray-400 transition-all hover:bg-white hover:text-pink-600 hover:shadow-sm"
               aria-label="설정"
             >
               <CogIcon className="h-4 w-4" />
@@ -236,24 +239,25 @@ export function Sidebar({
       {/* ─────────── 모바일 상단 바 ─────────── */}
       <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-gray-200 bg-white/90 px-4 backdrop-blur md:hidden">
         <Link href="/dashboard" className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 shadow-sm shadow-indigo-500/30">
-            <SparkleIcon className="h-3.5 w-3.5 text-white" />
-          </span>
-          <span className="text-sm font-bold tracking-tight text-gray-900">CW Agent</span>
+          <MomsUpIcon className="h-7 w-7" />
+          <span className="text-sm font-bold tracking-tight text-gray-900">MomsUp</span>
           <span
             className={`rounded-md bg-gradient-to-br ${planInfo.gradient} px-1.5 py-0.5 text-[9px] font-bold text-white shadow-sm`}
           >
             {planInfo.badge}
           </span>
         </Link>
-        <button
-          type="button"
-          onClick={() => setMoreOpen(true)}
-          className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
-          aria-label="메뉴 열기"
-        >
-          <MenuIcon className="h-5 w-5" />
-        </button>
+        <div className="flex items-center gap-1">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setMoreOpen(true)}
+            className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
+            aria-label="메뉴 열기"
+          >
+            <MenuIcon className="h-5 w-5" />
+          </button>
+        </div>
       </header>
 
       {/* ─────────── 모바일 바텀 탭 ─────────── */}
@@ -266,13 +270,13 @@ export function Sidebar({
                 key={item.href}
                 href={item.href}
                 className={`flex flex-col items-center justify-center gap-0.5 py-2.5 text-[10px] font-medium transition-colors ${
-                  active ? "text-indigo-600" : "text-gray-400 hover:text-gray-600"
+                  active ? "text-pink-600" : "text-gray-400 hover:text-gray-600"
                 }`}
               >
                 <span className="h-5 w-5">{item.icon}</span>
                 <span>{item.label}</span>
                 {active && (
-                  <span className="absolute top-0 h-0.5 w-8 rounded-b-full bg-gradient-to-r from-indigo-500 to-purple-500" />
+                  <span className="absolute top-0 h-0.5 w-8 rounded-b-full bg-gradient-to-r from-pink-400 to-rose-400" />
                 )}
               </Link>
             );
@@ -322,7 +326,7 @@ export function Sidebar({
                 <Link
                   href="/pricing"
                   onClick={() => setMoreOpen(false)}
-                  className="flex-shrink-0 rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600 px-3 py-2 text-xs font-bold text-white shadow-md shadow-indigo-500/20"
+                  className="flex-shrink-0 rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 px-3 py-2 text-xs font-bold text-white shadow-md shadow-pink-500/20"
                 >
                   업그레이드
                 </Link>
@@ -344,20 +348,20 @@ export function Sidebar({
                           onClick={() => setMoreOpen(false)}
                           className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all ${
                             active
-                              ? "bg-indigo-50 text-indigo-700"
+                              ? "bg-pink-50 text-pink-700"
                               : "text-gray-700 hover:bg-gray-50"
                           }`}
                         >
                           <span
                             className={`flex h-5 w-5 items-center justify-center ${
-                              active ? "text-indigo-600" : "text-gray-400"
+                              active ? "text-pink-600" : "text-gray-400"
                             }`}
                           >
                             {item.icon}
                           </span>
                           <span className="flex-1">{item.label}</span>
                           {active && (
-                            <span className="h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                            <span className="h-1.5 w-1.5 rounded-full bg-pink-500" />
                           )}
                         </Link>
                       </li>
@@ -462,13 +466,6 @@ function DotsIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5">
       <path d="M4.5 12a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm6 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Zm6 0a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0Z" />
-    </svg>
-  );
-}
-function SparkleIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5ZM18 1.5a.75.75 0 0 1 .728.568l.258 1.036c.236.94.97 1.674 1.91 1.91l1.036.258a.75.75 0 0 1 0 1.456l-1.036.258c-.94.236-1.674.97-1.91 1.91l-.258 1.036a.75.75 0 0 1-1.456 0l-.258-1.036a2.625 2.625 0 0 0-1.91-1.91l-1.036-.258a.75.75 0 0 1 0-1.456l1.036-.258a2.625 2.625 0 0 0 1.91-1.91l.258-1.036A.75.75 0 0 1 18 1.5Z" clipRule="evenodd" />
     </svg>
   );
 }

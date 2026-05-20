@@ -13,7 +13,7 @@ import { ContentResult } from "./content-result";
 import { StatusActions } from "./status-actions";
 import { ContentGeneratingLoader } from "./content-generating-loader";
 import { DownloadSponsorshipPdfButton } from "./download-sponsorship-pdf-button";
-import { handleAgentLimitReached } from "@/lib/agent-limit";
+import { useAgentLimit } from "@/lib/agent-limit";
 
 interface SponsorshipDetailProps {
   sponsorship: Sponsorship;
@@ -33,9 +33,9 @@ const STATUS_META: Record<
   },
   accepted: {
     label: "진행 중",
-    color: "bg-indigo-100 text-indigo-700 ring-indigo-200",
-    dot: "bg-indigo-500",
-    gradient: "from-indigo-400 to-purple-400",
+    color: "bg-pink-100 text-pink-700 ring-pink-200",
+    dot: "bg-pink-500",
+    gradient: "from-pink-400 to-rose-400",
   },
   completed: {
     label: "완료",
@@ -63,6 +63,7 @@ export function SponsorshipDetail({
   handle,
 }: SponsorshipDetailProps) {
   const router = useRouter();
+  const { handleAgentLimitReached } = useAgentLimit();
 
   const [content, setContent] = useState<GeneratedContent | null>(latestContent);
   const [accepting, setAccepting] = useState(false);
@@ -94,7 +95,7 @@ export function SponsorshipDetail({
 
       if (!res.ok) {
         const data = await res.json();
-        if (handleAgentLimitReached(res.status, data, router)) return;
+        if (handleAgentLimitReached(res.status, data)) return;
         setError(data.error || "콘텐츠 생성에 실패했습니다.");
         return;
       }
@@ -161,7 +162,7 @@ export function SponsorshipDetail({
       {/* 뒤로가기 */}
       <Link
         href="/dashboard/sponsorships"
-        className="group inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition-colors hover:text-indigo-600"
+        className="group inline-flex items-center gap-1.5 text-sm font-medium text-gray-500 transition-colors hover:text-pink-600"
       >
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="h-4 w-4 transition-transform group-hover:-translate-x-0.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -176,11 +177,11 @@ export function SponsorshipDetail({
         <div className="relative px-6 py-6 sm:px-7">
           <span
             aria-hidden
-            className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-indigo-100/50 blur-3xl"
+            className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-pink-100/50 blur-3xl"
           />
           <div className="relative flex items-start gap-4">
             {/* 브랜드 아바타 */}
-            <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-500 text-base font-bold text-white shadow-md shadow-indigo-500/30">
+            <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 text-base font-bold text-white shadow-md shadow-pink-500/30">
               {(sponsorship.brand_name || "?").slice(0, 2).toUpperCase()}
             </div>
 
@@ -220,7 +221,7 @@ export function SponsorshipDetail({
                   </span>
                 )}
                 {sponsorship.payment_amount > 0 && (
-                  <span className="inline-flex items-center gap-1 font-semibold text-indigo-600">
+                  <span className="inline-flex items-center gap-1 font-semibold text-pink-600">
                     <WonIcon className="h-3 w-3" />₩{sponsorship.payment_amount.toLocaleString()}
                   </span>
                 )}

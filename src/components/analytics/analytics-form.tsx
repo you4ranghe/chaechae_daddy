@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import type { AnalyticsReport } from "@/lib/agents/analytics-agent";
 import { AnalyticsReportView } from "@/components/analytics/report-view";
-import { handleAgentLimitReached } from "@/lib/agent-limit";
+import { useAgentLimit } from "@/lib/agent-limit";
 
 interface PostInput {
   title: string;
@@ -19,6 +19,7 @@ const EMPTY_POST: PostInput = { title: "", contentType: "단일이미지", likes
 
 export function AnalyticsForm() {
   const router = useRouter();
+  const { handleAgentLimitReached } = useAgentLimit();
   const [followers, setFollowers] = useState("");
   const [followerChange, setFollowerChange] = useState("");
   const [profileVisits, setProfileVisits] = useState("");
@@ -74,7 +75,7 @@ export function AnalyticsForm() {
 
       const data = await res.json();
       if (!res.ok) {
-        if (handleAgentLimitReached(res.status, data, router)) return;
+        if (handleAgentLimitReached(res.status, data)) return;
         setError(data.error || "분석에 실패했습니다.");
         return;
       }
@@ -110,19 +111,19 @@ export function AnalyticsForm() {
         <div className="mt-3 grid grid-cols-2 gap-4">
           <div>
             <label className="block text-xs text-gray-500">팔로워 수</label>
-            <input type="number" value={followers} onChange={(e) => setFollowers(e.target.value)} placeholder="2000" className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none" />
+            <input type="number" value={followers} onChange={(e) => setFollowers(e.target.value)} placeholder="2000" className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-pink-500 focus:outline-none" />
           </div>
           <div>
             <label className="block text-xs text-gray-500">증감</label>
-            <input type="number" value={followerChange} onChange={(e) => setFollowerChange(e.target.value)} placeholder="+50" className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none" />
+            <input type="number" value={followerChange} onChange={(e) => setFollowerChange(e.target.value)} placeholder="+50" className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-pink-500 focus:outline-none" />
           </div>
           <div>
             <label className="block text-xs text-gray-500">프로필 방문</label>
-            <input type="number" value={profileVisits} onChange={(e) => setProfileVisits(e.target.value)} placeholder="1500" className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none" />
+            <input type="number" value={profileVisits} onChange={(e) => setProfileVisits(e.target.value)} placeholder="1500" className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-pink-500 focus:outline-none" />
           </div>
           <div>
             <label className="block text-xs text-gray-500">스토리 평균 조회</label>
-            <input type="number" value={storyViews} onChange={(e) => setStoryViews(e.target.value)} placeholder="600" className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none" />
+            <input type="number" value={storyViews} onChange={(e) => setStoryViews(e.target.value)} placeholder="600" className="mt-1 block w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-pink-500 focus:outline-none" />
           </div>
         </div>
       </div>
@@ -132,7 +133,7 @@ export function AnalyticsForm() {
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-medium text-gray-700">게시물 성과 ({posts.length}/7)</h3>
           {posts.length < 7 && (
-            <button type="button" onClick={addPost} className="text-sm text-indigo-600 hover:text-indigo-500">+ 게시물 추가</button>
+            <button type="button" onClick={addPost} className="text-sm text-pink-600 hover:text-pink-500">+ 게시물 추가</button>
           )}
         </div>
         <div className="mt-3 space-y-4">
@@ -145,18 +146,18 @@ export function AnalyticsForm() {
                 )}
               </div>
               <div className="grid gap-3">
-                <input type="text" value={post.title} onChange={(e) => updatePost(index, "title", e.target.value)} placeholder="게시물 제목" className="block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none" />
-                <select value={post.contentType} onChange={(e) => updatePost(index, "contentType", e.target.value)} className="block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-indigo-500 focus:outline-none">
+                <input type="text" value={post.title} onChange={(e) => updatePost(index, "title", e.target.value)} placeholder="게시물 제목" className="block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-pink-500 focus:outline-none" />
+                <select value={post.contentType} onChange={(e) => updatePost(index, "contentType", e.target.value)} className="block w-full rounded-lg border border-gray-200 px-3 py-2 text-sm focus:border-pink-500 focus:outline-none">
                   <option value="릴스">릴스</option>
                   <option value="캐러셀">캐러셀</option>
                   <option value="단일이미지">단일이미지</option>
                   <option value="스토리">스토리</option>
                 </select>
                 <div className="grid grid-cols-4 gap-2">
-                  <input type="number" value={post.likes} onChange={(e) => updatePost(index, "likes", e.target.value)} placeholder="좋아요" className="block w-full rounded-lg border border-gray-200 px-2 py-2 text-sm focus:border-indigo-500 focus:outline-none" />
-                  <input type="number" value={post.comments} onChange={(e) => updatePost(index, "comments", e.target.value)} placeholder="댓글" className="block w-full rounded-lg border border-gray-200 px-2 py-2 text-sm focus:border-indigo-500 focus:outline-none" />
-                  <input type="number" value={post.saves} onChange={(e) => updatePost(index, "saves", e.target.value)} placeholder="저장" className="block w-full rounded-lg border border-gray-200 px-2 py-2 text-sm focus:border-indigo-500 focus:outline-none" />
-                  <input type="number" value={post.reach} onChange={(e) => updatePost(index, "reach", e.target.value)} placeholder="도달" className="block w-full rounded-lg border border-gray-200 px-2 py-2 text-sm focus:border-indigo-500 focus:outline-none" />
+                  <input type="number" value={post.likes} onChange={(e) => updatePost(index, "likes", e.target.value)} placeholder="좋아요" className="block w-full rounded-lg border border-gray-200 px-2 py-2 text-sm focus:border-pink-500 focus:outline-none" />
+                  <input type="number" value={post.comments} onChange={(e) => updatePost(index, "comments", e.target.value)} placeholder="댓글" className="block w-full rounded-lg border border-gray-200 px-2 py-2 text-sm focus:border-pink-500 focus:outline-none" />
+                  <input type="number" value={post.saves} onChange={(e) => updatePost(index, "saves", e.target.value)} placeholder="저장" className="block w-full rounded-lg border border-gray-200 px-2 py-2 text-sm focus:border-pink-500 focus:outline-none" />
+                  <input type="number" value={post.reach} onChange={(e) => updatePost(index, "reach", e.target.value)} placeholder="도달" className="block w-full rounded-lg border border-gray-200 px-2 py-2 text-sm focus:border-pink-500 focus:outline-none" />
                 </div>
               </div>
             </div>
@@ -164,7 +165,7 @@ export function AnalyticsForm() {
         </div>
       </div>
 
-      <button type="submit" disabled={analyzing} className="w-full rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-indigo-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+      <button type="submit" disabled={analyzing} className="w-full rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-pink-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
         {analyzing ? (
           <span className="flex items-center justify-center gap-2">
             <svg className="h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" /></svg>

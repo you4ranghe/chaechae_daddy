@@ -34,8 +34,8 @@ export function InvitationsList({ invitations }: InvitationsListProps) {
   }
 
   return (
-    <div className="rounded-xl border border-indigo-200 bg-indigo-50 p-5">
-      <h2 className="text-sm font-semibold text-indigo-900">팀 초대가 도착했어요</h2>
+    <div className="rounded-xl border border-pink-200 bg-pink-50 p-5">
+      <h2 className="text-sm font-semibold text-pink-900">팀 초대가 도착했어요</h2>
       <div className="mt-3 space-y-2">
         {invitations.map((inv) => (
           <div key={inv.id} className="flex items-center justify-between rounded-lg bg-white p-3">
@@ -50,7 +50,7 @@ export function InvitationsList({ invitations }: InvitationsListProps) {
                 type="button"
                 onClick={() => respond(inv.id, "accept")}
                 disabled={loading === inv.id}
-                className="rounded-lg bg-indigo-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-indigo-500 disabled:opacity-50"
+                className="rounded-lg bg-pink-600 px-3 py-1.5 text-xs font-medium text-white hover:bg-pink-500 disabled:opacity-50"
               >
                 수락
               </button>

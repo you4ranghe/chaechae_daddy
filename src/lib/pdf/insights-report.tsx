@@ -40,16 +40,16 @@ export function InsightsReport({ data, handle, generatedAt }: InsightsReportProp
 
   return (
     <Document
-      title={`CW Agent — ${handle} 인사이트 리포트`}
-      author="CW Agent"
-      creator="CW Agent"
+      title={`MomsUp — ${handle} 인사이트 리포트`}
+      author="MomsUp"
+      creator="MomsUp"
     >
       {/* ─── 표지 ─────────────────────────────────── */}
       <Page size="A4" style={{ fontFamily: f.body, backgroundColor: c.ink[900] }}>
         <CoverHero
           eyebrow="INFLUENCER INSIGHTS REPORT"
           title={`${handle}님의\n6개월 협찬 인사이트`}
-          subtitle="CW Agent가 협찬 데이터를 분석해 수익 추이, 핵심 브랜드, 업종 단가를 한 권으로 정리해드려요."
+          subtitle="MomsUp가 협찬 데이터를 분석해 수익 추이, 핵심 브랜드, 업종 단가를 한 권으로 정리해드려요."
           meta={[
             { label: "리포트 기간", value: periodLabel },
             { label: "총 수익", value: formatWon(data.totals.revenue) },
@@ -267,7 +267,7 @@ export function InsightsReport({ data, handle, generatedAt }: InsightsReportProp
               협상 팁
             </Text>
             <Text style={{ fontFamily: f.body, fontSize: 9, color: c.ink[700], lineHeight: 1.5 }}>
-              새 협찬 단가를 결정할 때는 위 중앙값을 기준선으로 두고, 본인 채널의 평균 인게이지먼트와 카테고리 적합도에 따라 ±20~30% 범위에서 협상하세요. CW Agent의 응답 초안에 “업종 평균 단가”를 인용하면 설득력이 올라가요.
+              새 협찬 단가를 결정할 때는 위 중앙값을 기준선으로 두고, 본인 채널의 평균 인게이지먼트와 카테고리 적합도에 따라 ±20~30% 범위에서 협상하세요. MomsUp의 응답 초안에 “업종 평균 단가”를 인용하면 설득력이 올라가요.
             </Text>
           </View>
         </View>

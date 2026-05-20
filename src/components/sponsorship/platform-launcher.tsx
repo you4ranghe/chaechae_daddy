@@ -141,9 +141,9 @@ export function PlatformLauncher({
 
   return (
     <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
-      <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-indigo-50/50 via-purple-50/40 to-pink-50/40 px-5 py-3">
+      <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-pink-50/50 via-rose-50/40 to-pink-50/40 px-5 py-3">
         <div className="flex items-center gap-2">
-          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-indigo-500 to-purple-500 text-white shadow-sm">
+          <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-sm">
             <RocketIcon className="h-3.5 w-3.5" />
           </span>
           <div>

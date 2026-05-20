@@ -16,9 +16,9 @@ export function HashtagAnalysisView({ result }: { result: HashtagAnalysisResult 
         <p className="text-sm text-gray-700 leading-relaxed">{result.strategy}</p>
       </div>
 
-      <div className="rounded-xl border border-indigo-200 bg-indigo-50/50 p-5">
+      <div className="rounded-xl border border-pink-200 bg-pink-50/50 p-5">
         <div className="flex items-center justify-between">
-          <h4 className="text-sm font-semibold text-indigo-900">추천 해시태그 ({result.recommendations.length}개)</h4>
+          <h4 className="text-sm font-semibold text-pink-900">추천 해시태그 ({result.recommendations.length}개)</h4>
           <CopyButton text={allTags} label="전체 복사" />
         </div>
         <div className="mt-3 flex flex-wrap gap-1.5">
@@ -57,7 +57,7 @@ export function HashtagAnalysisView({ result }: { result: HashtagAnalysisResult 
         <ul className="mt-2 space-y-1.5">
           {result.tips.map((tip, i) => (
             <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-indigo-400" />
+              <span className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-pink-400" />
               {tip}
             </li>
           ))}

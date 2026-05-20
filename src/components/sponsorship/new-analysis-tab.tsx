@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useModal } from "@/components/ui/alert-modal";
 import type {
   SponsorshipAnalysis,
   ChecklistItem,
@@ -13,12 +13,7 @@ import { ContentResult } from "./content-result";
 import { SponsorshipHistoryList } from "./sponsorship-history-list";
 import { ContentGeneratingLoader } from "./content-generating-loader";
 
-type Phase = "input" | "analyzed" | "content" | "streaming" | "limit_exceeded";
-
-interface LimitInfo {
-  message: string;
-  plan: string;
-}
+type Phase = "input" | "analyzed" | "content" | "streaming";
 
 interface DuplicateBrand {
   count: number;
@@ -29,6 +24,7 @@ interface DuplicateBrand {
 
 export function NewAnalysisTab() {
   const router = useRouter();
+  const { showAlert } = useModal();
   const [dmContent, setDmContent] = useState("");
   const [phase, setPhase] = useState<Phase>("input");
   const [analyzing, setAnalyzing] = useState(false);
@@ -40,7 +36,6 @@ export function NewAnalysisTab() {
   const [sponsorshipId, setSponsorshipId] = useState<string | null>(null);
   // 스트리밍 원문은 화면에 노출하지 않지만, 스트림 처리 흐름은 유지하기 위해 setter만 사용
   const [, setStreamingText] = useState("");
-  const [limitInfo, setLimitInfo] = useState<LimitInfo | null>(null);
   const [duplicateBrand, setDuplicateBrand] = useState<DuplicateBrand | null>(null);
 
   async function handleAnalyze() {
@@ -62,8 +57,13 @@ export function NewAnalysisTab() {
       const data = await res.json();
 
       if (res.status === 429) {
-        setLimitInfo({ message: data.error, plan: data.plan });
-        setPhase("limit_exceeded");
+        showAlert({
+          emoji: "🚫",
+          title: "사용량 한도에 도달했어요",
+          message: data.error,
+          variant: "warning",
+          action: { label: "플랜 업그레이드", href: "/pricing" },
+        });
         return;
       }
 
@@ -119,8 +119,14 @@ export function NewAnalysisTab() {
 
       if (res.status === 429) {
         const data = await res.json();
-        setLimitInfo({ message: data.error, plan: data.plan });
-        setPhase("limit_exceeded");
+        showAlert({
+          emoji: "🚫",
+          title: "사용량 한도에 도달했어요",
+          message: data.error,
+          variant: "warning",
+          action: { label: "플랜 업그레이드", href: "/pricing" },
+        });
+        setPhase("input");
         return;
       }
 
@@ -194,7 +200,6 @@ export function NewAnalysisTab() {
     setContent(null);
     setSponsorshipId(null);
     setStreamingText("");
-    setLimitInfo(null);
     setError("");
     setDuplicateBrand(null);
   }
@@ -208,47 +213,13 @@ export function NewAnalysisTab() {
         </div>
       )}
 
-      {/* 사용량 초과 안내 */}
-      {phase === "limit_exceeded" && limitInfo && (
-        <div className="rounded-xl border border-amber-200 bg-amber-50 p-6">
-          <div className="flex items-start gap-3">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6 shrink-0 text-amber-500 mt-0.5">
-              <path fillRule="evenodd" d="M9.401 3.003c1.155-2 4.043-2 5.197 0l7.355 12.748c1.154 2-.29 4.5-2.599 4.5H4.645c-2.309 0-3.752-2.5-2.598-4.5L9.4 3.003ZM12 8.25a.75.75 0 0 1 .75.75v3.75a.75.75 0 0 1-1.5 0V9a.75.75 0 0 1 .75-.75Zm0 8.25a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" clipRule="evenodd" />
-            </svg>
-            <div className="flex-1">
-              <h3 className="font-semibold text-amber-800">
-                사용량 한도에 도달했어요
-              </h3>
-              <p className="mt-2 text-sm text-amber-700 whitespace-pre-line leading-relaxed">
-                {limitInfo.message}
-              </p>
-              <div className="mt-4 flex gap-3">
-                <Link
-                  href="/dashboard/usage"
-                  className="rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white hover:bg-indigo-500 transition-colors"
-                >
-                  플랜 업그레이드
-                </Link>
-                <button
-                  type="button"
-                  onClick={handleReset}
-                  className="rounded-lg border border-gray-300 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition-colors"
-                >
-                  돌아가기
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* Phase: DM 입력 */}
       {phase === "input" && (
         <>
           <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
             {/* 카드 헤더 */}
-            <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gradient-to-r from-indigo-50/60 to-purple-50/60 px-5 py-3">
-              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-purple-500 shadow-sm">
+            <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gradient-to-r from-pink-50/60 to-rose-50/60 px-5 py-3">
+              <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 shadow-sm">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-3.5 w-3.5 text-white">
                   <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5Z" clipRule="evenodd" />
                 </svg>
@@ -270,7 +241,7 @@ export function NewAnalysisTab() {
                 value={dmContent}
                 onChange={(e) => setDmContent(e.target.value)}
                 placeholder={`예시:\n안녕하세요! ○○브랜드 담당자입니다.\n@님의 피드를 보고 연락드립니다.\n저희 신제품 체험 후 피드 1회 포스팅 부탁드리고 싶습니다.\n제품 무상 제공 + 원고료 10만원 지급 예정이며,\n@브랜드 태그, #광고 표시 부탁드립니다.\n마감은 3월 말까지입니다.`}
-                className="block w-full resize-none rounded-xl border border-gray-200 bg-gray-50/40 px-4 py-3 text-sm leading-relaxed text-gray-900 placeholder:text-gray-400 focus:border-indigo-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20"
+                className="block w-full resize-none rounded-xl border border-gray-200 bg-gray-50/40 px-4 py-3 text-sm leading-relaxed text-gray-900 placeholder:text-gray-400 focus:border-pink-400 focus:bg-white focus:outline-none focus:ring-2 focus:ring-pink-500/20"
               />
               <div className="mt-2 flex items-center justify-between text-[11px]">
                 <span className="text-gray-400">
@@ -294,7 +265,7 @@ export function NewAnalysisTab() {
             type="button"
             onClick={handleAnalyze}
             disabled={analyzing || dmContent.trim().length < 10}
-            className="group mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-indigo-600 via-indigo-600 to-purple-600 px-6 py-4 text-base font-semibold text-white shadow-lg shadow-indigo-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
+            className="group mt-4 flex w-full items-center justify-center gap-2 rounded-2xl bg-gradient-to-r from-pink-600 via-pink-600 to-rose-600 px-6 py-4 text-base font-semibold text-white shadow-lg shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:translate-y-0"
           >
             {analyzing ? (
               <>
@@ -373,7 +344,7 @@ export function NewAnalysisTab() {
         <>
           <div className="flex items-center justify-between">
             <h3 className="text-sm font-medium text-gray-500">
-              <span className="text-indigo-600 font-semibold">{analysis.brand.name}</span> 콘텐츠
+              <span className="text-pink-600 font-semibold">{analysis.brand.name}</span> 콘텐츠
             </h3>
             <button
               type="button"

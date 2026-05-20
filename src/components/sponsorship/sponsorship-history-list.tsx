@@ -29,7 +29,7 @@ function statusBadge(status: HistoryItem["status"]) {
     return { label: "대기", color: "bg-amber-100 text-amber-700 ring-1 ring-inset ring-amber-200" };
   }
   if (status === "accepted") {
-    return { label: "진행 중", color: "bg-indigo-100 text-indigo-700 ring-1 ring-inset ring-indigo-200" };
+    return { label: "진행 중", color: "bg-pink-100 text-pink-700 ring-1 ring-inset ring-pink-200" };
   }
   if (status === "rejected") {
     return { label: "거절", color: "bg-rose-100 text-rose-700 ring-1 ring-inset ring-rose-200" };
@@ -142,7 +142,7 @@ export function SponsorshipHistoryList() {
               <li key={sp.id}>
                 <Link
                   href={`/dashboard/sponsorships/${sp.id}`}
-                  className="group flex items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md"
+                  className="group flex items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-md"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">
@@ -164,12 +164,12 @@ export function SponsorshipHistoryList() {
                       {formatDate(sp.created_at)}
                     </p>
                     {sp.payment_amount != null && sp.payment_amount > 0 && (
-                      <p className="mt-0.5 text-xs font-bold tabular-nums text-indigo-600">
+                      <p className="mt-0.5 text-xs font-bold tabular-nums text-pink-600">
                         ₩{sp.payment_amount.toLocaleString()}
                       </p>
                     )}
                   </div>
-                  <span className="hidden flex-shrink-0 rounded-full bg-gray-50 p-1.5 text-gray-300 transition-all group-hover:bg-indigo-50 group-hover:text-indigo-500 sm:inline-flex">
+                  <span className="hidden flex-shrink-0 rounded-full bg-gray-50 p-1.5 text-gray-300 transition-all group-hover:bg-pink-50 group-hover:text-pink-500 sm:inline-flex">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="h-3.5 w-3.5">
                       <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                     </svg>
@@ -187,7 +187,7 @@ export function SponsorshipHistoryList() {
             type="button"
             onClick={() => setPage((p) => Math.max(1, p - 1))}
             disabled={page <= 1 || loading}
-            className="inline-flex items-center gap-1 rounded-xl border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-all hover:-translate-x-0.5 hover:border-indigo-200 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-x-0 disabled:hover:border-gray-200 disabled:hover:text-gray-600"
+            className="inline-flex items-center gap-1 rounded-xl border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-all hover:-translate-x-0.5 hover:border-pink-200 hover:text-pink-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-x-0 disabled:hover:border-gray-200 disabled:hover:text-gray-600"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="h-3 w-3">
               <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
@@ -201,7 +201,7 @@ export function SponsorshipHistoryList() {
             type="button"
             onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
             disabled={page >= totalPages || loading}
-            className="inline-flex items-center gap-1 rounded-xl border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-all hover:translate-x-0.5 hover:border-indigo-200 hover:text-indigo-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-x-0 disabled:hover:border-gray-200 disabled:hover:text-gray-600"
+            className="inline-flex items-center gap-1 rounded-xl border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-600 transition-all hover:translate-x-0.5 hover:border-pink-200 hover:text-pink-600 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:translate-x-0 disabled:hover:border-gray-200 disabled:hover:text-gray-600"
           >
             다음
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="h-3 w-3">

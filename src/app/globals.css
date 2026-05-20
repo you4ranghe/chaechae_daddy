@@ -5,6 +5,12 @@
   --foreground: #171717;
 }
 
+.dark {
+  --background: #0f172a;
+  --foreground: #f1f5f9;
+  color-scheme: dark;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -12,12 +18,75 @@
   --font-mono: var(--font-geist-mono);
 }
 
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* ── 다크모드 ────────────────────────────────── */
+
+/* 주요 레이아웃 */
+.dark aside              { background-color: #0f172a !important; border-color: #1e293b !important; }
+.dark header             { background-color: rgb(15 23 42 / 0.92) !important; border-color: #1e293b !important; }
+.dark nav.fixed          { background-color: rgb(15 23 42 / 0.97) !important; border-color: #1e293b !important; }
+.dark .min-h-screen      { background-color: #0f172a !important; }
+
+/* 흰색/회색 배경 */
+.dark .bg-white          { background-color: #1e293b !important; }
+.dark .bg-gray-50        { background-color: #0f172a !important; }
+.dark .bg-gray-100       { background-color: #273449 !important; }
+.dark .bg-white\/60      { background-color: rgb(30 41 59 / 0.6) !important; }
+.dark .bg-white\/80      { background-color: rgb(30 41 59 / 0.8) !important; }
+.dark .bg-white\/90      { background-color: rgb(30 41 59 / 0.9) !important; }
+.dark .bg-white\/95      { background-color: rgb(30 41 59 / 0.95) !important; }
+.dark .bg-gray-50\/40    { background-color: rgb(15 23 42 / 0.4) !important; }
+
+/* 텍스트 */
+.dark .text-gray-900     { color: #f1f5f9 !important; }
+.dark .text-gray-800     { color: #e2e8f0 !important; }
+.dark .text-gray-700     { color: #cbd5e1 !important; }
+.dark .text-gray-600     { color: #94a3b8 !important; }
+.dark .text-gray-500     { color: #64748b !important; }
+.dark .text-gray-400     { color: #475569 !important; }
+
+/* 테두리 */
+.dark .border-gray-100   { border-color: #1e293b !important; }
+.dark .border-gray-200   { border-color: #334155 !important; }
+.dark .border-gray-300   { border-color: #475569 !important; }
+.dark .border-dashed     { border-color: #334155 !important; }
+
+/* 입력 필드 */
+.dark input,
+.dark textarea,
+.dark select {
+  background-color: #1e293b !important;
+  color: #f1f5f9 !important;
+  border-color: #334155 !important;
+}
+.dark input::placeholder,
+.dark textarea::placeholder { color: #475569 !important; }
+
+/* 호버 */
+.dark .hover\:bg-gray-50:hover  { background-color: #1e293b !important; }
+.dark .hover\:bg-gray-100:hover { background-color: #273449 !important; }
+.dark .hover\:bg-black\/5:hover { background-color: rgb(255 255 255 / 0.07) !important; }
+
+/* 라이트 그라디언트 → 다크 */
+.dark .from-amber-50  { --tw-gradient-from: #1c1208 !important; }
+.dark .via-rose-50    { --tw-gradient-via:  #1a0a0f !important; }
+.dark .to-indigo-50   { --tw-gradient-to:   #0d0c1a !important; }
+.dark .from-indigo-50 { --tw-gradient-from: #0d0c1a !important; }
+.dark .to-purple-50   { --tw-gradient-to:   #120c1f !important; }
+.dark .from-pink-50   { --tw-gradient-from: #1c0a12 !important; }
+.dark .to-orange-50   { --tw-gradient-to:   #1c0e08 !important; }
+.dark .from-orange-50 { --tw-gradient-from: #1c0e08 !important; }
+.dark .from-emerald-50{ --tw-gradient-from: #061a0f !important; }
+.dark .via-teal-50    { --tw-gradient-via:  #061a16 !important; }
+.dark .to-teal-50     { --tw-gradient-to:   #061a16 !important; }
+.dark .to-rose-50     { --tw-gradient-to:   #1c0a0f !important; }
+.dark .via-blue-50    { --tw-gradient-via:  #080d1a !important; }
+.dark .via-indigo-50  { --tw-gradient-via:  #0d0c1a !important; }
 
 /* ──────────────────────────────────────────────
    육아 테마 로딩 — 우유병이 끈에 매달려 흔들리는 모션

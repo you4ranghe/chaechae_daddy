@@ -32,7 +32,7 @@ export function RevenueChart({ data }: RevenueChartProps) {
               )}
               <div
                 className={`w-full max-w-[36px] rounded-t-md transition-all ${
-                  d.revenue > 0 ? "bg-gradient-to-t from-indigo-600 to-indigo-400" : "bg-gray-100"
+                  d.revenue > 0 ? "bg-gradient-to-t from-pink-600 to-pink-400" : "bg-gray-100"
                 }`}
                 style={{ height: `${Math.max(d.revenue > 0 ? 8 : 2, heightPercent)}%` }}
               />

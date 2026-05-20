@@ -66,7 +66,7 @@ export function AnalysisResult({
           <ul className="mt-4 space-y-2 border-t border-gray-100 pt-4">
             {analysis.conditions.requirements.map((req, i) => (
               <li key={i} className="flex items-start gap-2 text-sm text-gray-700">
-                <span className="mt-1.5 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500" />
+                <span className="mt-1.5 inline-flex h-1.5 w-1.5 flex-shrink-0 rounded-full bg-gradient-to-br from-pink-500 to-rose-500" />
                 <span className="leading-relaxed">{req}</span>
               </li>
             ))}
@@ -266,8 +266,8 @@ const SECTION_TONE: Record<
   "indigo" | "purple" | "amber",
   { iconBg: string; iconText: string }
 > = {
-  indigo: { iconBg: "bg-indigo-100", iconText: "text-indigo-600" },
-  purple: { iconBg: "bg-purple-100", iconText: "text-purple-600" },
+  indigo: { iconBg: "bg-pink-100", iconText: "text-pink-600" },
+  purple: { iconBg: "bg-rose-100", iconText: "text-rose-600" },
   amber: { iconBg: "bg-amber-100", iconText: "text-amber-600" },
 };
 
@@ -316,7 +316,7 @@ function ConditionChip({
 }) {
   if (variant === "primary") {
     return (
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-br from-indigo-500 to-purple-500 px-3 py-1 text-xs font-bold text-white shadow-sm">
+      <span className="inline-flex items-center gap-1.5 rounded-full bg-gradient-to-br from-pink-500 to-rose-500 px-3 py-1 text-xs font-bold text-white shadow-sm">
         {type}
       </span>
     );
@@ -400,7 +400,7 @@ function AcceptCTA({
   accepting: boolean;
 }) {
   return (
-    <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-purple-600 p-6 text-white shadow-xl shadow-indigo-500/25">
+    <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-600 via-pink-600 to-rose-600 p-6 text-white shadow-xl shadow-pink-500/25">
       <span aria-hidden className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
       <span aria-hidden className="absolute -bottom-10 -right-2 h-24 w-24 rounded-full bg-pink-400/20 blur-2xl" />
       <div className="relative">
@@ -409,7 +409,7 @@ function AcceptCTA({
           AI 콘텐츠 생성
         </div>
         <h3 className="mt-3 text-lg font-bold sm:text-xl">이 협찬을 수락하시겠어요?</h3>
-        <p className="mt-1 text-sm leading-relaxed text-indigo-100">
+        <p className="mt-1 text-sm leading-relaxed text-pink-100">
           수락하면 광고주 요구사항 체크리스트와 인스타용 콘텐츠 초안을
           <br className="hidden sm:block" /> 자동으로 만들어드려요
         </p>
@@ -441,7 +441,7 @@ function AcceptCTA({
           type="button"
           onClick={onAccept}
           disabled={accepting}
-          className="group mt-5 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-indigo-700 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
+          className="group mt-5 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 text-sm font-bold text-pink-700 shadow-md transition-all hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-70 disabled:hover:translate-y-0"
         >
           {accepting ? (
             <>

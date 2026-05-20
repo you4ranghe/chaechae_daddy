@@ -98,43 +98,124 @@ export default async function DashboardPage() {
     agentUsed: agentUsed || 0,
     agentRunsTotal,
   };
-  const agentRunsLeft = Math.max(0, stats.agentRunsTotal - stats.agentUsed);
-  const agentUsagePercent =
-    stats.agentRunsTotal > 0
+  const isTrialExpired =
+    plan === "free_trial" &&
+    !!profile?.trial_ends_at &&
+    new Date(profile.trial_ends_at) < now;
+
+  const agentRunsLeft = isTrialExpired ? 0 : Math.max(0, stats.agentRunsTotal - stats.agentUsed);
+  const agentUsagePercent = isTrialExpired
+    ? 100
+    : stats.agentRunsTotal > 0
       ? Math.min(100, Math.round((stats.agentUsed / stats.agentRunsTotal) * 100))
       : 0;
 
-  // 시간대별 따뜻한 인사
-  const hour = now.getHours();
-  const greeting =
-    hour < 5
-      ? "늦은 밤까지 수고 많으세요"
-      : hour < 12
-        ? "좋은 아침이에요"
-        : hour < 18
-          ? "오늘도 화이팅이에요"
-          : "오늘 하루도 고생 많으셨어요";
+  // 요일별 랜덤 인사 (7개씩 × 7요일 = 49개)
+  const n = instagramHandle;
+  const DAY_MESSAGES: string[][] = [
+    // 일요일
+    [
+      `🌙 일요일이에요, ${n}님! 내일을 위해 가볍게 준비해두면 어떨까요?`,
+      `🌅 한 주 마무리를 잘 해봐요, ${n}님. 오늘도 정말 수고했어요!`,
+      `🛁 일요일엔 푹 쉬는 것도 실력이에요, ${n}님 ☺️`,
+      `🌸 오늘 하루 충전 잘 하셨나요, ${n}님? 내일도 파이팅!`,
+      `🍵 일요일 오후, 따뜻한 차 한 잔 같은 하루 보내요 ${n}님!`,
+      `🧸 일요일이라 느긋해도 돼요, ${n}님. 잘 쉬고 내일 만나요!`,
+      `🌠 이번 주도 고생 많으셨어요, ${n}님. 다음 주도 같이 잘 해봐요!`,
+    ],
+    // 월요일
+    [
+      `😮‍💨 월요일이네요, ${n}님! 주말 후유증 있어도 그래도 같이 힘내볼까요?`,
+      `💪 월요일 아침 파이팅, ${n}님! 이번 주도 멋지게 시작해봐요!`,
+      `☕ 커피 한 잔 마시고 시작하면 월요일도 별거 아니에요, ${n}님!`,
+      `🌱 월요일은 새로운 시작이에요, ${n}님. 조금씩 해봐요!`,
+      `🐢 천천히 시작해도 괜찮아요, ${n}님. 월요일엔 워밍업이 중요하니까요!`,
+      `🌞 월요일 아침, ${n}님! 이번 주도 좋은 일들이 가득하길 바라요!`,
+      `🎯 월요일 목표 하나만 잡아봐요, ${n}님. 작은 것부터 시작!`,
+    ],
+    // 화요일
+    [
+      `🌱 화요일이에요, ${n}님! 월요일은 잘 넘겼죠? 오늘도 차근차근!`,
+      `🌿 한 걸음씩 쌓아가는 중이에요, ${n}님. 잘하고 있어요!`,
+      `✌️ 화요일! ${n}님, 이제 리듬이 좀 잡혀오지 않나요?`,
+      `🎵 화요일은 본격적으로 달리는 날이에요, ${n}님. 화이팅!`,
+      `🌤️ 월요일보다 훨씬 낫죠? ${n}님, 화요일도 잘 해봐요!`,
+      `🐿️ 부지런한 ${n}님, 화요일도 착착 진행 중이시겠죠?`,
+      `💡 화요일엔 아이디어가 많이 떠오른다고 해요, ${n}님. 오늘 어떠세요?`,
+    ],
+    // 수요일
+    [
+      `🐪 벌써 수요일이에요, ${n}님! 이번 주의 딱 절반을 왔네요!`,
+      `🌊 수요일! 이제 내리막길이에요, ${n}님. 조금만 더 가봐요!`,
+      `⛰️ 고비는 수요일이래요, ${n}님. 넘으면 다 내리막이에요!`,
+      `🎉 이번 주 절반 완료, ${n}님! 나머지도 잘 해봐요!`,
+      `🌈 수요일 고비 넘기면 주말이 보여요, ${n}님. 화이팅!`,
+      `🏃 수요일 스퍼트, ${n}님! 주말까지 이 기세로 달려봐요!`,
+      `🧩 한 주의 퍼즐 절반 맞췄어요, ${n}님. 나머지도 같이 채워봐요!`,
+    ],
+    // 목요일
+    [
+      `🍂 목요일이에요, ${n}님! 주말이 코앞이에요, 조금만 더!`,
+      `🌙 내일만 버티면 주말이 기다려요, ${n}님. 화이팅!`,
+      `🏁 거의 다 왔어요, ${n}님! 목요일은 결승선이 보이는 날!`,
+      `🎸 목요일은 불금 전날이에요, ${n}님. 기대하면서 달려봐요!`,
+      `🌟 이번 주 마지막 스퍼트예요, ${n}님. 목요일도 파이팅!`,
+      `🍀 목요일은 행운의 날이래요, ${n}님. 좋은 협찬이 올지도요!`,
+      `💌 오늘 협찬 DM 왔나요, ${n}님? 목요일도 기대해봐요!`,
+    ],
+    // 금요일
+    [
+      `🎉 불금이에요, ${n}님! 이번 한 주도 정말 수고 많으셨어요!`,
+      `✨ 금요일! 오늘 하루만 잘 마무리하면 주말이에요, ${n}님!`,
+      `🥳 드디어 금요일이에요, ${n}님! 이번 주도 정말 잘하셨어요!`,
+      `🍕 금요일 밤은 맛있는 거 먹으면서 쉬어요, ${n}님!`,
+      `🌙 불금 기분 좋죠, ${n}님? 오늘 하루도 고생 많으셨어요!`,
+      `🎊 한 주를 알차게 마무리하는 ${n}님, 최고예요!`,
+      `💫 금요일이 왔어요, ${n}님! 주말 계획 세워뒀나요?`,
+    ],
+    // 토요일
+    [
+      `☀️ 토요일이에요, ${n}님! 여유롭게 필요한 것들 정리해봐요!`,
+      `🌸 주말이에요, ${n}님! 오늘은 조금 느긋하게 해도 괜찮아요!`,
+      `🏖️ 토요일엔 푹 쉬어도 돼요, ${n}님. 충전하는 것도 일이에요!`,
+      `🎨 토요일! ${n}님, 하고 싶었던 거 오늘 해봐요!`,
+      `🌻 주말 아침이에요, ${n}님! 여유로운 하루 보내시길!`,
+      `🛍️ 토요일이니까 기분 전환도 해봐요, ${n}님!`,
+      `🎠 즐거운 토요일 보내고 있나요, ${n}님? 잘 쉬고 충전하세요!`,
+    ],
+  ];
+  const dayOfWeek = now.getDay();
+  const dayMessage = DAY_MESSAGES[dayOfWeek][Math.floor(Math.random() * 7)];
 
   return (
     <div className="space-y-6">
       {/* 따뜻한 환영 헤더 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-50 via-rose-50 to-indigo-50 px-6 py-7 sm:px-8">
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-50 via-rose-50 to-pink-50 px-6 py-7 sm:px-8">
         <DecorBubbles />
         <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
-            <p className="text-sm font-medium text-amber-700/90">{greeting}</p>
+            <p className="text-sm font-medium text-amber-700/90">{dayMessage}</p>
             <h1 className="mt-1 text-2xl font-bold text-gray-900 sm:text-[26px]">
-              <span className="text-indigo-700">{instagramHandle}</span>님,
+              <span className="text-pink-700">{instagramHandle}</span>님,
               <br className="sm:hidden" /> 오늘은 어떤 협찬이 와있을까요? <span aria-hidden>🍼</span>
             </h1>
             <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
               협찬 DM을 분석하고, 콘텐츠 초안을 만들고, 인사이트까지 한 번에 도와드려요.
             </p>
           </div>
-          {trialDaysLeft > 0 && (
-            <div className="flex-shrink-0 self-start rounded-full bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-indigo-700 ring-1 ring-inset ring-indigo-200 backdrop-blur">
-              <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-indigo-500 align-middle" />
-              무료 체험 D-{trialDaysLeft}
+          {plan === "free_trial" ? (
+            <div className="flex-shrink-0 self-start rounded-full bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-200 backdrop-blur">
+              <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-amber-400 align-middle" />
+              {profile?.trial_ends_at && trialDaysLeft === 0
+                ? "체험 기간 만료"
+                : trialDaysLeft > 0
+                  ? `무료 체험 D-${trialDaysLeft}`
+                  : "무료 체험 중"}
+            </div>
+          ) : (
+            <div className="flex-shrink-0 self-start rounded-full bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-pink-700 ring-1 ring-inset ring-pink-200 backdrop-blur">
+              <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-pink-500 align-middle" />
+              {(({ starter: "스타터", growth: "그로스", business: "비즈니스" } as Record<string, string>)[plan] ?? plan)} 플랜
             </div>
           )}
         </div>
@@ -142,9 +223,32 @@ export default async function DashboardPage() {
 
       {/* 메인 액션 + 처리 대기 알림 */}
       <section className="grid gap-4 lg:grid-cols-3">
+        {isTrialExpired ? (
+          <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600 p-6 text-white lg:col-span-2">
+            <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
+            <div className="relative flex items-start justify-between gap-4">
+              <div>
+                <div className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/90">
+                  🔒 체험 기간 종료
+                </div>
+                <h2 className="mt-3 text-xl font-bold sm:text-2xl">새 협찬 분석하기</h2>
+                <p className="mt-1 text-sm text-gray-200">
+                  무료 체험 기간이 종료되었어요. 플랜을 업그레이드하면 계속 사용할 수 있어요.
+                </p>
+              </div>
+            </div>
+            <Link
+              href="/pricing"
+              className="relative mt-5 inline-flex items-center gap-1 rounded-full bg-white/20 px-4 py-2 text-sm font-semibold hover:bg-white/30 transition-colors"
+            >
+              플랜 업그레이드
+              <ArrowRightIcon className="h-4 w-4" />
+            </Link>
+          </div>
+        ) : (
         <Link
           href="/dashboard/sponsorships"
-          className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-indigo-600 via-indigo-600 to-purple-600 p-6 text-white shadow-lg shadow-indigo-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30 lg:col-span-2"
+          className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-pink-500 via-pink-500 to-rose-500 p-6 text-white shadow-lg shadow-pink-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30 lg:col-span-2"
         >
           <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
           <div className="absolute -bottom-8 -right-2 h-24 w-24 rounded-full bg-pink-400/20 blur-2xl" />
@@ -157,7 +261,7 @@ export default async function DashboardPage() {
               <h2 className="mt-3 text-xl font-bold sm:text-2xl">
                 새 협찬 분석하기
               </h2>
-              <p className="mt-1 text-sm text-indigo-100">
+              <p className="mt-1 text-sm text-pink-100">
                 협찬 DM을 붙여넣으면 AI가 조건·리스크·답장까지 만들어드려요
               </p>
             </div>
@@ -170,6 +274,7 @@ export default async function DashboardPage() {
             <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </div>
         </Link>
+        )}
 
         {/* 처리 대기 카드 */}
         <Link
@@ -209,13 +314,13 @@ export default async function DashboardPage() {
           {/* 협찬 */}
           <Link
             href="/dashboard/sponsorships"
-            className="group rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-indigo-200 hover:shadow-md"
+            className="group rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-md"
           >
             <div className="flex items-center justify-between">
-              <div className="rounded-xl bg-indigo-50 p-2.5">
-                <BriefcaseIcon className="h-5 w-5 text-indigo-600" />
+              <div className="rounded-xl bg-pink-50 p-2.5">
+                <BriefcaseIcon className="h-5 w-5 text-pink-600" />
               </div>
-              <ArrowRightIcon className="h-4 w-4 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-indigo-500" />
+              <ArrowRightIcon className="h-4 w-4 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-pink-500" />
             </div>
             <h3 className="mt-3 text-sm font-medium text-gray-500">협찬</h3>
             <p className="mt-1 text-3xl font-bold text-gray-900">
@@ -326,12 +431,6 @@ export default async function DashboardPage() {
         </div>
       </section>
 
-      {/* 따뜻한 풋노트 */}
-      <section className="rounded-2xl border border-dashed border-gray-200 bg-white/60 p-4 text-center">
-        <p className="text-xs text-gray-500">
-          <span aria-hidden>💛</span> 오늘도 채채와 사랑이가 잠든 사이, 한 걸음씩 함께 정리해봐요
-        </p>
-      </section>
     </div>
   );
 }
@@ -359,9 +458,9 @@ const TONE_CLASSES: Record<
     hover: "hover:border-rose-200",
   },
   indigo: {
-    bg: "bg-indigo-50",
-    text: "text-indigo-600",
-    hover: "hover:border-indigo-200",
+    bg: "bg-pink-50",
+    text: "text-pink-600",
+    hover: "hover:border-pink-200",
   },
   emerald: {
     bg: "bg-emerald-50",
@@ -420,7 +519,7 @@ function DecorBubbles() {
       />
       <span
         aria-hidden
-        className="pointer-events-none absolute -left-6 bottom-2 h-20 w-20 rounded-full bg-indigo-200/40 blur-2xl"
+        className="pointer-events-none absolute -left-6 bottom-2 h-20 w-20 rounded-full bg-pink-200/40 blur-2xl"
       />
     </>
   );

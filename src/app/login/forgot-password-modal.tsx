@@ -245,7 +245,7 @@ export default function ForgotPasswordModal({
           </div>
         )}
         {info && !error && (
-          <div className="mt-4 flex items-start gap-2 rounded-xl bg-indigo-50 px-3 py-2.5 text-[12.5px] text-indigo-700 ring-1 ring-inset ring-indigo-100">
+          <div className="mt-4 flex items-start gap-2 rounded-xl bg-pink-50 px-3 py-2.5 text-[12.5px] text-pink-700 ring-1 ring-inset ring-pink-100">
             <InfoIcon className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
             <span>{info}</span>
           </div>
@@ -292,7 +292,7 @@ export default function ForgotPasswordModal({
                 type="button"
                 onClick={handleResend}
                 disabled={loading}
-                className="font-semibold text-indigo-600 hover:text-indigo-500 disabled:opacity-50"
+                className="font-semibold text-pink-600 hover:text-pink-500 disabled:opacity-50"
               >
                 인증번호 재발송
               </button>
@@ -335,7 +335,7 @@ export default function ForgotPasswordModal({
             <button
               type="button"
               onClick={onClose}
-              className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30"
+              className="flex w-full items-center justify-center rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30"
             >
               닫기
             </button>
@@ -365,7 +365,7 @@ function PrimaryButton({
     <button
       type="submit"
       disabled={loading || disabled}
-      className="group flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+      className="group flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
     >
       {loading ? (
         <>
@@ -411,7 +411,7 @@ function Field({
       <label htmlFor={id} className="block text-xs font-semibold text-gray-700">
         {label}
       </label>
-      <div className="mt-1.5 flex items-center rounded-xl border border-gray-200 bg-gray-50/40 shadow-sm transition-all focus-within:border-indigo-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-500/20">
+      <div className="mt-1.5 flex items-center rounded-xl border border-gray-200 bg-gray-50/40 shadow-sm transition-all focus-within:border-pink-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-pink-500/20">
         <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-400">
           {icon}
         </span>
@@ -451,7 +451,7 @@ function CodeField({
         </label>
         <span
           className={`text-[11px] font-bold tabular-nums ${
-            expired ? "text-rose-600" : secondsLeft <= 30 ? "text-amber-600" : "text-indigo-600"
+            expired ? "text-rose-600" : secondsLeft <= 30 ? "text-amber-600" : "text-pink-600"
           }`}
           aria-live="polite"
         >
@@ -462,7 +462,7 @@ function CodeField({
         className={`mt-1.5 flex items-center rounded-xl border bg-gray-50/40 shadow-sm transition-all focus-within:ring-2 ${
           expired
             ? "border-rose-200 focus-within:border-rose-400 focus-within:ring-rose-500/20"
-            : "border-gray-200 focus-within:border-indigo-400 focus-within:bg-white focus-within:ring-indigo-500/20"
+            : "border-gray-200 focus-within:border-pink-400 focus-within:bg-white focus-within:ring-pink-500/20"
         }`}
       >
         <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-400">

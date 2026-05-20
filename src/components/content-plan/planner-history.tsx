@@ -85,7 +85,7 @@ export function PlannerHistory() {
                 >
                   <div className="min-w-0">
                     <p className="truncate text-sm font-medium text-gray-900">
-                      <span className="text-indigo-600">{item.keywords}</span>
+                      <span className="text-pink-600">{item.keywords}</span>
                     </p>
                     <p className="mt-0.5 text-xs text-gray-400">
                       {formatDate(item.created_at)} · {dayCount}일 플랜

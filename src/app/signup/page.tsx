@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/db/supabase-client";
+import { MomsUpIcon } from "@/components/ui/momsup-icon";
 
 const CATEGORIES = ["육아", "뷰티", "패션", "푸드", "라이프스타일"] as const;
 
@@ -84,20 +85,18 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-amber-50 via-white to-indigo-50">
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-amber-50 via-white to-pink-50">
       <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-amber-200/40 blur-3xl" />
-      <span aria-hidden className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-indigo-200/40 blur-3xl" />
+      <span aria-hidden className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
 
       <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           {/* 로고 */}
           <div className="text-center">
             <Link href="/" className="inline-flex items-center gap-2">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-indigo-500 to-purple-500 shadow-md shadow-indigo-500/30">
-                <SparkleIcon className="h-4 w-4 text-white" />
-              </span>
+              <MomsUpIcon className="h-10 w-10" />
               <span className="text-lg font-bold tracking-tight text-gray-900">
-                CW Agent
+                MomsUp
               </span>
             </Link>
           </div>
@@ -109,7 +108,7 @@ export default function SignupPage() {
           </div>
 
           {/* 카드 */}
-          <div className="mt-5 rounded-3xl border border-gray-100 bg-white/80 p-6 shadow-xl shadow-indigo-500/5 backdrop-blur-xl sm:p-7">
+          <div className="mt-5 rounded-3xl border border-gray-100 bg-white/80 p-6 shadow-xl shadow-pink-500/5 backdrop-blur-xl sm:p-7">
             <h1 className="text-xl font-bold text-gray-900">
               협찬 관리를 시작해볼까요?
             </h1>
@@ -188,7 +187,7 @@ export default function SignupPage() {
                           onClick={() => toggleCategory(category)}
                           className={`rounded-full px-3.5 py-1.5 text-xs font-bold transition-all ${
                             active
-                              ? "bg-gradient-to-br from-indigo-500 to-purple-500 text-white shadow-sm"
+                              ? "bg-gradient-to-br from-pink-500 to-rose-500 text-white shadow-sm"
                               : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                           }`}
                         >
@@ -204,7 +203,7 @@ export default function SignupPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-indigo-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-indigo-500/30 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+                className="group flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
               >
                 {loading ? (
                   <>
@@ -235,7 +234,7 @@ export default function SignupPage() {
             이미 계정이 있으신가요?{" "}
             <Link
               href="/login"
-              className="font-bold text-indigo-600 transition-colors hover:text-indigo-500"
+              className="font-bold text-pink-600 transition-colors hover:text-pink-500"
             >
               로그인 →
             </Link>
@@ -300,7 +299,7 @@ function Field({
       <label htmlFor={id} className="block text-xs font-semibold text-gray-700">
         {label}
       </label>
-      <div className="mt-1.5 flex items-center rounded-xl border border-gray-200 bg-gray-50/40 shadow-sm transition-all focus-within:border-indigo-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-500/20">
+      <div className="mt-1.5 flex items-center rounded-xl border border-gray-200 bg-gray-50/40 shadow-sm transition-all focus-within:border-pink-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-pink-500/20">
         <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-400">
           {icon}
         </span>
@@ -332,7 +331,7 @@ function InstagramField({
       <label htmlFor="instagram" className="block text-xs font-semibold text-gray-700">
         인스타그램 핸들
       </label>
-      <div className="mt-1.5 flex items-center rounded-xl border border-gray-200 bg-gray-50/40 shadow-sm transition-all focus-within:border-indigo-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-indigo-500/20">
+      <div className="mt-1.5 flex items-center rounded-xl border border-gray-200 bg-gray-50/40 shadow-sm transition-all focus-within:border-pink-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-pink-500/20">
         <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-400">
           <InstagramIcon />
         </span>
@@ -355,13 +354,6 @@ function InstagramField({
 // 아이콘
 // ──────────────────────────────────────────────
 
-function SparkleIcon({ className = "h-4 w-4" }: { className?: string }) {
-  return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
-      <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5Z" clipRule="evenodd" />
-    </svg>
-  );
-}
 function MailIcon() {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
