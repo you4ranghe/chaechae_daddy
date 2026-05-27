@@ -51,37 +51,37 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-pink-50 via-white to-pink-50">
-      {/* 배경 데코 */}
-      <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-pink-200/40 blur-3xl" />
-      <span aria-hidden className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
-      <span aria-hidden className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-amber-200/40 blur-3xl" />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-pink-50 via-[var(--background)] to-rose-50">
+      {/* 비대칭 떠다니는 블롭 */}
+      <span aria-hidden className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-pink-300/40 blur-[80px] animate-blob" />
+      <span aria-hidden className="pointer-events-none absolute -right-20 top-1/3 h-96 w-96 rounded-full bg-rose-200/40 blur-[100px] animate-blob-slow" />
+      <span aria-hidden className="pointer-events-none absolute -bottom-32 left-1/4 h-72 w-72 rounded-full bg-amber-200/40 blur-[90px] animate-blob" />
 
       <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
         <div className="w-full max-w-sm">
           {/* 로고 */}
-          <div className="text-center">
-            <Link href="/" className="inline-flex items-center gap-2">
+          <div className="animate-fade-up text-center">
+            <Link href="/" className="inline-flex items-center gap-2 transition-spring hover:opacity-80">
               <MomsUpIcon className="h-10 w-10" />
               <span className="text-lg font-bold tracking-tight text-gray-900">
                 MomsUp
               </span>
             </Link>
-            <p className="mt-3 text-sm text-gray-500">
+            <p className="mt-4 text-sm text-gray-500">
               다시 만나서 반가워요 <span aria-hidden>👋</span>
             </p>
           </div>
 
-          {/* 카드 */}
-          <div className="mt-6 rounded-3xl border border-gray-100 bg-white/80 p-6 shadow-xl shadow-pink-500/5 backdrop-blur-xl sm:p-7">
-            <h1 className="text-xl font-bold text-gray-900">로그인</h1>
-            <p className="mt-1 text-xs text-gray-500">
+          {/* 더블 베젤 카드 */}
+          <div className="animate-fade-up-1 bezel mt-8 p-6 sm:p-7">
+            <h1 className="text-xl font-bold tracking-tight text-gray-900">로그인</h1>
+            <p className="mt-1.5 text-[13px] text-gray-500">
               이메일과 비밀번호로 계속 이어서 시작하세요
             </p>
 
-            <form onSubmit={handleLogin} className="mt-5 space-y-4">
+            <form onSubmit={handleLogin} className="mt-6 space-y-4">
               {error && (
-                <div className="flex items-start gap-2 rounded-xl bg-rose-50 px-3 py-2.5 text-[12.5px] text-rose-700 ring-1 ring-inset ring-rose-100">
+                <div className="flex items-start gap-2 rounded-2xl bg-rose-50 px-3.5 py-3 text-[12.5px] text-rose-700 ring-1 ring-inset ring-rose-200/70">
                   <AlertIcon className="mt-0.5 h-3.5 w-3.5 flex-shrink-0" />
                   <span>{error}</span>
                 </div>
@@ -121,7 +121,7 @@ export default function LoginPage() {
               <button
                 type="submit"
                 disabled={loading}
-                className="group flex w-full items-center justify-center gap-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-4 py-3 text-sm font-bold text-white shadow-lg shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30 disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0"
+                className="group flex w-full items-center justify-center gap-1.5 rounded-2xl cta-gradient px-4 py-3.5 text-sm font-bold text-white transition-spring magnetic disabled:cursor-not-allowed disabled:opacity-60 disabled:hover:translate-y-0 disabled:hover:scale-100"
               >
                 {loading ? (
                   <>
@@ -144,7 +144,7 @@ export default function LoginPage() {
           </div>
 
           {/* 회원가입 링크 */}
-          <p className="mt-5 text-center text-[13px] text-gray-500">
+          <p className="animate-fade-up-2 mt-6 text-center text-[13px] text-gray-500">
             아직 계정이 없으신가요?{" "}
             <Link
               href="/signup"
@@ -166,7 +166,7 @@ export default function LoginPage() {
 }
 
 // ──────────────────────────────────────────────
-// 입력 필드 (공통)
+// Field
 // ──────────────────────────────────────────────
 
 function Field({
@@ -190,11 +190,11 @@ function Field({
 }) {
   return (
     <div>
-      <label htmlFor={id} className="block text-xs font-semibold text-gray-700">
+      <label htmlFor={id} className="block text-[11px] font-bold uppercase tracking-wider text-gray-500">
         {label}
       </label>
-      <div className="mt-1.5 flex items-center rounded-xl border border-gray-200 bg-gray-50/40 shadow-sm transition-all focus-within:border-pink-400 focus-within:bg-white focus-within:ring-2 focus-within:ring-pink-500/20">
-        <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center text-gray-400">
+      <div className="mt-1.5 flex items-center rounded-2xl bg-[var(--surface-1)] ring-1 ring-inset ring-gray-200 transition-snap focus-within:bg-white focus-within:ring-2 focus-within:ring-pink-400 focus-within:shadow-[0_0_0_4px_rgb(244_63_125_/_0.1)]">
+        <span className="flex h-11 w-11 flex-shrink-0 items-center justify-center text-gray-400">
           {icon}
         </span>
         <input
@@ -205,7 +205,7 @@ function Field({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
-          className="flex-1 bg-transparent py-2.5 pr-3.5 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none"
+          className="flex-1 bg-transparent py-2.5 pr-4 text-sm text-gray-900 placeholder:text-gray-400 focus:outline-none"
         />
       </div>
     </div>
@@ -213,7 +213,7 @@ function Field({
 }
 
 // ──────────────────────────────────────────────
-// 아이콘
+// Icons
 // ──────────────────────────────────────────────
 
 function MailIcon() {

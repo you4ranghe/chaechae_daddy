@@ -69,7 +69,7 @@ export function HashtagForm() {
     <form onSubmit={handleAnalyze} className="space-y-5">
       {error && <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
 
-      <div className="rounded-xl border border-gray-200 bg-white p-5">
+      <div className="bezel p-5">
         <label className="block text-sm font-medium text-gray-700">카테고리</label>
         <div className="mt-2 flex flex-wrap gap-2">
           {CATEGORY_PRESETS.map((cat) => (
@@ -81,12 +81,12 @@ export function HashtagForm() {
         <input type="text" value={category} onChange={(e) => setCategory(e.target.value)} placeholder="또는 직접 입력" className="mt-3 block w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-pink-500 focus:outline-none" />
       </div>
 
-      <div className="rounded-xl border border-gray-200 bg-white p-5">
+      <div className="bezel p-5">
         <label className="block text-sm font-medium text-gray-700">추가 요청 (선택)</label>
         <textarea rows={3} value={message} onChange={(e) => setMessage(e.target.value)} placeholder="예: 6개월 아기 이유식 시작 관련 해시태그" className="mt-2 block w-full rounded-lg border border-gray-300 px-4 py-3 text-sm resize-none focus:border-pink-500 focus:outline-none" />
       </div>
 
-      <button type="submit" disabled={analyzing || !category.trim()} className="w-full rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-pink-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+      <button type="submit" disabled={analyzing || !category.trim()} className="w-full rounded-2xl cta-gradient px-6 py-3.5 text-base font-bold text-white transition-spring magnetic disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100">
         {analyzing ? (
           <span className="flex items-center justify-center gap-2">
             <svg className="h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" /></svg>

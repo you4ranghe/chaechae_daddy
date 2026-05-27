@@ -114,7 +114,7 @@ export function ShareCard({
   }
 
   return (
-    <section className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
+    <section className="bezel overflow-hidden">
       <div className="grid gap-0 md:grid-cols-[1fr_1.1fr]">
         {/* 미리보기 */}
         <div className="relative flex items-center justify-center bg-gradient-to-br from-pink-900 via-rose-900 to-slate-900 p-6 md:p-8">

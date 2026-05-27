@@ -216,7 +216,7 @@ export function NewAnalysisTab() {
       {/* Phase: DM 입력 */}
       {phase === "input" && (
         <>
-          <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+          <div className="bezel overflow-hidden">
             {/* 카드 헤더 */}
             <div className="flex items-center gap-2.5 border-b border-gray-100 bg-gradient-to-r from-pink-50/60 to-rose-50/60 px-5 py-3">
               <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 shadow-sm">

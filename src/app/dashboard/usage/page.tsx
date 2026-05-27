@@ -164,24 +164,19 @@ export default async function UsagePage() {
   const showTrialExpired = plan === "free_trial" && trialDaysLeft === 0 && profile?.trial_ends_at;
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 animate-fade-up">
       {/* 헤더 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-50 via-white to-amber-50 px-6 py-6 sm:px-7">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-pink-200/40 blur-3xl"
-        />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -bottom-10 right-20 h-24 w-24 rounded-full bg-amber-200/40 blur-2xl"
-        />
-        <div className="relative flex items-start gap-3">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-md shadow-amber-500/30">
+      <section className="bezel relative overflow-hidden bg-gradient-to-br from-pink-50 via-white to-amber-50 px-6 py-7 sm:px-8">
+        <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-pink-300/30 blur-[60px] animate-glow" />
+        <span aria-hidden className="pointer-events-none absolute -bottom-12 right-20 h-28 w-28 rounded-full bg-amber-200/40 blur-2xl" />
+        <div className="relative flex items-start gap-3.5">
+          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-amber-500 to-orange-500 shadow-[0_4px_14px_-2px_rgb(245_158_11_/_0.45)]">
             <BatteryIcon className="h-5 w-5 text-white" />
           </div>
           <div className="min-w-0">
-            <h1 className="text-xl font-bold text-gray-900">사용량</h1>
-            <p className="mt-0.5 text-sm leading-relaxed text-gray-600">
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-amber-600">Usage</p>
+            <h1 className="mt-0.5 text-[22px] font-black tracking-tight text-gray-900">사용량</h1>
+            <p className="mt-1 text-[13.5px] leading-relaxed text-gray-600">
               {periodLabel} 에이전트 사용 현황을 한눈에 확인하세요
             </p>
           </div>
@@ -189,7 +184,7 @@ export default async function UsagePage() {
       </section>
 
       {/* 플랜 + 라디얼 게이지 */}
-      <section className="overflow-hidden rounded-3xl border border-gray-200 bg-white">
+      <section className="bezel overflow-hidden">
         <div className="grid gap-0 md:grid-cols-2">
           {/* 좌측: 라디얼 게이지 + 메인 수치 */}
           <div className="flex flex-col items-center justify-center gap-4 p-6 sm:p-8">
@@ -248,7 +243,7 @@ export default async function UsagePage() {
             {plan !== "business" && (
               <Link
                 href="/pricing"
-                className="group mt-5 inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-pink-500/25 transition-all hover:-translate-y-0.5 hover:shadow-lg hover:shadow-pink-500/30"
+                className="group mt-6 inline-flex items-center gap-1.5 rounded-xl cta-gradient px-4 py-2.5 text-sm font-bold text-white transition-spring magnetic"
               >
                 <CrownIcon className="h-3.5 w-3.5 transition-transform group-hover:-rotate-12" />
                 플랜 업그레이드
@@ -325,14 +320,14 @@ export default async function UsagePage() {
       </section>
 
       {/* 일별 사용량 차트 */}
-      <section className="rounded-2xl border border-gray-200 bg-white p-5">
-        <div className="flex items-center gap-2">
-          <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 shadow-sm">
+      <section className="bezel p-5">
+        <div className="flex items-center gap-2.5">
+          <span className="flex h-8 w-8 items-center justify-center rounded-xl cta-gradient">
             <ChartBarIcon className="h-3.5 w-3.5 text-white" />
           </span>
           <div className="flex-1">
-            <h3 className="text-sm font-bold text-gray-900">일별 사용량</h3>
-            <p className="text-[10.5px] text-gray-500">최근 14일 · 일평균 {avgPerDay}회</p>
+            <h3 className="text-sm font-bold tracking-tight text-gray-900">일별 사용량</h3>
+            <p className="text-[10.5px] text-gray-500">최근 14일 · 일평균 <span className="font-bold tabular-nums">{avgPerDay}</span>회</p>
           </div>
         </div>
         <div className="mt-4">
@@ -441,16 +436,16 @@ function TypeBreakdownCard({
   const ratio = total > 0 ? Math.round((count / total) * 100) : 0;
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5">
+    <div className="bezel bezel-hover p-5 transition-spring">
       <div className="flex items-start gap-3">
-        <span className={`flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl ${t.iconBg} ${t.iconText}`}>
+        <span className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl ${t.iconBg} ${t.iconText} ring-1 ring-inset ring-pink-100/40 shadow-sm`}>
           {icon}
         </span>
         <div className="min-w-0 flex-1">
           <p className="text-sm font-bold text-gray-900">{label}</p>
           <p className="text-[10.5px] text-gray-500">{subtitle}</p>
         </div>
-        <p className={`text-2xl font-bold tabular-nums ${t.valueText}`}>{count}</p>
+        <p className={`text-2xl font-black tabular-nums tracking-tight ${t.valueText}`}>{count}</p>
       </div>
       <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
         <div

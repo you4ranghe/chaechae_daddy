@@ -48,23 +48,18 @@ export default async function CalculatorPage() {
     profile?.instagram_handle || user.user_metadata?.instagram_handle || "사용자";
 
   return (
-    <div className="space-y-5">
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-50 via-white to-teal-50 px-6 py-6 sm:px-7">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-emerald-200/40 blur-3xl"
-        />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -bottom-10 right-20 h-20 w-20 rounded-full bg-teal-200/40 blur-2xl"
-        />
-        <div className="relative flex items-start gap-3">
-          <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-md shadow-emerald-500/30">
+    <div className="space-y-6 animate-fade-up">
+      <section className="bezel relative overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-teal-50 px-6 py-7 sm:px-8">
+        <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-emerald-300/30 blur-[60px] animate-glow" />
+        <span aria-hidden className="pointer-events-none absolute -bottom-12 right-20 h-28 w-28 rounded-full bg-teal-200/40 blur-2xl" />
+        <div className="relative flex items-start gap-3.5">
+          <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-[0_4px_14px_-2px_rgb(16_185_129_/_0.45)]">
             <CalcIcon className="h-5 w-5 text-white" />
           </div>
           <div className="min-w-0">
-            <h1 className="text-xl font-bold text-gray-900">정산 · 세금 계산기</h1>
-            <p className="mt-0.5 text-sm leading-relaxed text-gray-600">
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-emerald-600">Calculator</p>
+            <h1 className="mt-0.5 text-[22px] font-black tracking-tight text-gray-900">정산 · 세금 계산기</h1>
+            <p className="mt-1 text-[13.5px] leading-relaxed text-gray-600">
               협찬료를 받기 전에 부가세·원천세·수수료·종합소득세까지 미리 계산해 보세요
             </p>
           </div>

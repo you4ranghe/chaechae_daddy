@@ -75,7 +75,7 @@ export function PlannerForm() {
     <form onSubmit={handleGenerate} className="space-y-5">
       {error && <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
 
-      <div className="rounded-xl border border-gray-200 bg-white p-5">
+      <div className="bezel p-5">
         <label className="block text-sm font-medium text-gray-700">이번 주 키워드</label>
         <div className="mt-2 flex flex-wrap gap-2">
           {KEYWORD_PRESETS.map((kw) => (
@@ -88,7 +88,7 @@ export function PlannerForm() {
         <p className="mt-2 text-xs text-gray-400">콤마(,)로 여러 키워드를 구분하세요</p>
       </div>
 
-      <button type="submit" disabled={generating || keywords.trim().length < 2} className="w-full rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-pink-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+      <button type="submit" disabled={generating || keywords.trim().length < 2} className="w-full rounded-2xl cta-gradient px-6 py-3.5 text-base font-bold text-white transition-spring magnetic disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100">
         {generating ? (
           <span className="flex items-center justify-center gap-2">
             <svg className="h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" /></svg>

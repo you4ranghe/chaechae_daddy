@@ -30,25 +30,25 @@ const PAIN_POINTS = [
 
 const STEPS = [
   {
-    n: "1",
+    n: "01",
     title: "협찬 DM 붙여넣기",
     body: "받은 협찬 DM을 그대로 복사해서 붙여넣어요",
     icon: <ChatIcon />,
   },
   {
-    n: "2",
+    n: "02",
     title: "AI가 30초만에 분석",
     body: "조건·리스크·답장 초안 3종을 자동 생성해드려요",
     icon: <SparkleIcon />,
   },
   {
-    n: "3",
+    n: "03",
     title: "수락하면 콘텐츠 완성",
     body: "체크리스트·캡션·해시태그가 한 번에 만들어져요",
     icon: <CheckIcon />,
   },
   {
-    n: "4",
+    n: "04",
     title: "복사해서 바로 포스팅",
     body: "인스타에 붙여넣기만 하면 끝. 하루 평균 30분 절약",
     icon: <CopyIcon />,
@@ -85,36 +85,36 @@ const PRICING = [
 
 const TONE_PAIN: Record<
   "amber" | "rose" | "indigo" | "purple",
-  { iconBg: string; iconText: string }
+  { iconBg: string; iconText: string; ring: string }
 > = {
-  amber: { iconBg: "bg-amber-100", iconText: "text-amber-600" },
-  rose: { iconBg: "bg-rose-100", iconText: "text-rose-600" },
-  indigo: { iconBg: "bg-pink-100", iconText: "text-pink-600" },
-  purple: { iconBg: "bg-rose-100", iconText: "text-rose-600" },
+  amber: { iconBg: "bg-amber-100", iconText: "text-amber-700", ring: "ring-amber-200/50" },
+  rose: { iconBg: "bg-rose-100", iconText: "text-rose-700", ring: "ring-rose-200/50" },
+  indigo: { iconBg: "bg-pink-100", iconText: "text-pink-700", ring: "ring-pink-200/50" },
+  purple: { iconBg: "bg-fuchsia-100", iconText: "text-fuchsia-700", ring: "ring-fuchsia-200/50" },
 };
 
 export default function LandingPage() {
   return (
-    <div className="min-h-full bg-white">
-      {/* 네비게이션 */}
-      <nav className="fixed top-0 z-50 w-full border-b border-gray-100 bg-white/85 backdrop-blur-md">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
-          <Link href="/landing" className="flex items-center gap-2">
-            <MomsUpIcon className="h-8 w-8" />
-            <span className="text-base font-bold tracking-tight text-gray-900">
+    <div className="min-h-full bg-[var(--background)]">
+      {/* ─────────── 플로팅 글래스 네비게이션 ─────────── */}
+      <nav className="fixed top-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-5xl -translate-x-1/2 rounded-2xl glass-nav">
+        <div className="flex items-center justify-between px-5 py-3">
+          <Link href="/landing" className="flex items-center gap-2 transition-spring hover:opacity-80">
+            <MomsUpIcon className="h-7 w-7" />
+            <span className="text-[15px] font-bold tracking-tight text-gray-900">
               MomsUp
             </span>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             <Link
               href="/login"
-              className="rounded-xl px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+              className="rounded-xl px-3 py-2 text-[13px] font-semibold text-gray-600 transition-snap hover:bg-pink-50 hover:text-pink-700"
             >
               로그인
             </Link>
             <Link
               href="/signup"
-              className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-md"
+              className="rounded-xl cta-gradient px-4 py-2 text-[13px] font-bold text-white transition-spring magnetic"
             >
               무료로 시작
             </Link>
@@ -122,95 +122,132 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* 히어로 */}
-      <section className="relative overflow-hidden pt-32 pb-20 md:pt-44 md:pb-28">
-        <span aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-pink-50" />
-        <span aria-hidden className="pointer-events-none absolute -left-20 top-32 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
-        <span aria-hidden className="pointer-events-none absolute right-0 top-44 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
-        <span aria-hidden className="pointer-events-none absolute bottom-10 left-1/3 h-56 w-56 rounded-full bg-amber-200/40 blur-3xl" />
+      {/* ─────────── 히어로 ─────────── */}
+      <section className="relative overflow-hidden pt-36 pb-24 md:pt-48 md:pb-32">
+        {/* 배경 데코 — 비대칭 floating blobs */}
+        <span aria-hidden className="pointer-events-none absolute inset-0 bg-gradient-to-br from-pink-50 via-white to-rose-50" />
+        <span aria-hidden className="pointer-events-none absolute -left-32 top-20 h-[28rem] w-[28rem] rounded-full bg-pink-300/35 blur-[100px] animate-blob" />
+        <span aria-hidden className="pointer-events-none absolute -right-16 top-44 h-80 w-80 rounded-full bg-rose-300/30 blur-[80px] animate-blob-slow" />
+        <span aria-hidden className="pointer-events-none absolute bottom-0 left-1/3 h-64 w-64 rounded-full bg-amber-200/40 blur-[90px] animate-blob" />
 
-        <div className="relative mx-auto max-w-5xl px-6 text-center">
-          <div className="inline-flex items-center gap-1.5 rounded-full border border-pink-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-pink-700 shadow-sm backdrop-blur">
-            <SparkleIcon className="h-3 w-3" />
-            7일 무료 체험 · 카드 등록 불필요
-          </div>
-          <h1 className="mt-6 text-[34px] font-extrabold leading-tight tracking-tight text-gray-900 md:text-5xl lg:text-[58px]">
-            협찬 받고,
-            <br />
-            <span className="bg-gradient-to-r from-pink-600 via-rose-600 to-pink-600 bg-clip-text text-transparent">
-              AI가 콘텐츠까지
-            </span>{" "}
-            만들어드려요
-          </h1>
-          <p className="mx-auto mt-5 max-w-md text-base text-gray-600 md:text-lg">
-            DM 받자마자 3분 안에 분석·체크리스트·캡션·해시태그까지.
-            <br className="hidden sm:block" />
-            채채와 사랑이가 잠든 사이에도 AI가 일하고 있어요.
-          </p>
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link
-              href="/signup"
-              className="group inline-flex items-center gap-1.5 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-pink-500/30 transition-all hover:-translate-y-0.5 hover:shadow-2xl hover:shadow-pink-500/40"
-            >
-              <SparkleIcon className="h-4 w-4 transition-transform group-hover:rotate-12" />
-              7일 무료로 시작
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="h-4 w-4 transition-transform group-hover:translate-x-0.5">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-              </svg>
-            </Link>
-            <Link
-              href="#how"
-              className="rounded-2xl border border-gray-200 bg-white/80 px-5 py-3 text-sm font-bold text-gray-700 backdrop-blur transition-all hover:bg-white hover:shadow-md"
-            >
-              어떻게 작동하나요?
-            </Link>
+        <div className="relative mx-auto max-w-5xl px-6">
+          {/* 비대칭 정렬 — 텍스트는 가운데, 우측에 떠있는 카드 액센트 */}
+          <div className="text-center">
+            <div className="animate-fade-up inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-pink-700 shadow-[0_0_0_1px_rgb(244_63_125_/_0.12),0_8px_24px_-8px_rgb(244_63_125_/_0.3)] backdrop-blur">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-pink-500" />
+              </span>
+              7일 무료 체험 · 카드 등록 불필요
+            </div>
+
+            <h1 className="animate-fade-up-1 mt-7 text-[36px] font-black leading-[1.05] tracking-tight text-gray-900 md:text-[56px] lg:text-[68px]">
+              협찬 받고,
+              <br />
+              <span className="relative inline-block">
+                <span className="text-brand-gradient">AI가 콘텐츠까지</span>
+                <span aria-hidden className="absolute -bottom-1 left-0 h-1 w-full rounded-full bg-gradient-to-r from-pink-400 via-rose-400 to-pink-400 opacity-40" />
+              </span>
+              <br />
+              만들어드려요
+            </h1>
+
+            <p className="animate-fade-up-2 mx-auto mt-6 max-w-xl text-base leading-relaxed text-gray-600 md:text-lg">
+              DM 받자마자 <span className="font-semibold text-gray-900">3분 안에</span> 분석·체크리스트·캡션·해시태그까지.
+              <br className="hidden sm:block" />
+              아이가 잠든 사이에도 AI가 일하고 있어요.
+            </p>
+
+            <div className="animate-fade-up-3 mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+              <Link
+                href="/signup"
+                className="group inline-flex items-center gap-2 rounded-2xl cta-gradient px-7 py-4 text-base font-bold text-white transition-spring magnetic"
+              >
+                <SparkleIcon className="h-4 w-4 transition-transform group-hover:rotate-12" />
+                7일 무료로 시작
+                <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </Link>
+              <Link
+                href="#how"
+                className="bezel-soft px-6 py-3.5 text-sm font-bold text-gray-700 transition-spring hover:-translate-y-0.5"
+              >
+                어떻게 작동하나요?
+              </Link>
+            </div>
+
+            {/* 신뢰 시그널 */}
+            <div className="animate-fade-up-4 mt-12 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-[12px] font-medium text-gray-500">
+              <TrustBadge>카드 등록 없이 시작</TrustBadge>
+              <span className="hidden h-3 w-px bg-gray-300 sm:inline-block" />
+              <TrustBadge>언제든 취소 가능</TrustBadge>
+              <span className="hidden h-3 w-px bg-gray-300 sm:inline-block" />
+              <TrustBadge>데이터는 영원히 보관</TrustBadge>
+            </div>
           </div>
 
-          {/* 미니 신뢰 시그널 */}
-          <div className="mt-10 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-[11.5px] font-medium text-gray-500">
-            <span className="inline-flex items-center gap-1">
-              <CheckIcon className="h-3 w-3 text-emerald-500" />
-              카드 등록 없이 시작
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <CheckIcon className="h-3 w-3 text-emerald-500" />
-              언제든 취소 가능
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <CheckIcon className="h-3 w-3 text-emerald-500" />
-              데이터는 영원히 보관
-            </span>
+          {/* 떠 있는 미리보기 카드 — 비대칭 액센트 */}
+          <div className="animate-fade-up-4 relative mt-16 mx-auto max-w-3xl">
+            <div className="bezel rounded-[28px] p-2">
+              <div className="rounded-3xl bg-gradient-to-br from-pink-50 via-white to-rose-50 p-6 md:p-8">
+                <div className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400">
+                  <span className="h-2 w-2 rounded-full bg-rose-400" />
+                  <span className="h-2 w-2 rounded-full bg-amber-400" />
+                  <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                  <span className="ml-3">협찬 DM 분석 결과</span>
+                </div>
+                <div className="mt-5 grid gap-3 md:grid-cols-3">
+                  <PreviewStat label="브랜드" value="○○뷰티" icon="💄" />
+                  <PreviewStat label="고료" value="20만원" icon="💰" />
+                  <PreviewStat label="리스크" value="낮음" icon="✅" highlight />
+                </div>
+                <div className="mt-4 rounded-2xl bg-white/80 p-4 ring-1 ring-pink-100">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-pink-600">AI 추천 답장</p>
+                  <p className="mt-1.5 text-sm leading-relaxed text-gray-700">
+                    안녕하세요! 좋은 제안 감사합니다. 제 채널과 잘 맞는 브랜드 같아 긍정적으로 검토 중이에요. 다음 일정만 조율되면 진행 가능합니다.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <span aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-pink-400/20 blur-2xl animate-glow" />
+            <span aria-hidden className="pointer-events-none absolute -left-8 -bottom-8 h-28 w-28 rounded-full bg-amber-300/30 blur-2xl animate-glow" />
           </div>
         </div>
       </section>
 
-      {/* 문제 제시 */}
-      <section className="bg-gray-50 py-20 md:py-28">
+      {/* ─────────── 문제 제시 ─────────── */}
+      <section className="relative bg-[var(--surface-2)] py-24 md:py-32">
         <div className="mx-auto max-w-5xl px-6">
           <div className="text-center">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-rose-600">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-rose-600">
               매일의 고민
             </p>
-            <h2 className="mt-2 text-2xl font-extrabold text-gray-900 md:text-[32px]">
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-gray-900 md:text-[40px]">
               협찬 관리, 이런 점이 힘들죠?
             </h2>
+            <p className="mt-3 text-sm text-gray-500 md:text-base">
+              팔로워 2천명 육아 인플루언서가 직접 겪고 정리한 문제들이에요
+            </p>
           </div>
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
+
+          {/* 비대칭 — 첫 카드가 살짝 크고 두 번째가 살짝 내려옴 */}
+          <div className="mt-14 grid gap-4 md:grid-cols-2">
             {PAIN_POINTS.map((item, i) => {
               const t = TONE_PAIN[item.tone as keyof typeof TONE_PAIN];
               return (
                 <div
                   key={i}
-                  className="flex items-start gap-4 rounded-2xl border border-gray-200 bg-white p-6"
+                  className={`bezel bezel-hover group flex items-start gap-4 p-6 md:p-7 ${
+                    i % 2 === 1 ? "md:mt-8" : ""
+                  }`}
                 >
                   <span
-                    className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl ${t.iconBg} ${t.iconText}`}
+                    className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl ${t.iconBg} ${t.iconText} ring-1 ring-inset ${t.ring} transition-transform group-hover:scale-110 group-hover:rotate-3`}
                   >
                     {item.icon}
                   </span>
-                  <div>
-                    <p className="text-sm font-bold text-gray-900">{item.title}</p>
-                    <p className="mt-1 text-[13px] leading-relaxed text-gray-600">
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[15px] font-bold text-gray-900">{item.title}</p>
+                    <p className="mt-1.5 text-[13px] leading-relaxed text-gray-600">
                       {item.body}
                     </p>
                   </div>
@@ -221,59 +258,73 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 솔루션 / 작동 방식 */}
-      <section id="how" className="py-20 md:py-28">
-        <div className="mx-auto max-w-5xl px-6">
+      {/* ─────────── 솔루션 / 작동 방식 ─────────── */}
+      <section id="how" className="relative py-24 md:py-32">
+        <span aria-hidden className="pointer-events-none absolute -top-20 right-0 h-80 w-80 rounded-full bg-pink-100/60 blur-[80px]" />
+        <div className="relative mx-auto max-w-5xl px-6">
           <div className="text-center">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-pink-600">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-pink-600">
               How it works
             </p>
-            <h2 className="mt-2 text-2xl font-extrabold text-gray-900 md:text-[32px]">
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-gray-900 md:text-[40px]">
               AI가{" "}
-              <span className="bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
-                3분
-              </span>
+              <span className="text-brand-gradient">3분</span>
               만에 해결해요
             </h2>
+            <p className="mt-3 text-sm text-gray-500 md:text-base">
+              복사 → 분석 → 콘텐츠 → 포스팅. 단 4단계.
+            </p>
           </div>
 
-          <div className="mt-14 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
+          {/* 스텝 — 점선 connector 로 흐름 강조 */}
+          <div className="mt-16 grid gap-5 md:grid-cols-2 lg:grid-cols-4">
             {STEPS.map((s, i) => (
               <div
                 key={i}
-                className="group relative rounded-3xl border border-gray-200 bg-white p-6 transition-all hover:-translate-y-1 hover:shadow-lg"
+                className="bezel bezel-hover group relative p-6"
               >
-                <span className="absolute -top-3 left-6 inline-flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-rose-500 text-[11px] font-bold text-white shadow-md shadow-pink-500/30">
-                  {s.n}
+                <span className="absolute -top-3 left-6 inline-flex items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-rose-600 px-2.5 py-1 text-[10px] font-black tracking-wider text-white shadow-[0_4px_12px_-2px_rgb(244_63_125_/_0.5)]">
+                  STEP {s.n}
                 </span>
-                <div className="mt-2 flex h-10 w-10 items-center justify-center rounded-xl bg-pink-50 text-pink-600 transition-transform group-hover:scale-110">
+                <div className="mt-2 flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-50 to-rose-50 text-pink-600 ring-1 ring-inset ring-pink-200/50 transition-transform group-hover:scale-110 group-hover:rotate-6">
                   {s.icon}
                 </div>
-                <h3 className="mt-3 text-sm font-bold text-gray-900">{s.title}</h3>
-                <p className="mt-1 text-[12.5px] leading-relaxed text-gray-500">
+                <h3 className="mt-4 text-[15px] font-bold text-gray-900">{s.title}</h3>
+                <p className="mt-1.5 text-[13px] leading-relaxed text-gray-500">
                   {s.body}
                 </p>
+                {/* 화살표 connector (마지막 카드 제외, 데스크톱) */}
+                {i < STEPS.length - 1 && (
+                  <span
+                    aria-hidden
+                    className="pointer-events-none absolute -right-3 top-1/2 hidden h-6 w-6 -translate-y-1/2 items-center justify-center rounded-full bg-white text-pink-400 ring-1 ring-pink-200 lg:flex"
+                  >
+                    <ArrowRightIcon className="h-3 w-3" />
+                  </span>
+                )}
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 사회적 증거 */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-pink-600 via-pink-600 to-rose-700 py-20 md:py-28">
-        <span aria-hidden className="pointer-events-none absolute -right-20 -top-10 h-72 w-72 rounded-full bg-pink-400/20 blur-3xl" />
-        <span aria-hidden className="pointer-events-none absolute -left-10 bottom-0 h-64 w-64 rounded-full bg-amber-300/20 blur-3xl" />
+      {/* ─────────── 사회적 증거 ─────────── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-pink-600 via-rose-600 to-pink-800 py-24 md:py-32">
+        <span aria-hidden className="pointer-events-none absolute -right-32 -top-10 h-96 w-96 rounded-full bg-pink-400/30 blur-[100px] animate-blob" />
+        <span aria-hidden className="pointer-events-none absolute -left-10 bottom-0 h-72 w-72 rounded-full bg-amber-300/20 blur-[80px] animate-blob-slow" />
+        <span aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgb(255_255_255_/_0.1),transparent_60%)]" />
+
         <div className="relative mx-auto max-w-5xl px-6 text-center">
-          <p className="text-[11px] font-bold uppercase tracking-wider text-pink-200">
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-pink-200">
             실제 사용 사례
           </p>
-          <h2 className="mt-2 text-2xl font-extrabold text-white md:text-3xl">
-            팔로워 2천명 육아 인플루언서가 직접 만들고
+          <h2 className="mt-3 text-3xl font-black tracking-tight text-white md:text-[40px]">
+            육아 인플루언서가 직접 만들고
             <br className="hidden sm:block" />
-            사용 중인 도구예요
+            <span className="text-pink-100">매일 사용 중인 도구</span>예요
           </h2>
 
-          <div className="mt-12 grid gap-4 sm:grid-cols-3">
+          <div className="mt-16 grid gap-4 sm:grid-cols-3">
             <BeforeAfter label="협찬 1건 처리" value="40분" suffix="Before" tone="muted" />
             <BeforeAfter label="협찬 1건 처리" value="3분" suffix="After" tone="bright" />
             <BeforeAfter label="시간 절감" value="93%" suffix="" tone="highlight" />
@@ -281,22 +332,22 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* 가격 */}
-      <section className="py-20 md:py-28">
+      {/* ─────────── 가격 ─────────── */}
+      <section className="py-24 md:py-32">
         <div className="mx-auto max-w-5xl px-6">
           <div className="text-center">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-pink-600">
+            <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-pink-600">
               가격
             </p>
-            <h2 className="mt-2 text-2xl font-extrabold text-gray-900 md:text-[32px]">
+            <h2 className="mt-3 text-3xl font-black tracking-tight text-gray-900 md:text-[40px]">
               부담 없이 시작해보세요
             </h2>
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-3 text-sm text-gray-500 md:text-base">
               7일 무료 체험 후 마음에 들면 결제하세요
             </p>
           </div>
 
-          <div className="mt-12 grid gap-5 md:grid-cols-3 md:items-start">
+          <div className="mt-14 grid gap-5 md:grid-cols-3 md:items-start">
             {PRICING.map((plan) => (
               <PlanCard key={plan.name} plan={plan} />
             ))}
@@ -304,37 +355,33 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* CTA 반복 */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-pink-50 py-20 md:py-24">
-        <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-56 w-56 rounded-full bg-amber-200/40 blur-3xl" />
-        <span aria-hidden className="pointer-events-none absolute -right-10 -bottom-10 h-56 w-56 rounded-full bg-pink-200/40 blur-3xl" />
+      {/* ─────────── CTA 반복 ─────────── */}
+      <section className="relative overflow-hidden bg-gradient-to-br from-amber-50 via-white to-pink-50 py-24 md:py-28">
+        <span aria-hidden className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-amber-200/40 blur-[80px] animate-blob" />
+        <span aria-hidden className="pointer-events-none absolute -right-20 -bottom-20 h-80 w-80 rounded-full bg-pink-200/50 blur-[80px] animate-blob-slow" />
         <div className="relative mx-auto max-w-3xl px-6 text-center">
-          <h2 className="text-2xl font-extrabold text-gray-900 md:text-3xl">
-            오늘부터, 협찬은 AI에게 맡겨보세요
+          <h2 className="text-3xl font-black tracking-tight text-gray-900 md:text-[40px]">
+            오늘부터, 협찬은 <span className="text-brand-gradient">AI에게</span> 맡겨보세요
           </h2>
-          <p className="mt-3 text-sm text-gray-600 md:text-base">
+          <p className="mt-4 text-base text-gray-600 md:text-lg">
             3분이면 협찬 1건의 분석과 콘텐츠 초안이 완성돼요.
           </p>
           <Link
             href="/signup"
-            className="group mt-8 inline-flex items-center gap-1.5 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 px-7 py-3.5 text-base font-bold text-white shadow-xl shadow-pink-500/30 transition-all hover:-translate-y-0.5 hover:shadow-2xl"
+            className="group mt-10 inline-flex items-center gap-2 rounded-2xl cta-gradient px-8 py-4 text-base font-bold text-white transition-spring magnetic"
           >
             <SparkleIcon className="h-4 w-4 transition-transform group-hover:rotate-12" />
             지금 무료로 시작하기
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="h-4 w-4 transition-transform group-hover:translate-x-0.5">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-            </svg>
+            <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
       </section>
 
-      {/* 푸터 */}
-      <footer className="border-t border-gray-200 bg-white py-10">
+      {/* ─────────── 푸터 ─────────── */}
+      <footer className="border-t border-gray-100 bg-white py-12">
         <div className="mx-auto max-w-5xl px-6 text-center">
           <div className="inline-flex items-center gap-2">
-            <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gradient-to-br from-pink-500 to-rose-500 shadow-sm">
-              <SparkleIcon className="h-3 w-3 text-white" />
-            </span>
+            <MomsUpIcon className="h-6 w-6" />
             <span className="text-sm font-bold text-gray-900">MomsUp</span>
           </div>
           <p className="mt-3 text-xs text-gray-500">
@@ -353,8 +400,43 @@ export default function LandingPage() {
 }
 
 // ──────────────────────────────────────────────
-// Before/After 카드
+// Helpers
 // ──────────────────────────────────────────────
+
+function TrustBadge({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-1.5">
+      <CheckIcon className="h-3.5 w-3.5 text-emerald-500" />
+      {children}
+    </span>
+  );
+}
+
+function PreviewStat({
+  label,
+  value,
+  icon,
+  highlight,
+}: {
+  label: string;
+  value: string;
+  icon: string;
+  highlight?: boolean;
+}) {
+  return (
+    <div
+      className={`rounded-2xl p-3.5 text-left ring-1 ring-inset ${
+        highlight ? "bg-emerald-50 ring-emerald-200" : "bg-white ring-pink-100"
+      }`}
+    >
+      <p className="text-[10px] font-bold uppercase tracking-wider text-gray-400">{label}</p>
+      <p className="mt-1 flex items-center gap-1.5 text-sm font-bold text-gray-900">
+        <span>{icon}</span>
+        {value}
+      </p>
+    </div>
+  );
+}
 
 function BeforeAfter({
   label,
@@ -371,32 +453,28 @@ function BeforeAfter({
     tone === "muted"
       ? "text-white/60"
       : tone === "highlight"
-        ? "text-pink-200"
+        ? "text-amber-200"
         : "text-white";
   const ring =
     tone === "highlight"
-      ? "ring-pink-200/40 bg-white/5"
-      : "ring-white/20 bg-white/5";
+      ? "ring-amber-200/30 bg-white/10"
+      : "ring-white/15 bg-white/5";
   return (
     <div
-      className={`rounded-2xl p-5 backdrop-blur ring-1 ring-inset ${ring}`}
+      className={`rounded-3xl p-6 backdrop-blur-md ring-1 ring-inset ${ring} transition-spring magnetic`}
     >
       {suffix && (
-        <p className="text-[10.5px] font-bold uppercase tracking-wider text-pink-200">
+        <p className="text-[10.5px] font-bold uppercase tracking-[0.2em] text-pink-200">
           {suffix}
         </p>
       )}
-      <p className={`mt-1 text-4xl font-extrabold tabular-nums ${valueClass}`}>
+      <p className={`mt-1.5 text-5xl font-black tabular-nums tracking-tight ${valueClass}`}>
         {value}
       </p>
-      <p className="mt-1 text-xs text-pink-200">{label}</p>
+      <p className="mt-1.5 text-xs text-pink-100/80">{label}</p>
     </div>
   );
 }
-
-// ──────────────────────────────────────────────
-// 플랜 카드 (랜딩 전용 — 무료시작 CTA)
-// ──────────────────────────────────────────────
 
 function PlanCard({
   plan,
@@ -412,22 +490,23 @@ function PlanCard({
   };
 }) {
   const containerClass = plan.highlighted
-    ? "relative md:-mt-3 overflow-hidden rounded-3xl bg-gradient-to-br from-pink-600 via-pink-600 to-rose-700 p-7 text-white shadow-2xl shadow-pink-500/30"
+    ? "relative md:-mt-4 overflow-hidden rounded-3xl bg-gradient-to-br from-pink-600 via-rose-600 to-pink-800 p-7 text-white shadow-[0_0_0_1px_rgb(244_63_125_/_0.3),0_24px_64px_-16px_rgb(244_63_125_/_0.5)] transition-spring magnetic"
     : plan.tone === "dark"
-      ? "relative overflow-hidden rounded-3xl bg-gray-900 p-7 text-white shadow-md"
-      : "relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-7";
+      ? "relative overflow-hidden rounded-3xl bg-gray-900 p-7 text-white bezel-hover transition-spring"
+      : "bezel bezel-hover relative overflow-hidden p-7 transition-spring";
 
   return (
     <div className={containerClass}>
       {plan.highlighted && (
         <>
-          <span aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
-          <span aria-hidden className="pointer-events-none absolute -bottom-12 -right-4 h-28 w-28 rounded-full bg-pink-400/20 blur-2xl" />
+          <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/15 blur-2xl animate-glow" />
+          <span aria-hidden className="pointer-events-none absolute -bottom-12 -right-4 h-32 w-32 rounded-full bg-pink-400/30 blur-2xl" />
+          <span aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgb(255_255_255_/_0.15),transparent_50%)]" />
         </>
       )}
       {plan.badge && (
         <div className="absolute right-5 top-5">
-          <span className="inline-flex items-center gap-1 rounded-full bg-white/95 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-pink-700 shadow-sm">
+          <span className="inline-flex items-center gap-1 rounded-full bg-white px-2.5 py-1 text-[10px] font-black uppercase tracking-wider text-pink-700 shadow-md">
             <SparkleIcon className="h-2.5 w-2.5" />
             {plan.badge}
           </span>
@@ -436,7 +515,7 @@ function PlanCard({
 
       <div className="relative">
         <h3
-          className={`text-base font-bold ${
+          className={`text-[15px] font-bold ${
             plan.highlighted || plan.tone === "dark" ? "text-white" : "text-gray-900"
           }`}
         >
@@ -454,9 +533,9 @@ function PlanCard({
           {plan.description}
         </p>
 
-        <div className="mt-5 flex items-baseline gap-1">
+        <div className="mt-6 flex items-baseline gap-1">
           <span
-            className={`text-5xl font-extrabold tracking-tight ${
+            className={`text-[56px] font-black tracking-tight tabular-nums ${
               plan.highlighted || plan.tone === "dark" ? "text-white" : "text-gray-900"
             }`}
           >
@@ -477,18 +556,16 @@ function PlanCard({
 
         <Link
           href="/signup"
-          className={`group mt-7 flex w-full items-center justify-center gap-1.5 rounded-xl py-3 text-sm font-bold transition-all ${
+          className={`group mt-7 flex w-full items-center justify-center gap-1.5 rounded-xl py-3 text-sm font-bold transition-spring ${
             plan.highlighted
-              ? "bg-white text-pink-700 shadow-md hover:-translate-y-0.5 hover:shadow-lg"
+              ? "bg-white text-pink-700 hover:-translate-y-0.5 hover:shadow-xl"
               : plan.tone === "dark"
-                ? "bg-white text-gray-900 hover:-translate-y-0.5 hover:shadow-md"
-                : "bg-gray-900 text-white hover:-translate-y-0.5 hover:bg-gray-800 hover:shadow-md"
+                ? "bg-white text-gray-900 hover:-translate-y-0.5 hover:shadow-lg"
+                : "cta-gradient text-white hover:-translate-y-0.5"
           }`}
         >
           무료로 시작하기
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className="h-4 w-4 transition-transform group-hover:translate-x-0.5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-          </svg>
+          <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
         </Link>
       </div>
     </div>
@@ -496,13 +573,20 @@ function PlanCard({
 }
 
 // ──────────────────────────────────────────────
-// 아이콘
+// Icons
 // ──────────────────────────────────────────────
 
 function SparkleIcon({ className = "h-4 w-4" }: { className?: string }) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className={className}>
       <path fillRule="evenodd" d="M9 4.5a.75.75 0 0 1 .721.544l.813 2.846a3.75 3.75 0 0 0 2.576 2.576l2.846.813a.75.75 0 0 1 0 1.442l-2.846.813a3.75 3.75 0 0 0-2.576 2.576l-.813 2.846a.75.75 0 0 1-1.442 0l-.813-2.846a3.75 3.75 0 0 0-2.576-2.576l-2.846-.813a.75.75 0 0 1 0-1.442l2.846-.813A3.75 3.75 0 0 0 7.466 7.89l.813-2.846A.75.75 0 0 1 9 4.5Z" clipRule="evenodd" />
+    </svg>
+  );
+}
+function ArrowRightIcon({ className = "h-4 w-4" }: { className?: string }) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.2} stroke="currentColor" className={className}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
     </svg>
   );
 }

@@ -43,7 +43,7 @@ export function ContentResult({
   return (
     <div className="space-y-4">
       {/* 체크리스트 */}
-      <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      <section className="bezel overflow-hidden">
         <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-pink-50/40 to-rose-50/40 px-5 py-3">
           <div className="flex items-center gap-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-md bg-pink-100 text-pink-600">
@@ -116,7 +116,7 @@ export function ContentResult({
       </section>
 
       {/* 캡션 */}
-      <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      <section className="bezel overflow-hidden">
         <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-pink-50/40 to-rose-50/40 px-5 py-3">
           <div className="flex items-center gap-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-md bg-pink-100 text-pink-600">
@@ -150,7 +150,7 @@ export function ContentResult({
       </section>
 
       {/* 해시태그 */}
-      <section className="overflow-hidden rounded-2xl border border-gray-200 bg-white">
+      <section className="bezel overflow-hidden">
         <div className="flex items-center justify-between border-b border-gray-100 bg-gradient-to-r from-amber-50/40 to-orange-50/40 px-5 py-3">
           <div className="flex items-center gap-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-md bg-amber-100 text-amber-600">

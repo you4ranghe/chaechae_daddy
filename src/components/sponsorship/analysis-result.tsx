@@ -284,7 +284,7 @@ function SectionCard({
 }) {
   const t = SECTION_TONE[tone];
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-5">
+    <section className="bezel p-5">
       <div className="flex items-center gap-2">
         <span className={`flex h-6 w-6 items-center justify-center rounded-md ${t.iconBg} ${t.iconText}`}>
           {icon}

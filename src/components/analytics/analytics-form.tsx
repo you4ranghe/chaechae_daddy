@@ -106,7 +106,7 @@ export function AnalyticsForm() {
       {error && <div className="rounded-lg bg-red-50 px-4 py-3 text-sm text-red-600">{error}</div>}
 
       {/* 기본 정보 */}
-      <div className="rounded-xl border border-gray-200 bg-white p-5">
+      <div className="bezel p-5">
         <h3 className="text-sm font-medium text-gray-700">기본 정보</h3>
         <div className="mt-3 grid grid-cols-2 gap-4">
           <div>
@@ -129,7 +129,7 @@ export function AnalyticsForm() {
       </div>
 
       {/* 게시물 성과 */}
-      <div className="rounded-xl border border-gray-200 bg-white p-5">
+      <div className="bezel p-5">
         <div className="flex items-center justify-between">
           <h3 className="text-sm font-medium text-gray-700">게시물 성과 ({posts.length}/7)</h3>
           {posts.length < 7 && (
@@ -165,7 +165,7 @@ export function AnalyticsForm() {
         </div>
       </div>
 
-      <button type="submit" disabled={analyzing} className="w-full rounded-xl bg-gradient-to-r from-pink-600 to-rose-600 px-6 py-3.5 text-base font-semibold text-white shadow-lg shadow-pink-500/20 disabled:opacity-50 disabled:cursor-not-allowed transition-all">
+      <button type="submit" disabled={analyzing} className="w-full rounded-2xl cta-gradient px-6 py-3.5 text-base font-bold text-white transition-spring magnetic disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0 disabled:hover:scale-100">
         {analyzing ? (
           <span className="flex items-center justify-center gap-2">
             <svg className="h-5 w-5 animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" /><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" /></svg>

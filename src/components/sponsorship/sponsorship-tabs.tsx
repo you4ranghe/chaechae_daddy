@@ -42,7 +42,7 @@ export function SponsorshipTabs({
       {/* 탭 헤더 */}
       <div
         role="tablist"
-        className="flex gap-1 rounded-2xl border border-gray-200 bg-white p-1 shadow-sm"
+        className="bezel-soft flex gap-1 p-1"
       >
         {TABS.map((tab) => {
           const isActive = activeTab === tab.id;

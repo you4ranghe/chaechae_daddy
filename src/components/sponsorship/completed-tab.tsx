@@ -155,7 +155,7 @@ function CompletedCard({ sponsorship: sp }: { sponsorship: Sponsorship }) {
   )}.${String(date.getDate()).padStart(2, "0")}`;
 
   return (
-    <div className="overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-200 hover:border-emerald-200 hover:shadow-md">
+    <div className="bezel bezel-hover overflow-hidden transition-spring">
       <div className="h-1 w-full bg-gradient-to-r from-emerald-400 to-teal-400" />
       <Link
         href={`/dashboard/sponsorships/${sp.id}`}

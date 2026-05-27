@@ -116,22 +116,22 @@ export default async function PricingPage() {
   }
 
   return (
-    <div className="min-h-full bg-gradient-to-b from-gray-50 to-white">
-      {/* 상단 네비 */}
-      <nav className="border-b border-gray-100 bg-white/90 backdrop-blur">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
+    <div className="min-h-full bg-[var(--background)]">
+      {/* 플로팅 글래스 네비 */}
+      <nav className="fixed top-3 left-1/2 z-50 w-[calc(100%-1.5rem)] max-w-5xl -translate-x-1/2 rounded-2xl glass-nav">
+        <div className="flex items-center justify-between px-5 py-3">
           <Link
             href={currentPlan ? "/dashboard" : "/landing"}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 transition-spring hover:opacity-80"
           >
-            <MomsUpIcon className="h-8 w-8" />
-            <span className="text-base font-bold tracking-tight text-gray-900">MomsUp</span>
+            <MomsUpIcon className="h-7 w-7" />
+            <span className="text-[15px] font-bold tracking-tight text-gray-900">MomsUp</span>
           </Link>
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2">
             {currentPlan ? (
               <Link
                 href="/dashboard"
-                className="rounded-xl px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                className="rounded-xl px-3 py-2 text-[13px] font-semibold text-gray-600 transition-snap hover:bg-pink-50 hover:text-pink-700"
               >
                 대시보드로
               </Link>
@@ -139,13 +139,13 @@ export default async function PricingPage() {
               <>
                 <Link
                   href="/login"
-                  className="rounded-xl px-3 py-2 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900"
+                  className="rounded-xl px-3 py-2 text-[13px] font-semibold text-gray-600 transition-snap hover:bg-pink-50 hover:text-pink-700"
                 >
                   로그인
                 </Link>
                 <Link
                   href="/signup"
-                  className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-bold text-white transition-all hover:-translate-y-0.5 hover:shadow-md"
+                  className="rounded-xl cta-gradient px-4 py-2 text-[13px] font-bold text-white transition-spring magnetic"
                 >
                   무료로 시작
                 </Link>
@@ -156,24 +156,22 @@ export default async function PricingPage() {
       </nav>
 
       {/* 히어로 */}
-      <section className="relative overflow-hidden">
-        <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-pink-200/30 blur-3xl" />
-        <span aria-hidden className="pointer-events-none absolute right-0 top-40 h-64 w-64 rounded-full bg-pink-200/30 blur-3xl" />
-        <div className="mx-auto max-w-5xl px-6 pt-14 pb-8 md:pt-20">
+      <section className="relative overflow-hidden pt-28 md:pt-36">
+        <span aria-hidden className="pointer-events-none absolute -left-32 top-20 h-[28rem] w-[28rem] rounded-full bg-pink-300/30 blur-[100px] animate-blob" />
+        <span aria-hidden className="pointer-events-none absolute -right-20 top-40 h-80 w-80 rounded-full bg-rose-200/40 blur-[80px] animate-blob-slow" />
+        <div className="mx-auto max-w-5xl px-6 pb-10">
           <div className="text-center">
-            <div className="inline-flex items-center gap-1.5 rounded-full border border-pink-100 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-pink-700 shadow-sm backdrop-blur">
+            <div className="animate-fade-up inline-flex items-center gap-1.5 rounded-full bg-white/90 px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-pink-700 shadow-[0_0_0_1px_rgb(244_63_125_/_0.12),0_8px_24px_-8px_rgb(244_63_125_/_0.3)] backdrop-blur">
               <SparkleIcon className="h-3 w-3" />
               7일 무료 체험 · 카드 등록 불필요
             </div>
-            <h1 className="mt-5 text-3xl font-extrabold tracking-tight text-gray-900 md:text-[40px] md:leading-tight">
+            <h1 className="animate-fade-up-1 mt-6 text-3xl font-black tracking-tight text-gray-900 md:text-[44px] md:leading-tight">
               부담 없이 시작하고,
               <br className="hidden sm:block" />
-              <span className="bg-gradient-to-r from-pink-600 via-rose-600 to-pink-600 bg-clip-text text-transparent">
-                {" "}편하게 키워가세요
-              </span>
+              <span className="text-brand-gradient">편하게 키워가세요</span>
             </h1>
-            <p className="mx-auto mt-4 max-w-xl text-sm leading-relaxed text-gray-600 md:text-base">
-              협찬 분석부터 콘텐츠 생성까지, 채채와 사랑이 잠든 사이에도 AI가 대신해드려요.
+            <p className="animate-fade-up-2 mx-auto mt-5 max-w-xl text-sm leading-relaxed text-gray-600 md:text-base">
+              협찬 분석부터 콘텐츠 생성까지, 아이가 잠든 사이에도 AI가 대신해드려요.
             </p>
           </div>
         </div>
@@ -197,12 +195,12 @@ export default async function PricingPage() {
             {TRUST_POINTS.map((t, i) => (
               <div
                 key={i}
-                className="rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+                className="bezel bezel-hover group p-5 transition-spring"
               >
-                <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-sm">
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-emerald-500 to-teal-500 shadow-[0_4px_12px_-2px_rgb(16_185_129_/_0.4)] transition-spring group-hover:scale-110 group-hover:rotate-6">
                   <CheckIcon className="h-4 w-4 text-white" />
                 </div>
-                <p className="mt-3 text-sm font-bold text-gray-900">{t.title}</p>
+                <p className="mt-4 text-sm font-bold text-gray-900">{t.title}</p>
                 <p className="mt-1 text-[12.5px] leading-relaxed text-gray-500">
                   {t.body}
                 </p>
@@ -223,30 +221,30 @@ export default async function PricingPage() {
               궁금한 점이 있으신가요?
             </h2>
           </div>
-          <ul className="mt-6 space-y-3">
+          <ul className="mt-8 space-y-3">
             {FAQS.map((faq, i) => (
               <li
                 key={i}
-                className="rounded-2xl border border-gray-200 bg-white p-5"
+                className="bezel p-5"
               >
-                <p className="flex items-start gap-2 text-sm font-bold text-gray-900">
-                  <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-pink-100 text-[10px] font-bold text-pink-700">
+                <p className="flex items-start gap-2.5 text-sm font-bold text-gray-900">
+                  <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-pink-100 to-rose-100 text-[10px] font-black text-pink-700 ring-1 ring-inset ring-pink-200/60">
                     Q
                   </span>
                   {faq.q}
                 </p>
-                <p className="mt-2 pl-7 text-[13px] leading-relaxed text-gray-600">
+                <p className="mt-2.5 pl-7 text-[13px] leading-relaxed text-gray-600">
                   {faq.a}
                 </p>
               </li>
             ))}
           </ul>
 
-          <div className="mt-8 rounded-2xl bg-gradient-to-br from-pink-50 via-white to-pink-50 p-6 text-center ring-1 ring-inset ring-white/60">
-            <p className="text-sm font-semibold text-gray-900">
+          <div className="bezel mt-10 bg-gradient-to-br from-pink-50 via-white to-rose-50 p-7 text-center">
+            <p className="text-sm font-bold text-gray-900">
               여전히 망설여진다면?
             </p>
-            <p className="mt-1 text-xs text-gray-600">
+            <p className="mt-1.5 text-xs text-gray-600">
               궁금한 점은{" "}
               <a
                 href="mailto:contact@example.com"
@@ -277,17 +275,18 @@ function PlanCard({
   const isCurrent = currentPlan === plan.id;
 
   const containerClass = plan.highlighted
-    ? "relative md:-mt-3 overflow-hidden rounded-3xl bg-gradient-to-br from-pink-600 via-pink-600 to-rose-700 p-7 text-white shadow-2xl shadow-pink-500/30 md:p-8"
+    ? "relative md:-mt-4 overflow-hidden rounded-3xl bg-gradient-to-br from-pink-600 via-rose-600 to-pink-800 p-7 text-white shadow-[0_0_0_1px_rgb(244_63_125_/_0.3),0_24px_64px_-16px_rgb(244_63_125_/_0.5)] transition-spring magnetic md:p-8"
     : plan.tone === "dark"
-      ? "relative overflow-hidden rounded-3xl bg-gray-900 p-7 text-white shadow-md"
-      : "relative overflow-hidden rounded-3xl border border-gray-200 bg-white p-7";
+      ? "bezel bezel-hover relative overflow-hidden bg-gray-900 p-7 text-white transition-spring"
+      : "bezel bezel-hover relative overflow-hidden p-7 transition-spring";
 
   return (
     <div className={containerClass}>
       {plan.highlighted && (
         <>
-          <span aria-hidden className="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
-          <span aria-hidden className="pointer-events-none absolute -bottom-12 -right-4 h-28 w-28 rounded-full bg-pink-400/20 blur-2xl" />
+          <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-white/15 blur-2xl animate-glow" />
+          <span aria-hidden className="pointer-events-none absolute -bottom-12 -right-4 h-32 w-32 rounded-full bg-pink-400/30 blur-2xl" />
+          <span aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgb(255_255_255_/_0.15),transparent_50%)]" />
         </>
       )}
 
@@ -331,9 +330,9 @@ function PlanCard({
           {plan.description}
         </p>
 
-        <div className="mt-5 flex items-baseline gap-1">
+        <div className="mt-6 flex items-baseline gap-1">
           <span
-            className={`text-5xl font-extrabold tracking-tight ${
+            className={`text-[56px] font-black tracking-tight tabular-nums ${
               plan.highlighted || plan.tone === "dark"
                 ? "text-white"
                 : "text-gray-900"

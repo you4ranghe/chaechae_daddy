@@ -171,7 +171,7 @@ export function SponsorshipDetail({
       </Link>
 
       {/* 히어로 헤더 */}
-      <section className="relative overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
+      <section className="bezel relative overflow-hidden">
         {/* 상단 컬러 인디케이터 (상태별 그라데이션) */}
         <div className={`h-1.5 w-full bg-gradient-to-r ${meta.gradient}`} />
         <div className="relative px-6 py-6 sm:px-7">
@@ -282,7 +282,7 @@ export function SponsorshipDetail({
 
       {/* 상태 변경 액션 */}
       {sponsorship.status !== "completed" && sponsorship.status !== "rejected" && (
-        <section className="rounded-2xl border border-gray-200 bg-white p-5">
+        <section className="bezel p-5">
           <div className="flex items-center gap-2">
             <span className="flex h-6 w-6 items-center justify-center rounded-md bg-gray-100 text-gray-600">
               <SwitchIcon className="h-3.5 w-3.5" />

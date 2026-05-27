@@ -188,24 +188,24 @@ export default async function DashboardPage() {
   const dayMessage = DAY_MESSAGES[dayOfWeek][Math.floor(Math.random() * 7)];
 
   return (
-    <div className="space-y-6">
-      {/* 따뜻한 환영 헤더 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-amber-50 via-rose-50 to-pink-50 px-6 py-7 sm:px-8">
+    <div className="space-y-7 animate-fade-up">
+      {/* 따뜻한 환영 헤더 — 비대칭 hero card */}
+      <section className="bezel relative overflow-hidden bg-gradient-to-br from-amber-50 via-rose-50 to-pink-50 px-6 py-8 sm:px-9 sm:py-10">
         <DecorBubbles />
         <div className="relative flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div className="min-w-0">
-            <p className="text-sm font-medium text-amber-700/90">{dayMessage}</p>
-            <h1 className="mt-1 text-2xl font-bold text-gray-900 sm:text-[26px]">
-              <span className="text-pink-700">{instagramHandle}</span>님,
+            <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-amber-700/80">{dayMessage}</p>
+            <h1 className="mt-2 text-[26px] font-black tracking-tight text-gray-900 sm:text-[30px]">
+              <span className="text-brand-gradient">{instagramHandle}</span>님,
               <br className="sm:hidden" /> 오늘은 어떤 협찬이 와있을까요? <span aria-hidden>🍼</span>
             </h1>
-            <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+            <p className="mt-2 text-[14px] leading-relaxed text-gray-600">
               협찬 DM을 분석하고, 콘텐츠 초안을 만들고, 인사이트까지 한 번에 도와드려요.
             </p>
           </div>
           {plan === "free_trial" ? (
-            <div className="flex-shrink-0 self-start rounded-full bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-amber-700 ring-1 ring-inset ring-amber-200 backdrop-blur">
-              <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-amber-400 align-middle" />
+            <div className="flex-shrink-0 self-start rounded-full bg-white/90 px-4 py-2 text-xs font-bold text-amber-700 shadow-[0_0_0_1px_rgb(245_158_11_/_0.2),0_8px_20px_-8px_rgb(245_158_11_/_0.3)] backdrop-blur">
+              <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-amber-400 align-middle animate-pulse" />
               {profile?.trial_ends_at && trialDaysLeft === 0
                 ? "체험 기간 만료"
                 : trialDaysLeft > 0
@@ -213,8 +213,8 @@ export default async function DashboardPage() {
                   : "무료 체험 중"}
             </div>
           ) : (
-            <div className="flex-shrink-0 self-start rounded-full bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-pink-700 ring-1 ring-inset ring-pink-200 backdrop-blur">
-              <span className="mr-1 inline-block h-1.5 w-1.5 rounded-full bg-pink-500 align-middle" />
+            <div className="flex-shrink-0 self-start rounded-full bg-white/90 px-4 py-2 text-xs font-bold text-pink-700 shadow-[0_0_0_1px_rgb(244_63_125_/_0.2),0_8px_20px_-8px_rgb(244_63_125_/_0.3)] backdrop-blur">
+              <span className="mr-1.5 inline-block h-1.5 w-1.5 rounded-full bg-pink-500 align-middle" />
               {(({ starter: "스타터", growth: "그로스", business: "비즈니스" } as Record<string, string>)[plan] ?? plan)} 플랜
             </div>
           )}
@@ -248,30 +248,31 @@ export default async function DashboardPage() {
         ) : (
         <Link
           href="/dashboard/sponsorships"
-          className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-pink-500 via-pink-500 to-rose-500 p-6 text-white shadow-lg shadow-pink-500/20 transition-all hover:-translate-y-0.5 hover:shadow-xl hover:shadow-pink-500/30 lg:col-span-2"
+          className="group relative overflow-hidden rounded-3xl cta-gradient p-7 text-white transition-spring magnetic lg:col-span-2"
         >
-          <div className="absolute -right-6 -top-6 h-32 w-32 rounded-full bg-white/10 blur-2xl" />
-          <div className="absolute -bottom-8 -right-2 h-24 w-24 rounded-full bg-pink-400/20 blur-2xl" />
+          <span aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-40 w-40 rounded-full bg-white/15 blur-2xl animate-glow" />
+          <span aria-hidden className="pointer-events-none absolute -bottom-12 -right-4 h-32 w-32 rounded-full bg-pink-300/40 blur-2xl" />
+          <span aria-hidden className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_0%,rgb(255_255_255_/_0.2),transparent_60%)]" />
           <div className="relative flex items-start justify-between gap-4">
             <div>
-              <div className="inline-flex items-center gap-1.5 rounded-full bg-white/15 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-white/90 backdrop-blur">
+              <div className="inline-flex items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.14em] text-white backdrop-blur ring-1 ring-inset ring-white/30">
                 <SparkleIcon className="h-3 w-3" />
                 AI Agent
               </div>
-              <h2 className="mt-3 text-xl font-bold sm:text-2xl">
+              <h2 className="mt-4 text-2xl font-black tracking-tight sm:text-[26px]">
                 새 협찬 분석하기
               </h2>
-              <p className="mt-1 text-sm text-pink-100">
+              <p className="mt-1.5 text-[14px] text-pink-100">
                 협찬 DM을 붙여넣으면 AI가 조건·리스크·답장까지 만들어드려요
               </p>
             </div>
-            <div className="flex-shrink-0 rounded-2xl bg-white/15 p-3 backdrop-blur transition-transform group-hover:scale-110">
+            <div className="flex-shrink-0 rounded-2xl bg-white/20 p-3 backdrop-blur ring-1 ring-inset ring-white/30 transition-spring group-hover:scale-110 group-hover:rotate-6">
               <SparkleIcon className="h-7 w-7" />
             </div>
           </div>
-          <div className="relative mt-5 inline-flex items-center gap-1 text-sm font-semibold">
+          <div className="relative mt-6 inline-flex items-center gap-1.5 text-sm font-bold">
             지금 시작하기
-            <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+            <ArrowRightIcon className="h-4 w-4 transition-transform group-hover:translate-x-1.5" />
           </div>
         </Link>
         )}
@@ -279,22 +280,23 @@ export default async function DashboardPage() {
         {/* 처리 대기 카드 */}
         <Link
           href="/dashboard/sponsorships"
-          className="group rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 to-orange-50 p-5 transition-all hover:-translate-y-0.5 hover:shadow-md"
+          className="group bezel bezel-hover relative overflow-hidden bg-gradient-to-br from-amber-50 to-orange-50 p-5 transition-spring"
         >
-          <div className="flex items-center justify-between">
-            <div className="rounded-xl bg-amber-100 p-2.5 ring-1 ring-inset ring-amber-200">
+          <span aria-hidden className="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-amber-200/40 blur-2xl" />
+          <div className="relative flex items-center justify-between">
+            <div className="rounded-2xl bg-white p-2.5 ring-1 ring-inset ring-amber-200 shadow-[0_2px_8px_-2px_rgb(245_158_11_/_0.25)]">
               <BellIcon className="h-5 w-5 text-amber-600" />
             </div>
-            <ArrowRightIcon className="h-4 w-4 text-amber-700 opacity-0 transition-all group-hover:translate-x-0.5 group-hover:opacity-100" />
+            <ArrowRightIcon className="h-4 w-4 text-amber-700 opacity-0 transition-spring group-hover:translate-x-0.5 group-hover:opacity-100" />
           </div>
-          <p className="mt-3 text-xs font-semibold uppercase tracking-wider text-amber-700">
+          <p className="relative mt-3.5 text-[10.5px] font-bold uppercase tracking-[0.14em] text-amber-700">
             처리 대기
           </p>
-          <p className="mt-1 text-3xl font-bold text-amber-900">
+          <p className="relative mt-1 text-3xl font-black tabular-nums text-amber-900">
             {stats.pending}
             <span className="ml-0.5 text-base font-medium text-amber-700">건</span>
           </p>
-          <p className="mt-1.5 text-xs leading-relaxed text-amber-800/80">
+          <p className="relative mt-1.5 text-xs leading-relaxed text-amber-800/80">
             {stats.pending > 0
               ? "수락 여부를 결정해 보세요"
               : "지금은 모두 정리됐어요 ☺"}
@@ -304,8 +306,11 @@ export default async function DashboardPage() {
 
       {/* 이번 달 요약 — 3 카드 */}
       <section>
-        <div className="mb-3 flex items-end justify-between">
-          <h2 className="text-sm font-semibold text-gray-900">이번 달 요약</h2>
+        <div className="mb-4 flex items-end justify-between">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-pink-600">This month</p>
+            <h2 className="mt-1 text-base font-bold tracking-tight text-gray-900">이번 달 요약</h2>
+          </div>
           <p className="text-xs text-gray-400">
             {now.getFullYear()}년 {now.getMonth() + 1}월
           </p>
@@ -314,7 +319,7 @@ export default async function DashboardPage() {
           {/* 협찬 */}
           <Link
             href="/dashboard/sponsorships"
-            className="group rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-md"
+            className="group bezel bezel-hover p-5 transition-spring"
           >
             <div className="flex items-center justify-between">
               <div className="rounded-xl bg-pink-50 p-2.5">
@@ -323,7 +328,7 @@ export default async function DashboardPage() {
               <ArrowRightIcon className="h-4 w-4 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-pink-500" />
             </div>
             <h3 className="mt-3 text-sm font-medium text-gray-500">협찬</h3>
-            <p className="mt-1 text-3xl font-bold text-gray-900">
+            <p className="mt-1 text-3xl font-black tabular-nums tracking-tight text-gray-900">
               {stats.totalSponsorships}
               <span className="ml-0.5 text-base font-normal text-gray-400">건</span>
             </p>
@@ -337,7 +342,7 @@ export default async function DashboardPage() {
           {/* 콘텐츠 */}
           <Link
             href="/dashboard/sponsorships"
-            className="group rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-md"
+            className="group bezel bezel-hover p-5 transition-spring"
           >
             <div className="flex items-center justify-between">
               <div className="rounded-xl bg-pink-50 p-2.5">
@@ -346,7 +351,7 @@ export default async function DashboardPage() {
               <ArrowRightIcon className="h-4 w-4 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-pink-500" />
             </div>
             <h3 className="mt-3 text-sm font-medium text-gray-500">생성된 콘텐츠</h3>
-            <p className="mt-1 text-3xl font-bold text-gray-900">
+            <p className="mt-1 text-3xl font-black tabular-nums tracking-tight text-gray-900">
               {stats.contentsCreated}
               <span className="ml-0.5 text-base font-normal text-gray-400">건</span>
             </p>
@@ -359,7 +364,7 @@ export default async function DashboardPage() {
           {/* 에이전트 사용량 */}
           <Link
             href="/dashboard/usage"
-            className="group rounded-2xl border border-gray-200 bg-white p-5 transition-all hover:-translate-y-0.5 hover:border-amber-200 hover:shadow-md"
+            className="group bezel bezel-hover p-5 transition-spring"
           >
             <div className="flex items-center justify-between">
               <div className="rounded-xl bg-amber-50 p-2.5">
@@ -368,7 +373,7 @@ export default async function DashboardPage() {
               <ArrowRightIcon className="h-4 w-4 text-gray-300 transition-all group-hover:translate-x-0.5 group-hover:text-amber-500" />
             </div>
             <h3 className="mt-3 text-sm font-medium text-gray-500">남은 에이전트 횟수</h3>
-            <p className="mt-1 text-3xl font-bold text-gray-900">
+            <p className="mt-1 text-3xl font-black tabular-nums tracking-tight text-gray-900">
               {agentRunsLeft}
               <span className="ml-0.5 text-base font-normal text-gray-400">
                 /{stats.agentRunsTotal}
@@ -395,8 +400,11 @@ export default async function DashboardPage() {
 
       {/* 빠른 이동 — 자주 쓰는 도구 */}
       <section>
-        <div className="mb-3 flex items-end justify-between">
-          <h2 className="text-sm font-semibold text-gray-900">바로가기</h2>
+        <div className="mb-4 flex items-end justify-between">
+          <div>
+            <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-pink-600">Shortcuts</p>
+            <h2 className="mt-1 text-base font-bold tracking-tight text-gray-900">바로가기</h2>
+          </div>
           <p className="text-xs text-gray-400">자주 쓰는 도구</p>
         </div>
         <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -491,15 +499,15 @@ function ShortcutCard({
   return (
     <Link
       href={href}
-      className={`group flex items-start gap-3 rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:shadow-md ${t.hover}`}
+      className={`group bezel bezel-hover flex items-start gap-3 p-4 transition-spring ${t.hover}`}
     >
       <div
-        className={`flex-shrink-0 rounded-xl p-2.5 transition-transform group-hover:scale-110 ${t.bg} ${t.text}`}
+        className={`flex-shrink-0 rounded-2xl p-2.5 ring-1 ring-inset ring-pink-100/40 transition-spring group-hover:scale-110 group-hover:rotate-6 ${t.bg} ${t.text}`}
       >
         {icon}
       </div>
       <div className="min-w-0 flex-1">
-        <p className="text-sm font-semibold text-gray-900">{title}</p>
+        <p className="text-sm font-bold text-gray-900">{title}</p>
         <p className="mt-0.5 line-clamp-2 text-xs text-gray-500">{description}</p>
       </div>
     </Link>

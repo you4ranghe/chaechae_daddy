@@ -35,7 +35,17 @@ export default async function DashboardLayout({
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="relative min-h-screen bg-[var(--background)]">
+      {/* 미세한 배경 데코 — 대시보드 전체 톤 유지 */}
+      <span
+        aria-hidden
+        className="pointer-events-none fixed -left-32 top-0 h-[32rem] w-[32rem] rounded-full bg-pink-200/20 blur-[120px]"
+      />
+      <span
+        aria-hidden
+        className="pointer-events-none fixed -right-32 bottom-0 h-[28rem] w-[28rem] rounded-full bg-amber-200/15 blur-[120px]"
+      />
+
       <Sidebar
         instagramHandle={profile.instagram_handle}
         plan={plan}
@@ -43,9 +53,9 @@ export default async function DashboardLayout({
         email={user.email || ""}
       />
 
-      {/* 메인 콘텐츠 영역 — 데스크톱에서는 사이드바 너비만큼 오프셋, 모바일 상단 바 만큼 padding-top */}
-      <main className="md:pl-64">
-        <div className="mx-auto max-w-5xl px-4 pt-16 pb-24 md:px-8 md:py-8 md:pt-8 md:pb-8">
+      {/* 메인 콘텐츠 영역 */}
+      <main className="relative md:pl-64">
+        <div className="mx-auto max-w-5xl px-4 pt-16 pb-24 md:px-8 md:py-10 md:pt-10 md:pb-10">
           {children}
         </div>
       </main>

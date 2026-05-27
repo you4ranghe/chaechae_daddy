@@ -124,7 +124,7 @@ export function CalculatorClient({ completed, handle }: CalculatorClientProps) {
   return (
     <div className="space-y-5">
       {/* 모드 + 기간 탭 */}
-      <section className="rounded-3xl border border-gray-100 bg-white p-3 shadow-sm">
+      <section className="bezel p-3">
         <div className="flex flex-wrap items-center justify-between gap-3 px-2 py-1">
           {/* 모드 토글 */}
           <div className="inline-flex rounded-xl bg-gray-100 p-1">
@@ -306,7 +306,7 @@ function AutoModeInputs({
   return (
     <section className="space-y-4">
       {/* 정산 규칙 */}
-      <div className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
+      <div className="bezel p-6">
         <div className="flex items-center gap-2">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600">
             <SlidersIcon className="h-4 w-4" />
@@ -356,7 +356,7 @@ function AutoModeInputs({
       </div>
 
       {/* 협찬 리스트 */}
-      <div className="rounded-3xl border border-gray-100 bg-white shadow-sm">
+      <div className="bezel">
         <div className="border-b border-gray-100 px-5 py-3">
           <div className="flex items-center gap-2">
             <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-pink-100 text-pink-600">
@@ -429,7 +429,7 @@ function ManualModeInputs({
   setOtherIncome: (v: string) => void;
 }) {
   return (
-    <section className="rounded-3xl border border-gray-100 bg-white p-6 shadow-sm">
+    <section className="bezel p-6">
       <div className="flex items-center gap-2">
         <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-emerald-100 text-emerald-600">
           <PencilIcon className="h-4 w-4" />
@@ -563,7 +563,7 @@ function FlowCard({
   netToWallet: number;
 }) {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5">
+    <div className="bezel p-5">
       <h3 className="text-sm font-bold text-gray-900">정산 흐름</h3>
       <div className="mt-4 space-y-2 text-sm">
         <FlowRow label="광고주 입금" value={formatWon(grossPayment)} bold />
@@ -594,7 +594,7 @@ function FlowCard({
 
 function AnnualTaxCard({ tax }: { tax: ReturnType<typeof calcAnnualTax> }) {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-5">
+    <div className="bezel p-5">
       <div className="flex items-center justify-between">
         <h3 className="text-sm font-bold text-gray-900">연 종합소득세 추산</h3>
         <span className="rounded-full bg-pink-50 px-2 py-0.5 text-[10.5px] font-bold text-pink-700 ring-1 ring-inset ring-pink-100">

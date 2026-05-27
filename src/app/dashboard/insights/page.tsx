@@ -33,28 +33,23 @@ export default async function InsightsPage() {
   const shareRevenue = thisMonth?.revenue || 0;
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6 animate-fade-up">
       {/* 헤더 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-50 via-white to-rose-50 px-6 py-6 sm:px-7">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-pink-200/40 blur-3xl"
-        />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -bottom-10 right-20 h-20 w-20 rounded-full bg-rose-200/40 blur-2xl"
-        />
+      <section className="bezel relative overflow-hidden bg-gradient-to-br from-pink-50 via-white to-rose-50 px-6 py-7 sm:px-8">
+        <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-pink-300/30 blur-[60px] animate-glow" />
+        <span aria-hidden className="pointer-events-none absolute -bottom-12 right-20 h-28 w-28 rounded-full bg-rose-200/40 blur-2xl" />
         <div className="relative flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-          <div className="flex items-start gap-3">
-            <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 shadow-md shadow-pink-500/30">
+          <div className="flex items-start gap-3.5">
+            <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl cta-gradient">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5 text-white">
                 <path d="M12 .75a8.25 8.25 0 0 0-4.135 15.39c.686.398 1.115 1.008 1.134 1.623a.75.75 0 0 0 .577.706c.352.083.71.148 1.074.195.323.041.6-.218.6-.544v-4.661a6.714 6.714 0 0 1-.937-.171.75.75 0 1 1 .374-1.453 5.261 5.261 0 0 0 2.626 0 .75.75 0 1 1 .374 1.452 6.712 6.712 0 0 1-.937.172v4.66c0 .327.277.586.6.545.364-.047.722-.112 1.074-.195a.75.75 0 0 0 .577-.706c.02-.615.448-1.225 1.134-1.623A8.25 8.25 0 0 0 12 .75Z" />
                 <path fillRule="evenodd" d="M9.013 19.9a.75.75 0 0 1 .877-.597 11.319 11.319 0 0 0 4.22 0 .75.75 0 1 1 .28 1.473 12.819 12.819 0 0 1-4.78 0 .75.75 0 0 1-.597-.876Z" clipRule="evenodd" />
               </svg>
             </div>
             <div className="min-w-0">
-              <h1 className="text-xl font-bold text-gray-900">협찬 인사이트</h1>
-              <p className="mt-0.5 text-sm leading-relaxed text-gray-600">
+              <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-pink-600">Insights</p>
+              <h1 className="mt-0.5 text-[22px] font-black tracking-tight text-gray-900">협찬 인사이트</h1>
+              <p className="mt-1 text-[13.5px] leading-relaxed text-gray-600">
                 최근 6개월의 협찬 데이터를 그래프로 모아 보여드려요
               </p>
             </div>
@@ -191,23 +186,23 @@ function SummaryCard({
   const t = SUMMARY_TONE[tone];
   return (
     <div
-      className={`rounded-2xl bg-gradient-to-br ${t.bg} p-4 ring-1 ring-inset ring-white/60`}
+      className={`bezel bezel-hover relative overflow-hidden bg-gradient-to-br ${t.bg} p-5 transition-spring`}
     >
       <span
-        className={`flex h-8 w-8 items-center justify-center rounded-xl ${t.iconBg} ${t.iconText}`}
+        className={`flex h-9 w-9 items-center justify-center rounded-xl ${t.iconBg} ${t.iconText} ring-1 ring-inset ring-white/60 shadow-sm`}
       >
         {icon}
       </span>
-      <p className="mt-2 text-[11px] font-bold uppercase tracking-wider text-gray-500">
+      <p className="mt-3 text-[10.5px] font-bold uppercase tracking-[0.14em] text-gray-500">
         {label}
       </p>
       <p
-        className={`mt-0.5 font-bold tabular-nums ${t.valueText} ${big ? "text-xl" : "text-lg"}`}
+        className={`mt-1 font-black tabular-nums tracking-tight ${t.valueText} ${big ? "text-2xl" : "text-xl"}`}
       >
         {value}
       </p>
       {subtitle && (
-        <p className="mt-0.5 text-[10.5px] text-gray-500">{subtitle}</p>
+        <p className="mt-1 text-[10.5px] text-gray-500">{subtitle}</p>
       )}
     </div>
   );
@@ -242,15 +237,15 @@ function ChartSection({
 }) {
   const t = SECTION_TONE[tone];
   return (
-    <section className="rounded-2xl border border-gray-200 bg-white p-5">
-      <div className="flex items-center gap-2">
+    <section className="bezel p-5">
+      <div className="flex items-center gap-2.5">
         <span
-          className={`flex h-7 w-7 items-center justify-center rounded-lg ${t.iconBg} ${t.iconText}`}
+          className={`flex h-8 w-8 items-center justify-center rounded-xl ${t.iconBg} ${t.iconText} ring-1 ring-inset ring-white/60`}
         >
           {icon}
         </span>
         <div className="min-w-0">
-          <h2 className="text-sm font-bold text-gray-900">{title}</h2>
+          <h2 className="text-sm font-bold tracking-tight text-gray-900">{title}</h2>
           <p className="text-[10.5px] text-gray-500">{subtitle}</p>
         </div>
       </div>

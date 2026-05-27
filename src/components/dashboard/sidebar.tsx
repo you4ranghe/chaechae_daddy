@@ -117,10 +117,10 @@ export function Sidebar({
   return (
     <>
       {/* ─────────── 데스크톱 사이드바 ─────────── */}
-      <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 border-r border-gray-200 bg-white">
+      <aside className="hidden md:flex md:w-64 md:flex-col md:fixed md:inset-y-0 md:z-30 bg-white/80 backdrop-blur-xl shadow-[1px_0_0_0_var(--hairline),0_8px_32px_-8px_rgb(244_63_125_/_0.06)]">
         {/* 로고 영역 */}
         <div className="flex h-16 items-center justify-between border-b border-gray-100 px-5">
-          <Link href="/dashboard" className="flex items-center gap-2">
+          <Link href="/dashboard" className="flex items-center gap-2 transition-spring hover:opacity-80">
             <MomsUpIcon className="h-8 w-8" />
             <span className="text-[15px] font-bold tracking-tight text-gray-900">
               MomsUp
@@ -128,7 +128,7 @@ export function Sidebar({
           </Link>
           <div className="flex items-center gap-2">
             <span
-              className={`rounded-md bg-gradient-to-br ${planInfo.gradient} px-1.5 py-0.5 text-[9px] font-bold text-white shadow-sm`}
+              className={`rounded-md bg-gradient-to-br ${planInfo.gradient} px-1.5 py-0.5 text-[9px] font-black tracking-wider text-white shadow-[0_2px_6px_-2px_rgb(244_63_125_/_0.4)]`}
             >
               {planInfo.badge}
             </span>
@@ -137,10 +137,10 @@ export function Sidebar({
         </div>
 
         {/* 네비게이션 */}
-        <nav className="flex-1 overflow-y-auto px-3 pt-4 pb-3">
+        <nav className="flex-1 overflow-y-auto px-3 pt-5 pb-3">
           {NAV_GROUPS.map((group) => (
-            <div key={group.label} className="mb-5 last:mb-0">
-              <p className="px-3 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+            <div key={group.label} className="mb-6 last:mb-0">
+              <p className="px-3 pb-2 text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">
                 {group.label}
               </p>
               <ul className="space-y-0.5">
@@ -150,18 +150,18 @@ export function Sidebar({
                     <li key={item.href}>
                       <Link
                         href={item.href}
-                        className={`group relative flex items-center gap-3 rounded-lg px-3 py-2 text-[13.5px] font-medium transition-all duration-200 ${
+                        className={`group relative flex items-center gap-3 rounded-xl px-3 py-2.5 text-[13.5px] font-semibold transition-spring ${
                           active
-                            ? "bg-pink-50 text-pink-700"
-                            : "text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:translate-x-0.5"
+                            ? "bg-gradient-to-r from-pink-50 to-rose-50 text-pink-700 shadow-[inset_0_0_0_1px_rgb(244_63_125_/_0.15)]"
+                            : "text-gray-600 hover:bg-pink-50/60 hover:text-pink-700 hover:translate-x-0.5"
                         }`}
                       >
                         {/* 활성 표시 좌측 바 */}
                         <span
-                          className={`absolute left-0 top-1/2 h-5 w-0.5 -translate-y-1/2 rounded-r-full transition-all duration-200 ${
+                          className={`absolute left-0 top-1/2 h-6 w-0.5 -translate-y-1/2 rounded-r-full transition-spring ${
                             active
-                              ? "bg-gradient-to-b from-pink-400 to-rose-400"
-                              : "bg-transparent group-hover:bg-gray-300"
+                              ? "bg-gradient-to-b from-pink-400 to-rose-500"
+                              : "bg-transparent group-hover:bg-pink-200"
                           }`}
                         />
                         <span
@@ -175,7 +175,7 @@ export function Sidebar({
                         </span>
                         <span className="flex-1 truncate">{item.label}</span>
                         {active && (
-                          <span className="h-1.5 w-1.5 rounded-full bg-pink-500" />
+                          <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 shadow-[0_0_8px_rgb(244_63_125_/_0.5)]" />
                         )}
                       </Link>
                     </li>
@@ -191,7 +191,7 @@ export function Sidebar({
           {plan === "free_trial" && trialDaysLeft !== null && trialDaysLeft <= 7 && (
             <Link
               href="/pricing"
-              className="mb-2.5 block rounded-xl bg-gradient-to-br from-pink-500 to-rose-500 p-3 text-white shadow-md shadow-pink-500/20 transition-all hover:-translate-y-0.5 hover:shadow-lg"
+              className="mb-2.5 block rounded-2xl cta-gradient p-3 text-white transition-spring magnetic"
             >
               <div className="flex items-center gap-2">
                 <CrownIcon className="h-4 w-4" />
@@ -207,24 +207,24 @@ export function Sidebar({
             </Link>
           )}
 
-          <div className="flex items-center gap-2.5 rounded-xl bg-gray-50 px-2.5 py-2">
+          <div className="flex items-center gap-2.5 rounded-2xl bg-gradient-to-br from-pink-50/60 to-rose-50/60 px-2.5 py-2 ring-1 ring-inset ring-pink-100/60">
             <div
-              className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${planInfo.gradient} text-xs font-bold text-white shadow-sm`}
+              className={`flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${planInfo.gradient} text-xs font-bold text-white shadow-[0_2px_8px_-2px_rgb(244_63_125_/_0.4)]`}
               aria-hidden
             >
               {instagramHandle.slice(0, 2).toUpperCase()}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate text-[12.5px] font-semibold text-gray-900">
+              <p className="truncate text-[12.5px] font-bold text-gray-900">
                 @{instagramHandle}
               </p>
-              <p className={`truncate text-[10.5px] font-medium ${planInfo.accent}`}>
+              <p className={`truncate text-[10.5px] font-semibold ${planInfo.accent}`}>
                 {planInfo.name} 플랜
               </p>
             </div>
             <Link
               href="/dashboard/settings"
-              className="flex-shrink-0 rounded-lg p-1.5 text-gray-400 transition-all hover:bg-white hover:text-pink-600 hover:shadow-sm"
+              className="flex-shrink-0 rounded-lg p-1.5 text-gray-400 transition-snap hover:bg-white hover:text-pink-600 hover:shadow-sm"
               aria-label="설정"
             >
               <CogIcon className="h-4 w-4" />
@@ -237,12 +237,12 @@ export function Sidebar({
       </aside>
 
       {/* ─────────── 모바일 상단 바 ─────────── */}
-      <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between border-b border-gray-200 bg-white/90 px-4 backdrop-blur md:hidden">
+      <header className="fixed inset-x-0 top-0 z-40 flex h-14 items-center justify-between glass-nav px-4 md:hidden">
         <Link href="/dashboard" className="flex items-center gap-2">
           <MomsUpIcon className="h-7 w-7" />
           <span className="text-sm font-bold tracking-tight text-gray-900">MomsUp</span>
           <span
-            className={`rounded-md bg-gradient-to-br ${planInfo.gradient} px-1.5 py-0.5 text-[9px] font-bold text-white shadow-sm`}
+            className={`rounded-md bg-gradient-to-br ${planInfo.gradient} px-1.5 py-0.5 text-[9px] font-black tracking-wider text-white shadow-[0_2px_6px_-2px_rgb(244_63_125_/_0.4)]`}
           >
             {planInfo.badge}
           </span>
@@ -252,7 +252,7 @@ export function Sidebar({
           <button
             type="button"
             onClick={() => setMoreOpen(true)}
-            className="rounded-lg p-2 text-gray-500 transition-colors hover:bg-gray-100 hover:text-gray-900"
+            className="rounded-lg p-2 text-gray-500 transition-snap hover:bg-pink-50 hover:text-pink-700"
             aria-label="메뉴 열기"
           >
             <MenuIcon className="h-5 w-5" />
@@ -261,7 +261,7 @@ export function Sidebar({
       </header>
 
       {/* ─────────── 모바일 바텀 탭 ─────────── */}
-      <nav className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-200 bg-white/95 backdrop-blur md:hidden">
+      <nav className="fixed bottom-0 left-0 right-0 z-40 glass-nav md:hidden">
         <div className="grid grid-cols-5">
           {MOBILE_BOTTOM_ITEMS.map((item) => {
             const active = isActive(item.href);
@@ -269,14 +269,14 @@ export function Sidebar({
               <Link
                 key={item.href}
                 href={item.href}
-                className={`flex flex-col items-center justify-center gap-0.5 py-2.5 text-[10px] font-medium transition-colors ${
+                className={`relative flex flex-col items-center justify-center gap-0.5 py-2.5 text-[10px] font-semibold transition-snap ${
                   active ? "text-pink-600" : "text-gray-400 hover:text-gray-600"
                 }`}
               >
                 <span className="h-5 w-5">{item.icon}</span>
                 <span>{item.label}</span>
                 {active && (
-                  <span className="absolute top-0 h-0.5 w-8 rounded-b-full bg-gradient-to-r from-pink-400 to-rose-400" />
+                  <span className="absolute top-0 h-0.5 w-8 rounded-b-full bg-gradient-to-r from-pink-400 to-rose-500" />
                 )}
               </Link>
             );
@@ -284,7 +284,7 @@ export function Sidebar({
           <button
             type="button"
             onClick={() => setMoreOpen(true)}
-            className="flex flex-col items-center justify-center gap-0.5 py-2.5 text-[10px] font-medium text-gray-400 transition-colors hover:text-gray-600"
+            className="flex flex-col items-center justify-center gap-0.5 py-2.5 text-[10px] font-semibold text-gray-400 transition-snap hover:text-gray-600"
           >
             <span className="h-5 w-5">
               <DotsIcon />
@@ -301,10 +301,10 @@ export function Sidebar({
             className="absolute inset-0 bg-black/40 backdrop-blur-sm"
             onClick={() => setMoreOpen(false)}
           />
-          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-white p-5 shadow-xl">
+          <div className="absolute inset-x-0 bottom-0 max-h-[85vh] overflow-y-auto rounded-t-3xl bg-white p-5 shadow-2xl animate-fade-up">
             <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-gray-200" />
             {/* 유저 영역 */}
-            <div className="mb-5 flex items-center gap-3 rounded-2xl bg-gray-50 p-3.5">
+            <div className="mb-5 flex items-center gap-3 rounded-2xl bg-gradient-to-br from-pink-50/60 to-rose-50/60 p-3.5 ring-1 ring-inset ring-pink-100/60">
               <div
                 className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br ${planInfo.gradient} text-sm font-bold text-white shadow-sm`}
                 aria-hidden
@@ -312,10 +312,10 @@ export function Sidebar({
                 {instagramHandle.slice(0, 2).toUpperCase()}
               </div>
               <div className="min-w-0 flex-1">
-                <p className="truncate text-sm font-semibold text-gray-900">
+                <p className="truncate text-sm font-bold text-gray-900">
                   @{instagramHandle}
                 </p>
-                <p className={`truncate text-xs font-medium ${planInfo.accent}`}>
+                <p className={`truncate text-xs font-semibold ${planInfo.accent}`}>
                   {planInfo.name} 플랜
                   {plan === "free_trial" &&
                     trialDaysLeft !== null &&
@@ -326,7 +326,7 @@ export function Sidebar({
                 <Link
                   href="/pricing"
                   onClick={() => setMoreOpen(false)}
-                  className="flex-shrink-0 rounded-lg bg-gradient-to-br from-pink-500 to-rose-500 px-3 py-2 text-xs font-bold text-white shadow-md shadow-pink-500/20"
+                  className="flex-shrink-0 rounded-xl cta-gradient px-3 py-2 text-xs font-bold text-white"
                 >
                   업그레이드
                 </Link>
@@ -335,7 +335,7 @@ export function Sidebar({
 
             {NAV_GROUPS.map((group) => (
               <div key={group.label} className="mb-4 last:mb-0">
-                <p className="px-1 pb-1.5 text-[10px] font-semibold uppercase tracking-wider text-gray-400">
+                <p className="px-1 pb-1.5 text-[10px] font-bold uppercase tracking-[0.14em] text-gray-400">
                   {group.label}
                 </p>
                 <ul className="space-y-1">
@@ -346,9 +346,9 @@ export function Sidebar({
                         <Link
                           href={item.href}
                           onClick={() => setMoreOpen(false)}
-                          className={`flex items-center gap-3 rounded-xl px-3 py-3 text-sm font-medium transition-all ${
+                          className={`flex items-center gap-3 rounded-2xl px-3 py-3 text-sm font-semibold transition-snap ${
                             active
-                              ? "bg-pink-50 text-pink-700"
+                              ? "bg-gradient-to-r from-pink-50 to-rose-50 text-pink-700"
                               : "text-gray-700 hover:bg-gray-50"
                           }`}
                         >
@@ -373,7 +373,7 @@ export function Sidebar({
             <button
               type="button"
               onClick={() => setMoreOpen(false)}
-              className="mt-2 w-full rounded-xl border border-gray-200 py-3 text-sm font-medium text-gray-700 hover:bg-gray-50"
+              className="mt-2 w-full rounded-2xl bg-gray-50 py-3 text-sm font-semibold text-gray-700 transition-snap hover:bg-gray-100"
             >
               닫기
             </button>

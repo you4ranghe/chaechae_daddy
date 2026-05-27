@@ -102,7 +102,7 @@ export function ChildInfoCard({
   }
 
   return (
-    <section className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-sm">
+    <section className="bezel overflow-hidden">
       <div className="border-b border-gray-100 bg-gradient-to-r from-rose-50/50 to-amber-50/50 px-6 py-4">
         <div className="flex items-center gap-2">
           <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-rose-400 to-amber-400 shadow-sm">

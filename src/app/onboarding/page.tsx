@@ -23,16 +23,16 @@ export default async function OnboardingPage() {
   const metadata = user.user_metadata ?? {};
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-pink-50 via-white to-pink-50">
-      <span aria-hidden className="pointer-events-none absolute -left-20 top-10 h-64 w-64 rounded-full bg-pink-200/40 blur-3xl" />
-      <span aria-hidden className="pointer-events-none absolute right-0 top-1/3 h-72 w-72 rounded-full bg-pink-200/40 blur-3xl" />
-      <span aria-hidden className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-amber-200/40 blur-3xl" />
+    <div className="relative min-h-screen overflow-hidden bg-gradient-to-br from-pink-50 via-[var(--background)] to-rose-50">
+      <span aria-hidden className="pointer-events-none absolute -left-32 top-10 h-80 w-80 rounded-full bg-pink-300/40 blur-[80px] animate-blob" />
+      <span aria-hidden className="pointer-events-none absolute -right-20 top-1/3 h-96 w-96 rounded-full bg-rose-200/40 blur-[100px] animate-blob-slow" />
+      <span aria-hidden className="pointer-events-none absolute -bottom-32 left-1/4 h-72 w-72 rounded-full bg-amber-200/40 blur-[90px] animate-blob" />
 
       <div className="relative flex min-h-screen items-center justify-center px-4 py-12">
         <div className="w-full max-w-md">
           {/* 로고 */}
-          <div className="text-center">
-            <Link href="/" className="inline-flex items-center gap-2">
+          <div className="animate-fade-up text-center">
+            <Link href="/" className="inline-flex items-center gap-2 transition-spring hover:opacity-80">
               <MomsUpIcon className="h-10 w-10" />
               <span className="text-lg font-bold tracking-tight text-gray-900">
                 MomsUp
@@ -41,32 +41,32 @@ export default async function OnboardingPage() {
           </div>
 
           {/* 환영 메시지 */}
-          <div className="mt-6 text-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-200 bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-emerald-700 shadow-sm backdrop-blur">
+          <div className="animate-fade-up-1 mt-7 text-center">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3.5 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-emerald-700 shadow-[0_0_0_1px_rgb(16_185_129_/_0.18),0_8px_20px_-8px_rgb(16_185_129_/_0.3)] backdrop-blur">
               <CheckIcon className="h-3 w-3" />
               가입 완료
             </span>
-            <h1 className="mt-3 text-2xl font-extrabold tracking-tight text-gray-900">
+            <h1 className="mt-4 text-[26px] font-black tracking-tight text-gray-900">
               환영해요! <span aria-hidden>👋</span>
             </h1>
-            <p className="mt-1.5 text-sm leading-relaxed text-gray-600">
+            <p className="mt-2 text-sm leading-relaxed text-gray-600">
               마지막 한 가지만 알려주시면 바로 시작할 수 있어요
             </p>
           </div>
 
           {/* 진행 단계 */}
-          <div className="mt-6 flex items-center justify-center gap-1.5">
+          <div className="animate-fade-up-2 mt-7 flex items-center justify-center gap-1.5">
             <span className="h-1.5 w-8 rounded-full bg-emerald-500" />
             <span className="h-1.5 w-8 rounded-full bg-emerald-500" />
-            <span className="h-1.5 w-8 rounded-full bg-pink-500 animate-pulse" />
+            <span className="h-1.5 w-8 rounded-full bg-gradient-to-r from-pink-500 to-rose-500 animate-pulse shadow-[0_0_8px_rgb(244_63_125_/_0.5)]" />
             <span className="h-1.5 w-8 rounded-full bg-gray-200" />
           </div>
-          <p className="mt-2 text-center text-[11px] font-medium text-gray-500">
-            3 / 4 단계 · 프로필 설정
+          <p className="mt-2 text-center text-[11px] font-bold uppercase tracking-wider text-gray-500">
+            3 / 4 · 프로필 설정
           </p>
 
-          {/* 카드 */}
-          <div className="mt-6 rounded-3xl border border-gray-100 bg-white/85 p-6 shadow-xl shadow-pink-500/5 backdrop-blur-xl sm:p-7">
+          {/* 더블 베젤 카드 */}
+          <div className="animate-fade-up-3 bezel mt-6 p-6 sm:p-7">
             <OnboardingForm
               defaultHandle={metadata.instagram_handle ?? ""}
               defaultFollowers={metadata.follower_count ?? 0}

@@ -142,7 +142,7 @@ export function SponsorshipHistoryList() {
               <li key={sp.id}>
                 <Link
                   href={`/dashboard/sponsorships/${sp.id}`}
-                  className="group flex items-center justify-between gap-3 rounded-2xl border border-gray-200 bg-white p-4 transition-all hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-md"
+                  className="group bezel bezel-hover flex items-center justify-between gap-3 p-4 transition-spring"
                 >
                   <div className="min-w-0 flex-1">
                     <div className="flex items-center gap-2">

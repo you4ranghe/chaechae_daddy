@@ -63,7 +63,7 @@ function ProgressCard({ sponsorship: sp }: { sponsorship: Sponsorship }) {
   return (
     <Link
       href={`/dashboard/sponsorships/${sp.id}`}
-      className="group block overflow-hidden rounded-2xl border border-gray-200 bg-white transition-all duration-200 hover:-translate-y-0.5 hover:border-pink-200 hover:shadow-md"
+      className="group bezel bezel-hover block overflow-hidden transition-spring"
     >
       {/* 상단 컬러 인디케이터 */}
       <div

@@ -79,26 +79,21 @@ export default async function SponsorshipsPage() {
   }
 
   return (
-    <div className="space-y-6">
-      {/* 헤더 카드 */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-pink-50 via-white to-pink-50 px-6 py-6 sm:px-7">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -right-8 -top-8 h-28 w-28 rounded-full bg-pink-200/40 blur-2xl"
-        />
-        <span
-          aria-hidden
-          className="pointer-events-none absolute -bottom-10 right-24 h-20 w-20 rounded-full bg-pink-200/40 blur-2xl"
-        />
+    <div className="space-y-7 animate-fade-up">
+      {/* 헤더 카드 — 더블 베젤 */}
+      <section className="bezel relative overflow-hidden bg-gradient-to-br from-pink-50 via-white to-rose-50 px-6 py-7 sm:px-8">
+        <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-pink-300/30 blur-[60px] animate-glow" />
+        <span aria-hidden className="pointer-events-none absolute -bottom-12 right-24 h-28 w-28 rounded-full bg-rose-200/40 blur-2xl" />
         <div className="relative">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-            <div className="flex items-start gap-3">
-              <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-rose-500 shadow-md shadow-pink-500/30">
+            <div className="flex items-start gap-3.5">
+              <div className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-2xl cta-gradient">
                 <BriefcaseIcon className="h-5 w-5 text-white" />
               </div>
               <div className="min-w-0">
-                <h1 className="text-xl font-bold text-gray-900">협찬 관리</h1>
-                <p className="mt-0.5 text-sm leading-relaxed text-gray-600">
+                <p className="text-[10px] font-bold uppercase tracking-[0.16em] text-pink-600">Sponsorships</p>
+                <h1 className="mt-0.5 text-[22px] font-black tracking-tight text-gray-900">협찬 관리</h1>
+                <p className="mt-1 text-[13.5px] leading-relaxed text-gray-600">
                   협찬 DM을 분석하고, 콘텐츠 초안을 만들어드려요
                 </p>
               </div>
@@ -163,14 +158,14 @@ function MiniStat({
 }) {
   const t = MINI_TONE[tone];
   return (
-    <div className="rounded-2xl bg-white/80 px-3 py-2.5 backdrop-blur ring-1 ring-white/60">
-      <div className="flex items-center gap-1.5 text-[10.5px] font-medium text-gray-500">
+    <div className="rounded-2xl bg-white/85 px-3.5 py-3 backdrop-blur shadow-[0_0_0_1px_var(--hairline),inset_0_1px_0_var(--inner-glow),0_1px_2px_rgb(31_18_25_/_0.025)]">
+      <div className="flex items-center gap-1.5 text-[10.5px] font-bold uppercase tracking-wider text-gray-500">
         <span className={`flex h-5 w-5 items-center justify-center rounded-md ${t.icon}`}>
           {icon}
         </span>
         {label}
       </div>
-      <p className={`mt-1 text-base font-bold tabular-nums ${t.value}`}>{value}</p>
+      <p className={`mt-1 text-base font-black tabular-nums ${t.value}`}>{value}</p>
     </div>
   );
 }
